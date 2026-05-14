@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daihn Kim — Deployment Strategist</title>
+<meta name="description" content="Daihn Kim — I turn ambiguous business problems into working deployed systems. Deployment Strategist, FDE, Solutions Engineer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  --bg:#111111;--s1:#191919;--s2:#212121;--s3:#2a2a2a;
+  --border:#333333;--border2:#444;
+  --red:#e84040;--red2:#ff6060;--red-dim:rgba(232,64,64,.13);--red-glow:rgba(232,64,64,.25);
+  --green:#4ade80;--green-dim:rgba(74,222,128,.1);
+  --yellow:#fbbf24;--yellow-dim:rgba(251,191,36,.1);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,.1);
+  --text:#f0f0f0;--t2:#888;--t3:#444;
+  --r:12px;--r2:20px;--mw:1200px;--gap:24px;--py:120px;
+  --font:'Inter',-apple-system,sans-serif;
+  --ease:.22s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════ */
+.wrap{max-width:var(--mw);margin:0 auto;padding:0 48px}
+.sec{padding:var(--py) 0}
+.label{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+h1{font-size:clamp(3.2rem,8vw,7rem);font-weight:900;line-height:.95;letter-spacing:-.035em}
+h2{font-size:clamp(1.8rem,4vw,3.5rem);font-weight:900;line-height:1.05;letter-spacing:-.025em}
+h3{font-size:1.15rem;font-weight:800;letter-spacing:-.01em}
+p{color:var(--t2);line-height:1.75}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 0;transition:all var(--ease)}
+#nav.on{background:rgba(17,17,17,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 0}
+.nav-row{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.15rem;font-weight:900;letter-spacing:-.02em}
+.logo span{color:var(--red)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.8rem;font-weight:700;color:var(--t2);transition:color var(--ease);letter-spacing:.02em}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;background:var(--red);color:#fff !important;border-radius:7px;font-size:.8rem;font-weight:800;transition:all var(--ease)}
+.nav-cta:hover{background:var(--red2);transform:translateY(-1px)}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
+#hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+.hero-gfx-wrap{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-glow{position:absolute;right:-5%;top:10%;width:55vw;height:55vw;max-width:720px;max-height:720px;background:radial-gradient(circle,rgba(232,64,64,.07) 0%,transparent 65%);border-radius:50%}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px}
+.hero-left{position:relative;z-index:1}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.hero-eyebrow::after{content:'';width:48px;height:1px;background:var(--red);opacity:.5}
+.hero-name{color:var(--text);margin-bottom:6px}
+.hero-name .acc{color:var(--red)}
+.hero-tagline{font-size:clamp(1rem,1.8vw,1.25rem);font-weight:600;color:var(--t2);max-width:520px;margin:28px 0 44px;line-height:1.6}
+.hero-stats{display:flex;gap:40px;margin-bottom:44px;flex-wrap:wrap}
+.hs-num{font-size:2.4rem;font-weight:900;color:var(--red);line-height:1;letter-spacing:-.03em}
+.hs-label{font-size:.68rem;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.hero-btns{display:flex;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:8px;font-size:.88rem;font-weight:800;transition:all var(--ease);letter-spacing:.01em}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 12px 32px var(--red-glow)}
+.btn-ghost{border:1px solid var(--border2);color:var(--t2)}
+.btn-ghost:hover{border-color:var(--text);color:var(--text)}
+/* Hero pipeline illustration */
+.hero-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
+.pipeline{width:100%;max-width:480px}
+.pipe-nodes{display:flex;flex-direction:column;gap:0;position:relative}
+.pipe-nodes::before{content:'';position:absolute;left:23px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,var(--red),rgba(232,64,64,.2));z-index:0}
+.pipe-node{display:flex;align-items:flex-start;gap:20px;padding:18px 20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);position:relative;z-index:1;transition:border-color var(--ease),transform var(--ease)}
+.pipe-node:not(:last-child){margin-bottom:12px}
+.pipe-node:hover{border-color:var(--red);transform:translateX(4px)}
+.pipe-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.pipe-icon.red{background:var(--red-dim);border:1px solid rgba(232,64,64,.25)}
+.pipe-icon.blue{background:var(--blue-dim);border:1px solid rgba(96,165,250,.2)}
+.pipe-icon.green{background:var(--green-dim);border:1px solid rgba(74,222,128,.2)}
+.pipe-icon.yellow{background:var(--yellow-dim);border:1px solid rgba(251,191,36,.2)}
+.pipe-text{flex:1}
+.pipe-step{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:3px}
+.pipe-title{font-size:.9rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.pipe-sub{font-size:.78rem;color:var(--t2);margin-top:2px}
+.pipe-badge{padding:3px 8px;border-radius:4px;font-size:.65rem;font-weight:800;letter-spacing:.04em;margin-top:6px;display:inline-block}
+.pipe-badge.done{background:var(--green-dim);color:var(--green)}
+.pipe-badge.wip{background:var(--yellow-dim);color:var(--yellow)}
+/* scroll cue */
+.scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--red),transparent);animation:sline 2.4s ease infinite}
+@keyframes sline{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.3;transform:scaleY(.6)}}
+@keyframes nodein{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════ */
+#about{border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-bio h2{margin:16px 0 20px}
+.about-bio p{margin-bottom:14px}
+.cap-list{display:flex;flex-direction:column;gap:8px;margin-top:28px}
+.cap-item{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;background:var(--s1);border:1px solid var(--border);border-radius:10px;transition:border-color var(--ease)}
+.cap-item:hover{border-color:var(--red)}
+.cap-dot{width:7px;height:7px;background:var(--red);border-radius:50%;flex-shrink:0;margin-top:6px}
+.cap-item span{font-size:.875rem;color:var(--t2);line-height:1.55}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.sk{padding:16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+.sk-cat{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.sk-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 10px;background:var(--s2);border-radius:5px;font-size:.78rem;color:var(--t2);font-weight:500}
+
+/* ═══════════════════════════════════════════
+   PROJECT CARDS
+═══════════════════════════════════════════ */
+#projects{border-top:1px solid var(--border)}
+.sec-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+/* card */
+.pcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all var(--ease);display:flex;flex-direction:column}
+.pcard:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.6),0 0 0 1px rgba(232,64,64,.18)}
+/* visual header */
+.pcard-vis{height:180px;position:relative;overflow:hidden;flex-shrink:0}
+/* eval visual */
+.vis-eval{background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:20px}
+.eval-mock{width:100%;display:flex;flex-direction:column;gap:6px}
+.eval-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.04);border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.eval-name{width:70px;height:6px;background:rgba(255,255,255,.15);border-radius:3px;flex-shrink:0}
+.eval-bar-wrap{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.eval-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.eval-pct{font-size:.65rem;font-weight:800;color:var(--t2);width:28px;text-align:right;flex-shrink:0}
+.eval-badge-sm{padding:2px 7px;border-radius:3px;font-size:.55rem;font-weight:800}
+.eval-badge-done{background:rgba(74,222,128,.15);color:#4ade80}
+.eval-badge-wip{background:rgba(251,191,36,.15);color:#fbbf24}
+.eval-title-sm{font-size:.72rem;font-weight:700;color:var(--text);opacity:.7;margin-bottom:4px}
+/* reminder visual */
+.vis-reminder{background:linear-gradient(135deg,#0f1923 0%,#131f2e 100%);padding:16px;display:flex;gap:12px}
+.rem-form{flex:1;display:flex;flex-direction:column;gap:8px}
+.rem-subject{padding:6px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;font-size:.65rem;color:var(--t2)}
+.rem-tokens{display:flex;gap:5px;flex-wrap:wrap}
+.rem-token{padding:3px 8px;border-radius:5px;font-size:.6rem;font-weight:700}
+.rt-blue{background:rgba(96,165,250,.18);color:#93c5fd;border:1px solid rgba(96,165,250,.25)}
+.rt-green{background:rgba(74,222,128,.15);color:#86efac;border:1px solid rgba(74,222,128,.2)}
+.rt-orange{background:rgba(251,146,60,.15);color:#fdba74;border:1px solid rgba(251,146,60,.2)}
+.rem-body{padding:8px 10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;font-size:.62rem;color:var(--t2);line-height:1.5;flex:1}
+.rem-leaders{width:100px;display:flex;flex-direction:column;gap:5px}
+.rem-leader-item{display:flex;align-items:center;gap:5px;padding:4px 7px;background:rgba(255,255,255,.04);border-radius:5px}
+.rem-avatar{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);flex-shrink:0}
+.rem-lname{font-size:.58rem;color:var(--t2)}
+.rem-status-dot{width:5px;height:5px;border-radius:50%;margin-left:auto;flex-shrink:0}
+/* resume visual */
+.vis-resume{background:linear-gradient(135deg,#0f0f1a 0%,#14142a 100%);padding:16px;display:flex;gap:12px}
+.res-left{flex:1;display:flex;flex-direction:column;gap:7px}
+.res-jd{padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:6px}
+.res-jd-title{font-size:.6rem;font-weight:800;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.res-kw-row{display:flex;flex-wrap:wrap;gap:4px}
+.res-kw{padding:2px 7px;border-radius:4px;font-size:.58rem;font-weight:700}
+.rk-pink{background:rgba(236,72,153,.15);color:#f9a8d4}
+.rk-purple{background:rgba(139,92,246,.15);color:#c4b5fd}
+.rk-teal{background:rgba(20,184,166,.15);color:#5eead4}
+.res-bullet{padding:6px 10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;font-size:.62rem;color:var(--t2);line-height:1.4}
+.res-bullet .hl{background:rgba(251,191,36,.25);color:#fde68a;border-radius:2px;padding:0 2px}
+.res-right{width:80px;display:flex;flex-direction:column;gap:5px}
+.res-score{padding:6px 8px;background:rgba(232,64,64,.1);border:1px solid rgba(232,64,64,.2);border-radius:6px;text-align:center}
+.res-pct{font-size:1rem;font-weight:900;color:var(--red)}
+.res-pct-label{font-size:.55rem;color:var(--t2)}
+/* card body */
+.pcard-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.pcard-num{font-size:.62rem;font-weight:800;color:var(--t3);letter-spacing:.1em;margin-bottom:12px}
+.pcard-title{font-size:1.1rem;font-weight:800;line-height:1.3;letter-spacing:-.01em;margin-bottom:6px}
+.pcard-period{font-size:.75rem;color:var(--red);font-weight:700;margin-bottom:14px}
+.pcard-desc{font-size:.85rem;color:var(--t2);flex:1;margin-bottom:20px;line-height:1.7}
+.pcard-metric{padding:12px 16px;border-radius:8px;margin-bottom:16px;background:var(--red-dim);border-left:3px solid var(--red)}
+.pcard-metric.wip{background:var(--yellow-dim);border-color:var(--yellow)}
+.pcard-mval{font-size:1.2rem;font-weight:900;color:var(--red);letter-spacing:-.02em}
+.pcard-metric.wip .pcard-mval{color:var(--yellow)}
+.pcard-mlabel{font-size:.72rem;color:var(--t2);margin-top:2px}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.ptag{padding:3px 9px;background:var(--s2);border-radius:4px;font-size:.72rem;color:var(--t3)}
+.pcard-arrow{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:800;color:var(--red)}
+
+/* ═══════════════════════════════════════════
+   BADGE
+═══════════════════════════════════════════ */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:.7rem;font-weight:800;letter-spacing:.04em}
+.badge-live{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.badge-wip{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ═══════════════════════════════════════════
+   PROJECT DETAIL
+═══════════════════════════════════════════ */
+.pdetail{border-top:1px solid var(--border);padding:var(--py) 0}
+.pd-meta{display:flex;gap:28px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
+.pd-mi{display:flex;flex-direction:column;gap:3px}
+.pd-mk{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.pd-mv{font-size:.85rem;font-weight:700;color:var(--text)}
+.pd-title{font-size:clamp(2rem,5vw,4rem);font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 16px}
+.pd-sub{font-size:1rem;color:var(--t2);max-width:660px;line-height:1.7}
+/* tabs */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:44px;overflow-x:auto;margin-top:48px}
+.tab{padding:11px 20px;font-size:.78rem;font-weight:800;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;letter-spacing:.03em;transition:all var(--ease)}
+.tab.on{color:var(--text);border-color:var(--red)}
+.tab:hover:not(.on){color:var(--t2)}
+.pane{display:none;animation:fadein .3s ease}
+.pane.on{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* blocks */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.block{padding:28px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+.block h4{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:12px}
+.block p{font-size:.875rem}
+.block ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.block li{display:flex;gap:10px;font-size:.875rem;color:var(--t2);line-height:1.6}
+.block li::before{content:'→';color:var(--red);font-weight:900;flex-shrink:0}
+.block strong{color:var(--text);font-weight:700}
+/* arch */
+.arch{display:flex;flex-direction:column;gap:8px}
+.arch-row{padding:18px 22px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+.arch-lbl{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.arch-nodes{display:flex;flex-wrap:wrap;gap:7px}
+.anode{padding:5px 12px;border-radius:6px;font-size:.78rem;font-weight:600}
+.anode.p{background:var(--red-dim);color:var(--red);border:1px solid rgba(232,64,64,.25)}
+.anode.s{background:var(--s2);color:var(--t2);border:1px solid var(--border)}
+.arch-arr{text-align:center;color:var(--t3);font-size:1rem;padding:3px 0}
+/* workflow */
+.flow{display:flex;flex-direction:column;position:relative}
+.flow::before{content:'';position:absolute;left:17px;top:36px;bottom:36px;width:2px;background:linear-gradient(to bottom,var(--red),transparent);z-index:0}
+.fstep{display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--border);position:relative;z-index:1}
+.fstep:last-child{border-bottom:none}
+.fn{width:36px;height:36px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 0 0 4px var(--red-dim)}
+.fbody h4{font-size:.9rem;font-weight:800;margin-bottom:5px}
+.fbody p{font-size:.85rem}
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:var(--gap)}
+.mcard{padding:32px 24px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);text-align:center;position:relative;overflow:hidden}
+.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent)}
+.mcard-val{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--red);line-height:1;margin-bottom:8px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.mcard-label{font-size:.85rem;color:var(--text);font-weight:700;margin-bottom:3px}
+.mcard-sub{font-size:.73rem;color:var(--t3)}
+/* before/after */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:28px}
+.ba-card{padding:24px;border-radius:var(--r);border:1px solid}
+.ba-b{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2)}
+.ba-a{background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.2)}
+.ba-lbl{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.ba-b .ba-lbl{color:#f87171}
+.ba-a .ba-lbl{color:var(--green)}
+.ba-list{display:flex;flex-direction:column;gap:8px}
+.ba-item{font-size:.86rem;color:var(--t2);display:flex;gap:8px;line-height:1.55}
+/* screenshots */
+.ss-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.ss-note{font-size:.78rem;color:var(--t3);font-style:italic}
+.ss-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap)}
+.ss-grid.wide{grid-template-columns:repeat(3,1fr)}
+.sscard{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all var(--ease);position:relative}
+.sscard:hover{transform:scale(1.018);border-color:var(--red);box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.sscard img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;display:block}
+.sscard-cap{padding:10px 14px;background:var(--s2);font-size:.78rem;color:var(--t2);line-height:1.4}
+.ss-placeholder{width:100%;aspect-ratio:16/9;background:var(--s2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-bottom:1px solid var(--border)}
+.ss-ph-icon{font-size:1.8rem;opacity:.3}
+.ss-ph-text{font-size:.78rem;color:var(--t3);text-align:center;line-height:1.5}
+/* tech chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--s1);border:1px solid var(--border);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--t2);transition:border-color var(--ease)}
+.chip:hover{border-color:var(--red)}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+#contact{border-top:1px solid var(--border)}
+.contact-wrap{display:flex;justify-content:space-between;align-items:center;gap:60px}
+.cl h2{margin:14px 0 14px}
+.cl p{max-width:380px}
+.clinks{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.clink{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);font-size:.86rem;font-weight:700;min-width:270px;color:var(--t2);transition:all var(--ease)}
+.clink:hover{border-color:var(--red);transform:translateX(4px);color:var(--text)}
+.cicon{width:20px;text-align:center;flex-shrink:0;font-size:1rem}
+footer{padding:24px 0;border-top:1px solid var(--border)}
+.foot-row{display:flex;justify-content:space-between}
+.foot-copy{font-size:.75rem;color:var(--t3)}
+.foot-top{font-size:.75rem;color:var(--t3);transition:color var(--ease)}
+.foot-top:hover{color:var(--red)}
+
+/* ═══════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════ */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:1000;display:none;align-items:center;justify-content:center;padding:32px}
+#lb.open{display:flex}
+#lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:var(--r)}
+.lb-x{position:absolute;top:20px;right:20px;width:42px;height:42px;background:var(--s1);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text);font-size:1rem;cursor:pointer;transition:all var(--ease)}
+.lb-x:hover{border-color:var(--red);background:var(--red)}
+.lb-cap{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--s1);padding:9px 18px;border-radius:8px;font-size:.8rem;color:var(--t2);white-space:nowrap;border:1px solid var(--border)}
+
+/* ═══════════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.rv.vis{opacity:1;transform:none}
+.rv[data-d="1"]{transition-delay:.1s}
+.rv[data-d="2"]{transition-delay:.2s}
+.rv[data-d="3"]{transition-delay:.3s}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  :root{--py:80px}
+  .wrap{padding:0 28px}
+  #hero{padding-bottom:60px}
+  #hero .wrap{grid-template-columns:1fr;gap:48px}
+  .hero-right{display:none}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .proj-grid{grid-template-columns:1fr}
+  .g2{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr}
+  .ba{grid-template-columns:1fr}
+  .ss-grid{grid-template-columns:1fr}
+  .ss-grid.wide{grid-template-columns:1fr 1fr}
+  .contact-wrap{flex-direction:column;align-items:flex-start;gap:40px}
+  .clink{min-width:0;width:100%}
+}
+/* ═══════════════════════════════════════════
+   EVAL — 배정관리 + 역량평가 HTML 컴포넌트 (blue)
+═══════════════════════════════════════════ */
+.eval-ui-wrap{display:flex;flex-direction:column;gap:20px}
+/* 공통 앱 셸 */
+.eui-shell{background:#1c2333;border:1px solid #2d3748;border-radius:var(--r2);overflow:hidden;font-size:.78rem}
+.eui-topbar{background:#141824;padding:10px 16px;border-bottom:1px solid #2d3748;display:flex;align-items:center;gap:8px}
+.eui-topbar-icon{width:22px;height:22px;background:#3b82f6;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;font-weight:900;flex-shrink:0}
+.eui-topbar-title{font-size:.72rem;font-weight:800;color:#e2e8f0}
+.eui-topbar-sub{font-size:.6rem;color:#64748b}
+.eui-layout{display:grid;grid-template-columns:140px 1fr;min-height:280px}
+/* 사이드바 */
+.eui-sidebar{background:#141824;border-right:1px solid #2d3748;padding:10px 0}
+.eui-nav-item{padding:7px 12px;font-size:.68rem;color:#64748b;cursor:default;display:flex;align-items:center;gap:6px;transition:background .15s}
+.eui-nav-item.on{background:rgba(59,130,246,.15);color:#93c5fd;border-right:2px solid #3b82f6}
+.eui-nav-icon{font-size:.8rem;width:16px;text-align:center}
+/* 메인 콘텐츠 */
+.eui-main{padding:16px;background:#1c2333}
+.eui-breadcrumb{font-size:.6rem;color:#64748b;margin-bottom:8px}
+.eui-breadcrumb span{color:#93c5fd}
+.eui-page-title{font-size:1rem;font-weight:900;color:#e2e8f0;margin-bottom:3px}
+.eui-page-sub{font-size:.65rem;color:#64748b;margin-bottom:14px}
+/* 배정관리 */
+.assign-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.assign-title-text{font-size:.82rem;font-weight:800;color:#e2e8f0;flex:1}
+.assign-count{font-size:.6rem;color:#64748b}
+.assign-search{padding:5px 10px;background:#0f1521;border:1px solid #2d3748;border-radius:6px;font-size:.65rem;color:#94a3b8;width:160px;font-family:var(--font)}
+.assign-gen-btn{padding:6px 12px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:.65rem;font-weight:800;cursor:default;white-space:nowrap}
+.assign-tier-tabs{display:flex;gap:4px;margin-bottom:10px}
+.assign-tier{padding:4px 10px;border-radius:5px;font-size:.62rem;font-weight:800;cursor:default}
+.at-all{background:rgba(255,255,255,.08);color:#94a3b8}
+.at-t{color:#fff;border:none}
+.at-t1{background:#3b82f6}
+.at-t2{background:#8b5cf6}
+.at-t3{background:#06b6d4}
+.at-t4{background:#10b981}
+.assign-status-tabs{display:flex;gap:4px;margin-left:auto}
+.assign-table{width:100%;border-collapse:collapse}
+.assign-table th{font-size:.58rem;font-weight:700;color:#475569;text-align:left;padding:5px 8px;border-bottom:1px solid #2d3748;white-space:nowrap}
+.assign-table td{font-size:.65rem;color:#94a3b8;padding:6px 8px;border-bottom:1px solid rgba(45,55,72,.6)}
+.assign-table tr:hover td{background:rgba(59,130,246,.05)}
+.at-name{color:#e2e8f0;font-weight:600}
+.at-tier{display:inline-block;padding:1px 6px;border-radius:3px;font-size:.55rem;font-weight:800}
+.at-pct{font-weight:800}
+.at-pct-done{color:#4ade80}
+.at-pct-mid{color:#fbbf24}
+.at-pct-low{color:#f87171}
+.at-pct-zero{color:#475569}
+.at-progress{width:50px;height:4px;background:#2d3748;border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:4px}
+.at-progress-fill{height:100%;border-radius:2px;background:#3b82f6}
+/* 역량평가 포털 */
+.portal-header{display:flex;gap:12px;margin-bottom:12px}
+.portal-main-card{flex:2;background:#141824;border:1px solid #2d3748;border-radius:10px;padding:14px;display:flex;gap:14px;align-items:center}
+.portal-circle{width:60px;height:60px;border-radius:50%;border:4px solid #3b82f6;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0}
+.portal-circle-num{font-size:.9rem;font-weight:900;color:#e2e8f0;line-height:1}
+.portal-circle-sub{font-size:.5rem;color:#64748b}
+.portal-stats{display:flex;gap:10px}
+.portal-stat-item{display:flex;flex-direction:column;align-items:center;gap:2px}
+.portal-stat-num{font-size:1.1rem;font-weight:900;line-height:1}
+.portal-stat-lbl{font-size:.52rem;color:#64748b}
+.ps-total{color:#e2e8f0}
+.ps-done{color:#4ade80}
+.ps-pend{color:#fbbf24}
+.portal-side-cards{flex:3;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.portal-side-card{background:#141824;border:1px solid #2d3748;border-radius:8px;padding:10px}
+.psc-round{font-size:.55rem;font-weight:800;color:#64748b;margin-bottom:4px}
+.psc-title{font-size:.75rem;font-weight:800;color:#e2e8f0;margin-bottom:6px}
+.psc-pct{font-size:1.1rem;font-weight:900;color:#3b82f6;margin-bottom:2px}
+.psc-sub{font-size:.55rem;color:#64748b}
+.psc-badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:.55rem;font-weight:800;margin-top:6px}
+.psc-ended{background:rgba(248,113,113,.12);color:#f87171}
+.psc-active{background:rgba(74,222,128,.12);color:#4ade80}
+.psc-go-btn{display:block;width:100%;margin-top:6px;padding:4px;background:#1c2333;border:1px solid #2d3748;border-radius:5px;font-size:.6rem;color:#64748b;text-align:center;cursor:default}
+/* 평가대상자 테이블 */
+.portal-list-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.portal-list-title{font-size:.78rem;font-weight:800;color:#e2e8f0;flex:1}
+.portal-search{padding:4px 10px;background:#0f1521;border:1px solid #2d3748;border-radius:6px;font-size:.62rem;color:#64748b;width:140px;font-family:var(--font)}
+.portal-table{width:100%;border-collapse:collapse}
+.portal-table th{font-size:.55rem;font-weight:700;color:#475569;padding:5px 8px;text-align:left;border-bottom:1px solid #2d3748;white-space:nowrap}
+.portal-table td{font-size:.63rem;color:#94a3b8;padding:7px 8px;border-bottom:1px solid rgba(45,55,72,.5)}
+.pt-name{color:#e2e8f0;font-weight:600}
+.pt-badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:.52rem;font-weight:800}
+.pt-ended{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.25)}
+.pt-done{background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.25)}
+.pt-r1{background:rgba(59,130,246,.15);color:#60a5fa}
+
+@media(max-width:640px){
+  .wrap{padding:0 18px}
+  .nav-links{display:none}
+  .metrics{grid-template-columns:1fr}
+  .skill-grid{grid-template-columns:1fr}
+  .ss-grid.wide{grid-template-columns:1fr}
+  h1{font-size:clamp(2.6rem,11vw,4rem)}
+  .eui-layout{grid-template-columns:1fr}
+  .eui-sidebar{display:none}
+  .portal-header{flex-direction:column}
+  .portal-side-cards{grid-template-columns:1fr 1fr}
+}
+
+/* ═══════════════════════════════════════════
+   REMINDER — 리더 그리드 플로우 다이어그램
+═══════════════════════════════════════════ */
+/* 전체 플로우 레이아웃 */
+.flow-diagram{display:flex;flex-direction:column;align-items:center;gap:0;padding:8px 0}
+/* STEP 라벨 */
+.flow-step-label{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;text-align:center}
+/* 리더 그리드 */
+.leader-grid-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.leader-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;width:220px;transition:all .3s ease}
+.leader-card.active{border-color:var(--blue);box-shadow:0 0 0 2px rgba(96,165,250,.2)}
+.lc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.lc-checkbox{width:15px;height:15px;border-radius:3px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;font-weight:900;flex-shrink:0}
+.lc-name{font-size:.85rem;font-weight:800;color:var(--text)}
+.lc-fb-grid{display:flex;flex-direction:column;gap:5px}
+.lc-fb-row{display:flex;gap:4px}
+.lc-fb-box{flex:1;border-radius:6px;padding:5px 7px;border:1px solid}
+.fb-up  {background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2)}
+.fb-down{background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.2)}
+.fb-peer{background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.2)}
+.lc-fb-type{font-size:.52rem;font-weight:800;margin-bottom:2px}
+.fb-up   .lc-fb-type{color:#f87171}
+.fb-down .lc-fb-type{color:#60a5fa}
+.fb-peer .lc-fb-type{color:#4ade80}
+.lc-fb-stat{font-size:.58rem;color:var(--t2)}
+.lc-fb-stat strong{font-size:.75rem;font-weight:900;display:block;line-height:1}
+.lc-fb-stat strong.red{color:#f87171}
+.lc-fb-stat strong.sky{color:#60a5fa}
+.lc-fb-stat strong.grn{color:#4ade80}
+.lc-more{font-size:.65rem;color:var(--t3);text-align:center;padding:6px 0}
+/* 화살표 */
+.flow-arrow{display:flex;flex-direction:column;align-items:center;gap:0;margin:8px 0}
+.flow-arrow-line{width:2px;height:28px;background:linear-gradient(to bottom,var(--blue),rgba(96,165,250,.3))}
+.flow-arrow-head{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid rgba(96,165,250,.6)}
+.flow-arrow-label{font-size:.6rem;color:var(--blue);font-weight:700;margin-top:4px}
+/* 이메일 자동 생성 패널 */
+.email-gen-panel{width:100%;max-width:680px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.12)}
+.egp-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--s2);border-bottom:1px solid var(--border)}
+.egp-title{font-size:.78rem;font-weight:800;color:var(--text)}
+.egp-badge{padding:3px 10px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.25);border-radius:4px;font-size:.62rem;font-weight:800;color:var(--blue)}
+.egp-vars{display:flex;gap:8px;padding:12px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:rgba(96,165,250,.04)}
+.egp-var{display:flex;align-items:center;gap:5px;font-size:.68rem}
+.egp-var-token{padding:2px 8px;border-radius:4px;font-weight:800;font-size:.65rem}
+.tv-name{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.25)}
+.tv-type{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.tv-link{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+.egp-var-arrow{color:var(--t3);font-size:.65rem}
+.egp-var-val{color:var(--text);font-weight:700;font-size:.68rem}
+.egp-body{padding:16px 18px}
+.egp-email{background:#0d1117;border:1px solid #2d3748;border-radius:8px;overflow:hidden}
+.egp-email-hd{background:#1e3a5f;padding:12px 16px}
+.egp-email-subject{font-size:.75rem;font-weight:800;color:#e2e8f0}
+.egp-email-body{padding:14px 16px;font-size:.78rem;color:#94a3b8;line-height:1.75}
+.egp-var-inline{font-weight:800;border-radius:3px;padding:0 3px;animation:varfill .5s ease}
+@keyframes varfill{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.vi-name{color:#60a5fa;background:rgba(96,165,250,.15)}
+.vi-type{color:#4ade80;background:rgba(74,222,128,.1)}
+.egp-email-btn{display:inline-block;margin-top:10px;padding:7px 16px;background:#1d4ed8;color:#fff;border-radius:6px;font-size:.72rem;font-weight:800}
+/* 발송 준비 */
+.send-ready-bar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:var(--r);margin-top:4px}
+.srb-text{font-size:.82rem;color:var(--t2)}
+.srb-text strong{color:var(--blue);font-size:.95rem}
+.srb-btn{padding:9px 22px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-size:.8rem;font-weight:800;cursor:default;white-space:nowrap}
+/* 플로우 다이어그램 (r5) */
+.fd-step-label{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;text-align:center;width:100%}
+.fd-leader-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%}
+.lc-fb-count{font-size:.6rem;color:var(--t2);margin-top:1px}
+.lc-more{font-size:.65rem;color:var(--t3);align-self:center;padding:6px 0}
+.fd-arrow-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;margin:10px 0;position:relative;width:100%}
+.fd-arrow-line{width:2px;height:24px;background:linear-gradient(to bottom,var(--blue),rgba(96,165,250,.3))}
+.fd-arrow-head{color:rgba(96,165,250,.7);font-size:.7rem;line-height:1}
+.fd-arrow-label{font-size:.6rem;color:var(--blue);font-weight:700;margin-top:3px}
+.fd-var-chips{display:flex;align-items:center;gap:4px;margin-top:6px;flex-wrap:wrap;justify-content:center}
+.fd-chip{padding:2px 7px;border-radius:4px;font-size:.65rem;font-weight:800}
+.fdc-name{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.25)}
+.fdc-type{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.fdc-val{background:var(--s3);color:var(--text);border:1px solid var(--border)}
+.fd-chip-eq{color:var(--t3);font-size:.65rem}
+.egp-topbar{display:flex;align-items:center;gap:5px;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--border)}
+.egp-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.egp-title{font-size:.72rem;font-weight:700;color:var(--t2);margin-left:6px}
+.egp-subject{padding:10px 18px;font-size:.72rem;color:var(--t2);border-bottom:1px solid var(--border);background:rgba(96,165,250,.03)}
+.egp-body{padding:16px 18px;font-size:.78rem;color:var(--t2);line-height:1.8}
+.egp-cta{display:inline-block;margin-top:4px;padding:6px 14px;background:#1d4ed8;color:#fff;border-radius:6px;font-size:.7rem;font-weight:800}
+.srb-msg{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--t2)}
+.srb-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.5);animation:srb-pulse 1.5s ease infinite}
+@keyframes srb-pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.srb-actions{display:flex;gap:8px}
+.srb-preview{background:var(--s3);color:var(--t2);border:1px solid var(--border)}
+.srb-send{background:var(--blue)}
+/* 자동 루프 하이라이트 애니메이션 */
+@keyframes cardpulse{0%,100%{border-color:var(--border);box-shadow:none}50%{border-color:var(--blue);box-shadow:0 0 0 3px rgba(96,165,250,.15)}}
+.leader-card.pulse{animation:cardpulse 2s ease infinite}
+
+/* ═══════════════════════════════════════════
+   REMINDER — 500폴더 비포애프터 + HTML UI 컴포넌트 (sky)
+═══════════════════════════════════════════ */
+.bav{margin-top:36px;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.bav-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--s2);border-bottom:1px solid var(--border)}
+.bav-head-title{font-size:.8rem;font-weight:800;color:var(--t2);letter-spacing:.04em}
+.bav-tabs{display:flex;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.bav-tab{padding:5px 16px;font-size:.72rem;font-weight:800;cursor:pointer;background:transparent;border:none;color:var(--t3);transition:all var(--ease)}
+.bav-tab.on{background:var(--blue);color:#fff}
+.bav-body{padding:22px}
+/* folder grid */
+.folder-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-bottom:14px}
+.fld{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:7px 3px;background:var(--s2);border:1px solid var(--border);border-radius:7px}
+.fld-icon{font-size:1.1rem;line-height:1}
+.fld-name{font-size:.42rem;color:var(--t3);text-align:center;overflow:hidden;white-space:nowrap;max-width:100%}
+.fld-more{display:flex;align-items:center;justify-content:center;background:var(--s3);border:1px dashed var(--border2);border-radius:7px;font-size:.6rem;color:var(--t3);font-weight:800;padding:7px 3px}
+/* one folder card opened up to reveal the real unit of work: each leader = 3 separate surveys, each with its own subject + body */
+.fld-hl{grid-column:span 2;border-color:var(--red);background:var(--red-dim);box-shadow:0 0 0 1px var(--red-glow)}
+.fld-hl .fld-name{color:var(--red2);font-weight:800;font-size:.5rem}
+.fld-types{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap;justify-content:center}
+.fld-type{font-size:.4rem;font-weight:800;letter-spacing:.02em;padding:2px 5px;border-radius:3px;white-space:nowrap}
+.fld-type.up{background:var(--blue-dim);color:var(--blue)}
+.fld-type.down{background:var(--yellow-dim);color:var(--yellow)}
+.fld-type.peer{background:var(--green-dim);color:var(--green)}
+.bav-pain{font-size:.82rem;color:#f87171;text-align:center;padding:10px 16px;background:rgba(239,68,68,.07);border-radius:8px;border:1px solid rgba(239,68,68,.18)}
+/* survey list */
+.sv-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.sv-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.sv-top{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.sv-ck{width:16px;height:16px;border-radius:3px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.6rem;color:#fff;font-weight:900}
+.sv-name{flex:1;font-size:.82rem;font-weight:700;color:var(--text)}
+.sv-bar-wrap{width:100px;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.sv-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),#93c5fd)}
+.sv-stat{font-size:.7rem;font-weight:800;color:var(--t2);white-space:nowrap;width:80px;text-align:right}
+.sv-chips{display:flex;gap:5px;padding:0 14px 8px 40px}
+.sv-chip{padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:800}
+.sv-done{background:rgba(74,222,128,.12);color:#4ade80}
+.sv-part{background:rgba(251,191,36,.12);color:#fbbf24}
+.sv-none{background:rgba(248,113,113,.12);color:#f87171}
+/* AFTER — per-leader view (mirrors the real admin tool: leader → 상향/하향/동료 → 미응답/부분/완료) */
+.lv-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.lv-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color var(--ease)}
+.lv-item.open{border-color:var(--blue)}
+.lv-head{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer}
+.lv-ck{width:16px;height:16px;border-radius:3px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.6rem;color:#fff;font-weight:900}
+.lv-name{flex:1;font-size:.82rem;font-weight:800;color:var(--text)}
+.lv-mini{font-size:.64rem;font-weight:700;color:var(--t3);white-space:nowrap}
+.lv-caret{font-size:.55rem;color:var(--t3);transition:transform var(--ease)}
+.lv-item.open .lv-caret{transform:rotate(180deg)}
+.lv-body{display:none;flex-direction:column;gap:8px;padding:0 14px 12px}
+.lv-item.open .lv-body{display:flex}
+.lv-fb{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 11px}
+.lv-fb-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.lv-fb-name{font-size:.7rem;font-weight:800;color:var(--text)}
+.lv-fb-stat{font-size:.62rem;font-weight:800;color:var(--t2)}
+.lv-fb-body{display:flex;gap:9px;align-items:stretch}
+.lv-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex:1.7;min-width:0}
+.lv-box{border-radius:6px;padding:7px 8px;border:1px solid;min-width:0}
+.lv-box-h{font-size:.56rem;font-weight:800;letter-spacing:.02em;margin-bottom:3px}
+.lv-box-n{font-size:1rem;font-weight:900;line-height:1}
+.lv-box-mail{font-size:.56rem;color:var(--t2);margin-top:5px;line-height:1.7;word-break:break-all}
+/* send-flow graphic beside the (now narrower) boxes: leader + survey → 발송 */
+.lv-send{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(96,165,250,.07);border:1px dashed rgba(96,165,250,.32);border-radius:8px;text-align:center}
+.lv-send-tags{display:flex;flex-direction:column;gap:2px}
+.lv-send-leader{font-size:.66rem;font-weight:800;color:var(--text)}
+.lv-send-survey{font-size:.58rem;font-weight:700;color:var(--blue)}
+.lv-send-arrow{font-size:.85rem;color:var(--t2);line-height:1;font-weight:900}
+.lv-send-btn{font-size:.6rem;font-weight:800;color:#fff;background:var(--blue);border-radius:5px;padding:5px 10px;white-space:nowrap}
+.lv-box.none{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.22)}
+.lv-box.none .lv-box-h,.lv-box.none .lv-box-n{color:#f87171}
+.lv-box.part{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.22)}
+.lv-box.part .lv-box-h,.lv-box.part .lv-box-n{color:#fbbf24}
+.lv-box.done{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.22)}
+.lv-box.done .lv-box-h,.lv-box.done .lv-box-n{color:#4ade80}
+.lv-more{text-align:center;font-size:.66rem;font-weight:800;color:var(--t3);padding:8px;background:var(--s2);border:1px dashed var(--border2);border-radius:8px}
+.bav-action{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(96,165,250,.08);border-radius:9px;border:1px solid rgba(96,165,250,.2)}
+.bav-action-txt{font-size:.8rem;color:var(--t2)}
+.bav-action-txt strong{color:var(--blue)}
+.bav-send{padding:7px 18px;background:var(--blue);color:#fff;border:none;border-radius:6px;font-size:.75rem;font-weight:800;cursor:default}
+.bav-timelabel{font-size:.75rem;font-weight:800;text-align:center;margin-top:10px}
+/* Reminder HTML UI */
+.rem-ui-wrap{display:grid;grid-template-columns:1fr 320px;gap:16px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.rem-ui-left{padding:20px;display:flex;flex-direction:column;gap:12px}
+.rem-ui-title{font-size:.95rem;font-weight:900;color:var(--text);padding-bottom:10px;border-bottom:1px solid var(--border)}
+.rem-ui-tabs{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--s3)}
+.rem-ui-tab{flex:1;padding:7px;font-size:.72rem;font-weight:800;text-align:center;color:var(--t2)}
+.rem-ui-tab.on{background:var(--s1);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.rem-ui-label{font-size:.65rem;font-weight:800;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.rem-ui-input{width:100%;padding:7px 10px;background:var(--s1);border:1px solid var(--border);border-radius:6px;font-size:.78rem;color:var(--text);font-family:var(--font)}
+.rem-ui-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rem-token-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.rem-tok{padding:3px 9px;border-radius:20px;font-size:.65rem;font-weight:800;cursor:default}
+.rtok-blue{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.25)}
+.rtok-sky{background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.25)}
+.rtok-red{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.2)}
+.rem-ui-textarea{width:100%;padding:8px 10px;background:var(--s1);border:1px solid var(--border);border-radius:6px;font-size:.75rem;color:var(--t2);font-family:var(--font);resize:none;line-height:1.6}
+.rem-ui-preview-btn{align-self:flex-start;padding:8px 20px;background:var(--blue);color:#fff;border:none;border-radius:6px;font-size:.78rem;font-weight:800;cursor:default}
+.rem-ui-right{padding:16px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:8px}
+.rem-ui-list-title{font-size:.72rem;font-weight:800;color:var(--t2)}
+.rem-ui-list-title span{color:var(--blue)}
+.rem-ui-btns{display:flex;gap:6px}
+.rem-ui-btn-db{padding:5px 10px;border-radius:5px;font-size:.62rem;font-weight:800;border:none;cursor:default}
+.rem-ui-btn-sync{background:rgba(96,165,250,.15);color:#60a5fa}
+.rem-ui-btn-up{background:rgba(74,222,128,.15);color:#4ade80}
+.rem-leader-list{display:flex;flex-direction:column;gap:4px;flex:1}
+.rem-lr{display:flex;align-items:center;gap:7px;padding:6px 8px;background:var(--s1);border:1px solid var(--border);border-radius:6px}
+.rem-lr-ck{width:13px;height:13px;border-radius:3px;background:var(--blue);flex-shrink:0}
+.rem-lr-name{flex:1;font-size:.75rem;color:var(--text)}
+.rem-lr-caret{font-size:.55rem;color:var(--t3)}
+.rem-ui-footer{display:flex;align-items:center;gap:4px;padding-top:6px;border-top:1px solid var(--border)}
+.rem-fc{padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:800}
+.rem-fc-done{background:rgba(74,222,128,.12);color:#4ade80}
+.rem-fc-part{background:rgba(251,191,36,.12);color:#fbbf24}
+.rem-fc-none{background:rgba(248,113,113,.12);color:#f87171}
+.rem-fc-page{margin-left:auto;font-size:.65rem;color:var(--t3);font-weight:700}
+
+/* Email preview component */
+.email-preview-wrap{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.ep-toolbar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.ep-toolbar-label{font-size:.72rem;font-weight:800;color:var(--t2)}
+.ep-filter-chip{padding:3px 10px;border-radius:20px;font-size:.65rem;font-weight:700;background:var(--s3);border:1px solid var(--border);color:var(--t2)}
+.ep-dl-btn{padding:4px 12px;border-radius:5px;font-size:.65rem;font-weight:800;border:none;cursor:default;margin-left:auto}
+.ep-dl-email{background:var(--blue);color:#fff}
+.ep-dl-xlsx{background:rgba(74,222,128,.15);color:#4ade80}
+.ep-subject{padding:10px 16px;font-size:.78rem;color:var(--t2);border-bottom:1px solid var(--border)}
+.ep-subject span{color:var(--blue);font-weight:700}
+.ep-body{padding:20px;display:flex;flex-direction:column;align-items:center}
+.ep-email-card{width:100%;max-width:480px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.ep-email-header{background:var(--blue);padding:18px 20px}
+.ep-email-header-title{font-size:.9rem;font-weight:800;color:#fff;line-height:1.4}
+.ep-email-content{padding:16px 20px;background:var(--s1);font-size:.78rem;color:var(--t2);line-height:1.7}
+.ep-email-btn{display:inline-block;margin-top:12px;padding:9px 20px;background:var(--blue);color:#fff;border-radius:6px;font-size:.78rem;font-weight:800}
+
+/* ═══════════════════════════════════════════
+   RESUME — HTML UI 컴포넌트 (pink) + 키워드→불렛 애니메이션
+═══════════════════════════════════════════ */
+/* Job board grid */
+.job-board{background:linear-gradient(135deg,#fdf4ff 0%,#fce7f3 100%);padding:20px;border-radius:var(--r2);border:1px solid var(--border)}
+.job-board-title{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#db2777;margin-bottom:12px;text-align:center}
+.job-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.job-card{background:#fff;border:1px solid #fce7f3;border-radius:8px;padding:10px 12px}
+.job-card-co{font-size:.55rem;font-weight:800;color:#db2777;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.job-card-title{font-size:.72rem;font-weight:700;color:#1a0533;line-height:1.3;margin-bottom:4px}
+.job-card-loc{font-size:.6rem;color:#9ca3af;margin-bottom:6px}
+.job-card-btn{width:100%;padding:4px;background:#db2777;color:#fff;border:none;border-radius:4px;font-size:.6rem;font-weight:800;cursor:default}
+
+/* Keyword filter UI */
+.kf-panel{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:20px}
+.kf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.kf-field{display:flex;flex-direction:column;gap:4px}
+.kf-label{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kf-label .kf-or{color:#db2777;font-size:.55rem;margin-left:3px}
+.kf-input{padding:6px 10px;background:var(--s1);border:1px solid var(--border);border-radius:6px;font-size:.75rem;color:var(--t2);font-family:var(--font)}
+.kf-ats{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:2px}
+.kf-ats-title{font-size:.72rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.kf-ats-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.kf-ck{width:14px;height:14px;border-radius:3px;background:#db2777;flex-shrink:0}
+.kf-ck-label{font-size:.72rem;color:var(--t2)}
+.kf-fetch-btn{padding:7px 16px;background:#1a1a2e;color:#fff;border:none;border-radius:20px;font-size:.72rem;font-weight:800;cursor:default}
+
+/* Keyword → bullet animation */
+.kwb-demo{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:22px}
+.kwb-demo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.kwb-demo-title{font-size:.82rem;font-weight:800;color:var(--text)}
+.kwb-reset{padding:5px 14px;background:transparent;border:1px solid var(--border2);border-radius:20px;font-size:.68rem;font-weight:700;color:var(--t2);cursor:pointer;transition:all var(--ease)}
+.kwb-reset:hover{border-color:var(--red);color:var(--red)}
+.kwb-jd-label{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#db2777;margin-bottom:8px}
+.kwb-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.kwb-chip{padding:5px 13px;border-radius:20px;font-size:.75rem;font-weight:700;cursor:pointer;border:1px solid;transition:all var(--ease)}
+.kwb-chip:hover:not(.used){transform:translateY(-2px);box-shadow:0 4px 12px rgba(219,39,119,.25)}
+.kwb-chip.used{opacity:.3;pointer-events:none}
+.kwb-c-pink{background:rgba(219,39,119,.1);color:#db2777;border-color:rgba(219,39,119,.3)}
+.kwb-c-sky{background:rgba(96,165,250,.1);color:#60a5fa;border-color:rgba(96,165,250,.3)}
+.kwb-c-purple{background:rgba(139,92,246,.1);color:#8b5cf6;border-color:rgba(139,92,246,.3)}
+.kwb-c-green{background:rgba(74,222,128,.1);color:#4ade80;border-color:rgba(74,222,128,.3)}
+.kwb-hint{font-size:.68rem;color:var(--t3);font-style:italic;margin-bottom:12px}
+.kwb-bullet-box{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;min-height:56px;transition:all .3s ease}
+.kwb-bullet-before{font-size:.88rem;color:var(--t2);line-height:1.65}
+.kwb-hl{background:rgba(219,39,119,.18);color:#db2777;border-radius:3px;padding:1px 4px;font-weight:700;animation:kwpop .4s ease}
+@keyframes kwpop{from{background:rgba(219,39,119,.4)}to{background:rgba(219,39,119,.18)}}
+.kwb-cov-row{display:flex;align-items:center;gap:10px}
+.kwb-cov-label{font-size:.7rem;font-weight:700;color:var(--t2);white-space:nowrap}
+.kwb-cov-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.kwb-cov-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#db2777,#f472b6);transition:width .8s cubic-bezier(.4,0,.2,1)}
+.kwb-cov-pct{font-size:.82rem;font-weight:900;color:#db2777;min-width:38px;text-align:right;transition:all .4s}
+@media(max-width:640px){
+  .job-grid{grid-template-columns:repeat(2,1fr)}
+  .rem-ui-wrap{grid-template-columns:1fr}
+  .rem-ui-right{border-left:none;border-top:1px solid var(--border)}
+  .folder-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav"><div class="wrap"><div class="nav-row">
+  <a href="#hero" class="logo">DK<span>.</span></a>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="https://github.com/daihnkim-rgb" target="_blank" rel="noopener" class="nav-cta">GitHub →</a>
+  </div>
+</div></div></nav>
+
+<!-- HERO -->
+<section id="hero"><div class="wrap">
+  <div class="hero-gfx-wrap"><div class="hero-glow"></div><div class="hero-dots"></div></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="label">Deployment Strategist</span></div>
+    <h1 class="hero-name">Daihn<br><span class="acc">Kim</span><span style="color:var(--red)">.</span></h1>
+    <p class="hero-tagline">From customer pain to deployed solution — end to end.</p>
+    <div class="hero-stats">
+      <div><div class="hs-num counter" data-target="3">0</div><div class="hs-label">Systems Deployed</div></div>
+      <div><div class="hs-num">₩4M</div><div class="hs-label">Monthly Savings</div></div>
+      <div><div class="hs-num counter" data-target="450" data-suffix="+">0</div><div class="hs-label">Users Served</div></div>
+      <div><div class="hs-num counter" data-target="75" data-suffix="%">0</div><div class="hs-label">Ops Time Saved</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-red">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="pipeline">
+      <div class="pipe-nodes">
+        <div class="pipe-node" style="animation:nodein .5s .1s both">
+          <div class="pipe-icon red">🔴</div>
+          <div class="pipe-text">
+            <div class="pipe-step">Step 01</div>
+            <div class="pipe-title">Understand the Problem</div>
+            <div class="pipe-sub">Requirements discovery with non-technical stakeholders</div>
+          </div>
+        </div>
+        <div class="pipe-node" style="animation:nodein .5s .25s both">
+          <div class="pipe-icon blue">📐</div>
+          <div class="pipe-text">
+            <div class="pipe-step">Step 02</div>
+            <div class="pipe-title">Design the System</div>
+            <div class="pipe-sub">Architecture, data model, workflow design</div>
+          </div>
+        </div>
+        <div class="pipe-node" style="animation:nodein .5s .4s both">
+          <div class="pipe-icon yellow">⚡</div>
+          <div class="pipe-text">
+            <div class="pipe-step">Step 03</div>
+            <div class="pipe-title">Build &amp; Deploy</div>
+            <div class="pipe-sub">API, SQL, UI — shipped and operating</div>
+          </div>
+        </div>
+        <div class="pipe-node" style="animation:nodein .5s .55s both">
+          <div class="pipe-icon green">📈</div>
+          <div class="pipe-text">
+            <div class="pipe-step">Step 04</div>
+            <div class="pipe-title">Measure Impact</div>
+            <div class="pipe-sub">₩4M saved · 75% faster · 450+ users</div>
+            <span class="pipe-badge done">Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec"><div class="wrap">
+  <div class="about-grid">
+    <div class="rv">
+      <div class="label">About</div>
+      <h2 style="margin:16px 0 20px">I connect business problems<br>to working systems.</h2>
+      <p>I specialize in translating ambiguous operational problems into deployed solutions — bridging non-technical stakeholders and engineering execution across the full delivery cycle.</p>
+      <p style="margin-top:12px">My work spans requirements gathering, system architecture, data pipelines, custom UIs, and post-launch operations. I own the full loop: understand → design → build → operate → improve.</p>
+      <div class="cap-list">
+        <div class="cap-item"><div class="cap-dot"></div><span>Structuring ambiguous business requirements into technical specs</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Designing human-in-the-loop workflows for non-technical operators</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Connecting data pipelines to real operational workflows</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Iterating based on user feedback through live operations</span></div>
+      </div>
+    </div>
+    <div class="rv" data-d="2">
+      <div class="label" style="margin-bottom:16px">Technical Skills</div>
+      <div class="skill-grid">
+        <div class="sk"><div class="sk-cat">Frontend</div><div class="sk-tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span></div></div>
+        <div class="sk"><div class="sk-cat">Backend &amp; Data</div><div class="sk-tags"><span class="tag">Supabase</span><span class="tag">PostgreSQL</span><span class="tag">Python</span><span class="tag">SQL</span></div></div>
+        <div class="sk"><div class="sk-cat">Deployment</div><div class="sk-tags"><span class="tag">Vercel</span><span class="tag">GitHub Pages</span><span class="tag">REST API</span></div></div>
+        <div class="sk"><div class="sk-cat">Automation</div><div class="sk-tags"><span class="tag">Browserbase</span><span class="tag">PDF Parsing</span><span class="tag">Template Engine</span></div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PROJECT OVERVIEW -->
+<section id="projects" class="sec"><div class="wrap">
+  <div class="sec-hd rv">
+    <div><div class="label" style="margin-bottom:10px">Selected Work</div><h2>Projects</h2></div>
+    <p style="max-width:260px;text-align:right;font-size:.88rem">Three systems, each deployed and operating.</p>
+  </div>
+  <div class="proj-grid">
+
+    <!-- Card 1: Eval -->
+    <a href="#proj-eval" class="pcard rv">
+      <div class="pcard-vis vis-eval">
+        <div style="width:100%;max-width:340px">
+          <div class="eval-title-sm">통합 평가 시스템 · Admin Dashboard</div>
+          <div class="eval-mock">
+            <div class="eval-row"><div class="eval-name"></div><div class="eval-bar-wrap"><div class="eval-bar" style="width:100%"></div></div><div class="eval-pct">100%</div><span class="eval-badge-sm eval-badge-done">완료</span></div>
+            <div class="eval-row"><div class="eval-name"></div><div class="eval-bar-wrap"><div class="eval-bar" style="width:54%"></div></div><div class="eval-pct">54%</div><span class="eval-badge-sm eval-badge-wip">진행</span></div>
+            <div class="eval-row"><div class="eval-name"></div><div class="eval-bar-wrap"><div class="eval-bar" style="width:40%"></div></div><div class="eval-pct">40%</div><span class="eval-badge-sm eval-badge-wip">진행</span></div>
+            <div class="eval-row"><div class="eval-name"></div><div class="eval-bar-wrap"><div class="eval-bar" style="width:100%"></div></div><div class="eval-pct">100%</div><span class="eval-badge-sm eval-badge-done">완료</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-num">01 / EVALUATION SYSTEM</div>
+        <h3 class="pcard-title">Integrated Performance Evaluation Platform</h3>
+        <div class="pcard-period">Dec 2025 – Jan 2026</div>
+        <p class="pcard-desc">Full-cycle HR evaluation system for 400 employees — automating assignment, competency reviews, 360° evaluations and self-assessments with real-time admin oversight.</p>
+        <div class="pcard-metric"><div class="pcard-mval">₩4,000,000 / mo</div><div class="pcard-mlabel">Operational cost savings</div></div>
+        <div class="pcard-tags"><span class="ptag">Next.js</span><span class="ptag">Supabase</span><span class="ptag">PostgreSQL</span></div>
+        <div class="pcard-arrow">View Case Study →</div>
+      </div>
+    </a>
+
+    <!-- Card 2: Reminder -->
+    <a href="#proj-reminder" class="pcard rv" data-d="1">
+      <div class="pcard-vis vis-reminder">
+        <div class="rem-form">
+          <div class="rem-subject">[리마인더] 리더십 360도 피드백</div>
+          <div class="rem-tokens">
+            <span class="rem-token rt-blue">[리더명]</span>
+            <span class="rem-token rt-green">[진단명]</span>
+            <span class="rem-token rt-orange">[마감일]</span>
+          </div>
+          <div class="rem-body">[리더명] 님, 안녕하세요.<br>아직 완료하지 않으신 [진단명] 설문이 있습니다. [마감일]까지 참여 부탁드립니다.</div>
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <div style="flex:1;padding:5px 10px;background:var(--red);border-radius:5px;font-size:.62rem;font-weight:800;color:#fff;text-align:center">Preview →</div>
+            <div style="padding:5px 10px;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.25);border-radius:5px;font-size:.62rem;font-weight:800;color:var(--green)">Send 150</div>
+          </div>
+        </div>
+        <div class="rem-leaders">
+          <div style="font-size:.6rem;font-weight:800;color:var(--t3);letter-spacing:.08em;margin-bottom:4px">LEADERS</div>
+          <div class="rem-leader-item"><div class="rem-avatar"></div><span class="rem-lname">박민준</span><div class="rem-status-dot" style="background:var(--green)"></div></div>
+          <div class="rem-leader-item"><div class="rem-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></div><span class="rem-lname">이서현</span><div class="rem-status-dot" style="background:var(--yellow)"></div></div>
+          <div class="rem-leader-item"><div class="rem-avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6)"></div><span class="rem-lname">최재훈</span><div class="rem-status-dot" style="background:var(--t3)"></div></div>
+          <div class="rem-leader-item"><div class="rem-avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"></div><span class="rem-lname">김도현</span><div class="rem-status-dot" style="background:var(--t3)"></div></div>
+          <div style="font-size:.6rem;color:var(--t3);text-align:center;margin-top:2px">+146 more</div>
+        </div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-num">02 / REMINDER AUTOMATION</div>
+        <h3 class="pcard-title">Survey Reminder Automation Tool</h3>
+        <div class="pcard-period">Apr 2026 – May 2026</div>
+        <p class="pcard-desc">Admin tool for personalized reminder messages to 150 leaders. Solo-built from requirements gathering to production. Cut 8-person-hour task to 2 hours.</p>
+        <div class="pcard-metric"><div class="pcard-mval">8 hrs → 2 hrs</div><div class="pcard-mlabel">75% ops time reduction per campaign</div></div>
+        <div class="pcard-tags"><span class="ptag">Next.js</span><span class="ptag">TypeScript</span><span class="ptag">Supabase</span></div>
+        <div class="pcard-arrow">View Case Study →</div>
+      </div>
+    </a>
+
+    <!-- Card 3: Resume -->
+    <a href="#proj-resume" class="pcard rv" data-d="2">
+      <div class="pcard-vis vis-resume">
+        <div class="res-left">
+          <div class="res-jd">
+            <div class="res-jd-title">JD Keywords Detected</div>
+            <div class="res-kw-row">
+              <span class="res-kw rk-pink">4 responsibilities</span>
+              <span class="res-kw rk-purple">6 skills</span>
+              <span class="res-kw rk-teal">4 domain</span>
+            </div>
+          </div>
+          <div class="res-bullet">Reduced client dissatisfaction from 15% → 8% by analyzing <span class="hl">employee survey results</span> and optimizing <span class="hl">product composition</span></div>
+          <div class="res-bullet" style="opacity:.6">Conducted market trend and <span class="hl">competitive benchmarking</span>…</div>
+        </div>
+        <div class="res-right">
+          <div class="res-score"><div class="res-pct">62%</div><div class="res-pct-label">Coverage</div></div>
+          <div style="padding:5px 7px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);border-radius:6px;font-size:.58rem;color:var(--yellow);text-align:center;line-height:1.4">3 keywords missing</div>
+          <div style="padding:5px 7px;background:var(--red-dim);border:1px solid rgba(232,64,64,.2);border-radius:6px;font-size:.58rem;color:var(--red);text-align:center;margin-top:2px">Rewrite →</div>
+        </div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-num">03 / JOB SEARCH AUTOMATION</div>
+        <h3 class="pcard-title">Resume &amp; JD Matching Pipeline</h3>
+        <div class="pcard-period">May 2026 – Present</div>
+        <p class="pcard-desc">Personal automation pipeline: scrapes job postings, parses PDF resumes, runs JD keyword fit analysis, and surfaces bullet-level optimization gaps.</p>
+        <div class="pcard-metric wip"><div class="pcard-mval">In Progress</div><div class="pcard-mlabel">MVP live · keyword matching in dev</div></div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">Flask</span><span class="ptag">Browserbase</span></div>
+        <div class="pcard-arrow">View Case Study →</div>
+      </div>
+    </a>
+
+  </div>
+</div></section>
+
+<!-- ══ PROJECT 1: EVALUATION ══ -->
+<section id="proj-eval" class="pdetail"><div class="wrap">
+  <div class="rv">
+    <div class="label" style="margin-bottom:18px">Project 01</div>
+    <div class="pd-meta">
+      <div class="pd-mi"><span class="pd-mk">Timeline</span><span class="pd-mv">Dec 2025 – Jan 2026</span></div>
+      <div class="pd-mi"><span class="pd-mk">Role</span><span class="pd-mv">System Design &amp; Dev (under PM)</span></div>
+      <div class="pd-mi"><span class="pd-mk">Users</span><span class="pd-mv">~400 employees · Enterprise HR</span></div>
+      <div class="pd-mi"><span class="pd-mk">Status</span><span class="badge badge-live"><span class="badge-dot"></span>Deployed</span></div>
+    </div>
+    <h2 class="pd-title">Integrated Performance<br>Evaluation Platform</h2>
+    <p class="pd-sub">Transformed a manual, error-prone HR evaluation process into a centralized web platform — serving 400 employees across competency reviews, 360° evaluations, and self-assessments.</p>
+  </div>
+  <div class="tabs rv">
+    <div class="tab on" data-tab="e1">Overview</div>
+    <div class="tab" data-tab="e2">Architecture</div>
+    <div class="tab" data-tab="e3">Workflow</div>
+    <div class="tab" data-tab="e4">Impact</div>
+    <div class="tab" data-tab="e5">Screenshots</div>
+    <div class="tab" data-tab="e6">Tech Stack</div>
+  </div>
+  <div id="e1" class="pane on">
+    <div class="g2" style="margin-bottom:var(--gap)">
+      <div class="block"><h4>🔴 The Problem</h4><ul>
+        <li>400-employee annual evaluation managed entirely in Excel — assignment errors across 40+ departments</li>
+        <li>No real-time visibility into progress; HR followed up manually with every individual</li>
+        <li>Separate tools for competency, 360°, and self-assessment created data silos</li>
+        <li>Post-cycle result compilation required days of manual Excel consolidation</li>
+      </ul></div>
+      <div class="block"><h4>🟢 The Solution</h4><ul>
+        <li>One-click auto-assignment engine mapping evaluators to targets by tier (T1–T4)</li>
+        <li>Live dashboard with overall %, department-level, and per-person breakdown</li>
+        <li>Unified portal for all three evaluation types in a single system</li>
+        <li>Structured Excel export for downstream HR analytics — ready in seconds</li>
+      </ul></div>
+    </div>
+    <div class="block"><h4>👤 My Role</h4><p>Under a PM, I owned the full technical delivery: requirements sessions with the HR team, translating business needs into system design, database schema, frontend for admin and participant portals, API routes, assignment logic, and post-deployment operations support.</p></div>
+  </div>
+  <div id="e2" class="pane">
+    <div class="arch">
+      <div class="arch-row"><div class="arch-lbl">Business Input</div><div class="arch-nodes"><span class="anode p">HR Requirements</span><span class="anode p">Employee Roster (400 users)</span><span class="anode p">Evaluation Criteria</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Data Layer — Supabase / PostgreSQL</div><div class="arch-nodes"><span class="anode s">Users &amp; Roles</span><span class="anode s">Evaluation Cycles</span><span class="anode s">Question Bank</span><span class="anode s">Assignment Matrix (42,899)</span><span class="anode s">Response Records</span><span class="anode s">Self-Assessment</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Application Layer — Next.js + React</div><div class="arch-nodes"><span class="anode s">Admin Portal</span><span class="anode s">Evaluator Portal</span><span class="anode s">Auto-Assignment Engine</span><span class="anode s">Live Progress Dashboard</span><span class="anode s">Analytics Viewer</span><span class="anode s">Excel Exporter</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">User Roles</div><div class="arch-nodes"><span class="anode p">HR Admin — cycle management &amp; oversight</span><span class="anode p">Manager — competency + 360° evals</span><span class="anode p">Employee — self-assessment</span></div></div>
+    </div>
+  </div>
+  <div id="e3" class="pane">
+    <div class="flow">
+      <div class="fstep"><div class="fn">1</div><div class="fbody"><h4>Requirements Discovery</h4><p>Mapped existing pain points, org hierarchy, evaluation types, and approval workflows with the HR team. Built a functional spec before writing any code.</p></div></div>
+      <div class="fstep"><div class="fn">2</div><div class="fbody"><h4>Cycle Configuration</h4><p>HR admin creates a cycle, sets date range, selects evaluation types, uploads roster with tier classifications — all through a guided UI flow.</p></div></div>
+      <div class="fstep"><div class="fn">3</div><div class="fbody"><h4>Automated Assignment Generation</h4><p>Assignment engine reads tier data (T1–T4) and generates evaluator–target pairings automatically. 42,899 assignments generated with zero mapping errors.</p></div></div>
+      <div class="fstep"><div class="fn">4</div><div class="fbody"><h4>Evaluation Period — Human-in-the-Loop</h4><p>Evaluators access assigned targets through a personal portal. System surfaces stalled assignments for HR escalation in real time.</p></div></div>
+      <div class="fstep"><div class="fn">5</div><div class="fbody"><h4>Admin Monitoring &amp; Dashboard</h4><p>Live dashboard shows overall %, per-department, and per-person status. Search and filters enable targeted follow-up with no manual tracking.</p></div></div>
+      <div class="fstep"><div class="fn">6</div><div class="fbody"><h4>Result Export &amp; Post-Processing</h4><p>Structured Excel export on cycle close. Team performed post-operation data integrity checks — supported end-to-end through the full cycle.</p></div></div>
+    </div>
+  </div>
+  <div id="e4" class="pane">
+    <div class="metrics">
+      <div class="mcard"><div class="mcard-val">₩4M</div><div class="mcard-label">Monthly Cost Savings</div><div class="mcard-sub">Operational overhead eliminated</div></div>
+      <div class="mcard"><div class="mcard-val counter" data-target="400">0</div><div class="mcard-label">Employees Onboarded</div><div class="mcard-sub">Single unified platform</div></div>
+      <div class="mcard"><div class="mcard-val counter" data-target="42899">0</div><div class="mcard-label">Auto-Assigned Evaluations</div><div class="mcard-sub">Zero manual mapping errors</div></div>
+    </div>
+    <div class="ba">
+      <div class="ba-card ba-b"><div class="ba-lbl">Before</div><div class="ba-list">
+        <div class="ba-item">✗ Assignment errors from manual Excel mapping across 40+ departments</div>
+        <div class="ba-item">✗ No real-time visibility — constant manual follow-up required</div>
+        <div class="ba-item">✗ Three separate tools created data silos</div>
+        <div class="ba-item">✗ Days of manual Excel work to compile post-cycle results</div>
+        <div class="ba-item">✗ ₩4M/month in coordination overhead</div>
+      </div></div>
+      <div class="ba-card ba-a"><div class="ba-lbl">After</div><div class="ba-list">
+        <div class="ba-item">✓ One-click auto-assignment — 42,899 records, zero errors</div>
+        <div class="ba-item">✓ Live dashboard with % + per-department + per-person drill-down</div>
+        <div class="ba-item">✓ All evaluation types unified in one portal</div>
+        <div class="ba-item">✓ Structured Excel export in seconds</div>
+        <div class="ba-item">✓ ₩4,000,000/month in savings</div>
+      </div></div>
+    </div>
+  </div>
+  <div id="e5" class="pane">
+    <div class="eval-ui-wrap">
+
+      <!-- Component 1: 배정 관리 -->
+      <div>
+        <div class="label" style="margin-bottom:10px">배정 관리 — T1–T4 자동 배정</div>
+        <div class="eui-shell">
+          <div class="eui-topbar">
+            <div class="eui-topbar-icon">통</div>
+            <div><div class="eui-topbar-title">통합 평가 시스템</div><div class="eui-topbar-sub">관리자</div></div>
+          </div>
+          <div class="eui-layout">
+            <div class="eui-sidebar">
+              <div class="eui-nav-item"><span class="eui-nav-icon">⊞</span>대시보드</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">◎</span>평가사이클</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">👤</span>인원 관리</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">≡</span>문항 관리</div>
+              <div class="eui-nav-item on"><span class="eui-nav-icon">⇄</span>배정 관리</div>
+              <div class="eui-nav-item" style="padding-left:24px;font-size:.62rem">역할평가 배정</div>
+              <div class="eui-nav-item" style="padding-left:24px;font-size:.62rem">다면평가 배정</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">📊</span>분석</div>
+            </div>
+            <div class="eui-main">
+              <div class="eui-breadcrumb">관리자 &gt; <span>배정 관리</span></div>
+              <div class="eui-page-title">배정 관리</div>
+              <div class="eui-page-sub">평가자-피평가자 배정을 관리합니다.</div>
+              <div class="assign-toolbar">
+                <span class="assign-title-text">배정 목록 <span class="assign-count">총 809건 · 평가자 47명</span></span>
+                <input class="assign-search" placeholder="평가자/피평가자 검색">
+                <button class="assign-gen-btn">⚡ 배정 자동 생성</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+                <span style="font-size:.6rem;color:#64748b">직급 티어:</span>
+                <span class="assign-tier at-all">전체</span>
+                <span class="assign-tier at-t at-t1">T1</span>
+                <span class="assign-tier at-t at-t2">T2</span>
+                <span class="assign-tier at-t at-t3">T3</span>
+                <span class="assign-tier at-t at-t4">T4</span>
+                <span style="font-size:.6rem;color:#64748b;margin-left:8px">배정 상태:</span>
+                <span class="assign-tier at-all" style="background:rgba(59,130,246,.2);color:#60a5fa">전체</span>
+                <span class="assign-tier at-all">수동</span>
+                <span class="assign-tier at-all">자동</span>
+              </div>
+              <table class="assign-table">
+                <thead><tr>
+                  <th>이름 (사번)</th><th>직급</th><th>소속</th><th>배정건</th><th>제출건</th><th>진행률</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td class="at-name">이귀귀 (22505001)</td><td><span class="assign-tier at-t at-t1" style="padding:1px 5px;font-size:.55rem">T1</span> 원장</td><td style="color:#64748b">—</td><td>13건</td><td>0건</td><td><span class="at-pct at-pct-zero">0%</span></td></tr>
+                  <tr><td class="at-name">김동동 (22108003)</td><td><span class="assign-tier at-t at-t2" style="padding:1px 5px;font-size:.55rem">T2</span></td><td style="color:#64748b">경영기획본부</td><td>34건</td><td>0건</td><td><span class="at-pct at-pct-zero">0%</span></td></tr>
+                  <tr><td class="at-name">조진진 (19503001)</td><td><span class="assign-tier at-t at-t2" style="padding:1px 5px;font-size:.55rem">T2</span></td><td style="color:#64748b">무형유산진흥본부</td><td>11건</td><td>11건</td><td><span class="at-pct at-pct-done">100%</span><span class="at-progress"><span class="at-progress-fill" style="width:100%"></span></span></td></tr>
+                  <tr><td class="at-name">박재재 (20703005)</td><td><span class="assign-tier at-t at-t3" style="padding:1px 5px;font-size:.55rem">T3</span></td><td style="color:#64748b">기획조정실</td><td>15건</td><td>6건</td><td><span class="at-pct at-pct-mid">40%</span><span class="at-progress"><span class="at-progress-fill" style="width:40%"></span></span></td></tr>
+                  <tr><td class="at-name">박성성 (19803001)</td><td><span class="assign-tier at-t at-t3" style="padding:1px 5px;font-size:.55rem">T3</span></td><td style="color:#64748b">경영지원실</td><td>13건</td><td>13건</td><td><span class="at-pct at-pct-done">100%</span><span class="at-progress"><span class="at-progress-fill" style="width:100%"></span></span></td></tr>
+                  <tr><td class="at-name">홍장장 (20303001)</td><td><span class="assign-tier at-t at-t3" style="padding:1px 5px;font-size:.55rem">T3</span></td><td style="color:#64748b">안전관리실</td><td>32건</td><td>32건</td><td><span class="at-pct at-pct-done">100%</span><span class="at-progress"><span class="at-progress-fill" style="width:100%"></span></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component 2: 역량평가 포털 -->
+      <div>
+        <div class="label" style="margin-bottom:10px">역량평가 포털 — 평가자 개인 뷰</div>
+        <div class="eui-shell">
+          <div class="eui-topbar">
+            <div class="eui-topbar-icon" style="background:#1d4ed8">직</div>
+            <div><div class="eui-topbar-title">직원역량평가</div><div class="eui-topbar-sub">평가자</div></div>
+          </div>
+          <div class="eui-layout">
+            <div class="eui-sidebar">
+              <div class="eui-nav-item on"><span class="eui-nav-icon">⊞</span>홈</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">👥</span>평가 대상자 <span style="font-size:.5rem;color:#64748b;margin-left:2px">▼</span></div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">📋</span>자기신고서 <span style="font-size:.5rem;color:#64748b;margin-left:2px">▼</span></div>
+              <div style="position:absolute;bottom:10px;left:0;right:0;padding:8px 12px;border-top:1px solid #2d3748">
+                <div style="font-size:.62rem;color:#64748b">김정아</div>
+                <div style="font-size:.55rem;color:#475569">21405001</div>
+              </div>
+            </div>
+            <div class="eui-main" style="position:relative">
+              <div class="eui-breadcrumb">평가자 &gt; <span>홈</span></div>
+              <div class="eui-page-title">역량평가</div>
+              <div class="eui-page-sub" style="margin-bottom:14px">배정된 평가 현황을 확인하세요.</div>
+              <div class="portal-header">
+                <div class="portal-main-card">
+                  <div class="portal-circle"><div class="portal-circle-num">2/2</div><div class="portal-circle-sub">완료</div></div>
+                  <div class="portal-stats">
+                    <div class="portal-stat-item"><div class="portal-stat-num ps-total">2</div><div class="portal-stat-lbl">전체 배정</div></div>
+                    <div class="portal-stat-item"><div class="portal-stat-num ps-done">2</div><div class="portal-stat-lbl">완료</div></div>
+                    <div class="portal-stat-item"><div class="portal-stat-num ps-pend">0</div><div class="portal-stat-lbl">진행 필요</div></div>
+                  </div>
+                  <div style="font-size:.55rem;color:#475569;margin-left:auto">● 1차 &nbsp; ● 2차</div>
+                </div>
+                <div class="portal-side-cards">
+                  <div class="portal-side-card">
+                    <div class="psc-round">1차</div>
+                    <div class="psc-title">1차 진행률</div>
+                    <div class="psc-pct">100%</div>
+                    <div class="psc-sub">완료 2 / 전체 2</div>
+                    <span class="psc-badge psc-ended">평가가 종료되었습니다</span>
+                    <button class="psc-go-btn">1차 바로가기 ›</button>
+                  </div>
+                  <div class="portal-side-card">
+                    <div class="psc-round">2차</div>
+                    <div class="psc-title">2차 진행률</div>
+                    <div class="psc-pct" style="color:#64748b">—</div>
+                    <div class="psc-sub">배정 없음</div>
+                    <span class="psc-badge psc-active">현재 평가기간입니다</span>
+                    <button class="psc-go-btn">2차 바로가기 ›</button>
+                  </div>
+                </div>
+              </div>
+              <div class="portal-list-header">
+                <span class="portal-list-title">📋 평가대상자 목록</span>
+                <span style="font-size:.6rem;color:#64748b;padding:3px 10px;border:1px solid #2d3748;border-radius:5px">▼ 전체 평가군</span>
+                <input class="portal-search" placeholder="이름 또는 소속 검색">
+              </div>
+              <table class="portal-table">
+                <thead><tr>
+                  <th>피평가자명</th><th>소속</th><th>직군</th><th>직종</th><th>평가단계</th><th>상태</th><th>저장일</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td class="pt-name">정예원</td><td>예산팀</td><td>일반</td><td>정규직</td><td><span class="pt-badge pt-r1">R1</span></td><td><span class="pt-badge pt-ended">평가 종료</span> <span class="pt-badge pt-done">완료</span></td><td>2026.2.9.</td></tr>
+                  <tr><td class="pt-name">황희진</td><td>예산팀</td><td>일반</td><td>정규직</td><td><span class="pt-badge pt-r1">R1</span></td><td><span class="pt-badge pt-ended">평가 종료</span> <span class="pt-badge pt-done">완료</span></td><td>2026.2.9.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component 3: 다면평가 홈 (100% 대시보드) -->
+      <div>
+        <div class="label" style="margin-bottom:10px">다면평가 홈 — 전체 진행현황 대시보드</div>
+        <div class="eui-shell">
+          <div class="eui-topbar">
+            <div class="eui-topbar-icon" style="background:#1d4ed8">다</div>
+            <div><div class="eui-topbar-title">다면평가</div><div class="eui-topbar-sub">평가자</div></div>
+          </div>
+          <div class="eui-layout">
+            <div class="eui-sidebar">
+              <div class="eui-nav-item" style="font-size:.62rem;color:#475569;padding:8px 12px">← 수행 작업 변경</div>
+              <div class="eui-nav-item on"><span class="eui-nav-icon">⊞</span>홈</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">👥</span>평가 대상자 <span style="font-size:.5rem;color:#64748b">▲</span></div>
+              <div class="eui-nav-item" style="padding-left:28px;color:#93c5fd;background:rgba(59,130,246,.08)">다면평가 <span style="font-size:.55rem;background:rgba(59,130,246,.3);color:#93c5fd;padding:1px 5px;border-radius:3px;margin-left:4px">진행 중</span></div>
+            </div>
+            <div class="eui-main">
+              <div class="eui-breadcrumb">평가자 &gt; <span>홈</span></div>
+              <div class="eui-page-title">다면평가</div>
+              <div class="eui-page-sub" style="margin-bottom:14px">배정된 다면평가 현황을 확인하세요.</div>
+              <!-- 3-col stat cards -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+                <!-- 진행현황 -->
+                <div style="background:#141824;border:1px solid #2d3748;border-radius:10px;padding:14px">
+                  <div style="font-size:.65rem;font-weight:800;color:#64748b;margin-bottom:8px">👥 다면평가 진행현황</div>
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div style="width:48px;height:48px;border-radius:50%;border:4px solid #3b82f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:900;color:#e2e8f0">100%</div>
+                    <div style="display:flex;gap:10px">
+                      <div style="text-align:center"><div style="font-size:1rem;font-weight:900;color:#e2e8f0">42</div><div style="font-size:.52rem;color:#64748b">전체</div></div>
+                      <div style="text-align:center"><div style="font-size:1rem;font-weight:900;color:#4ade80">42</div><div style="font-size:.52rem;color:#64748b">완료</div></div>
+                      <div style="text-align:center"><div style="font-size:1rem;font-weight:900;color:#fbbf24">0</div><div style="font-size:.52rem;color:#64748b">대기</div></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 평가기간 -->
+                <div style="background:#141824;border:1px solid #2d3748;border-radius:10px;padding:14px">
+                  <div style="font-size:.65rem;font-weight:800;color:#64748b;margin-bottom:8px">📅 평가기간</div>
+                  <div style="display:inline-block;padding:2px 8px;background:rgba(74,222,128,.12);color:#4ade80;border-radius:4px;font-size:.6rem;font-weight:800;margin-bottom:6px">● 진행 중</div>
+                  <div style="font-size:.7rem;color:#94a3b8;margin-bottom:6px">2026.02.05 ~ 2026.02.13</div>
+                  <div style="padding:6px 8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:6px;font-size:.62rem;color:#4ade80">✓ 다면평가를 모두 완료했습니다.</div>
+                </div>
+                <!-- 제외 관리 -->
+                <div style="background:#141824;border:1px solid #2d3748;border-radius:10px;padding:14px">
+                  <div style="font-size:.65rem;font-weight:800;color:#64748b;margin-bottom:6px">⚙ 제외 관리</div>
+                  <div style="font-size:.62rem;color:#475569;margin-bottom:8px;line-height:1.5">다음의 경우 평가대상에서 제외될 수 있습니다.</div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                    <span style="font-size:.65rem;color:#94a3b8">제외된 대상</span>
+                    <span style="padding:2px 10px;background:#1c2333;border:1px solid #2d3748;border-radius:4px;font-size:.65rem;color:#e2e8f0;font-weight:700">113명</span>
+                  </div>
+                  <button style="width:100%;padding:5px;background:#1c2333;border:1px solid #2d3748;border-radius:5px;font-size:.62rem;color:#64748b;cursor:default">⚙ 제외 관리</button>
+                </div>
+              </div>
+              <!-- 평가대상자 목록 -->
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+                <span style="font-size:.78rem;font-weight:800;color:#e2e8f0;flex:1">평가대상자 목록</span>
+                <span style="padding:2px 8px;background:rgba(255,255,255,.06);border-radius:4px;font-size:.6rem;color:#94a3b8">전체 <strong style="color:#e2e8f0">155</strong></span>
+                <span style="padding:2px 8px;background:rgba(74,222,128,.1);border-radius:4px;font-size:.6rem;color:#4ade80">○ 완료 42</span>
+                <span style="padding:2px 8px;background:rgba(248,113,113,.1);border-radius:4px;font-size:.6rem;color:#f87171">⚙ 제외 113</span>
+                <input class="portal-search" placeholder="이름 또는 부서 검색..." style="width:160px">
+              </div>
+              <table class="portal-table">
+                <thead><tr><th>피평가자</th><th>소속</th><th>관계</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody>
+                  <tr><td class="pt-name">김기삼</td><td>데이터활용실</td><td><span class="pt-badge" style="background:rgba(167,139,250,.15);color:#a78bfa">상급자</span></td><td><span class="pt-badge pt-done">완료</span></td><td><span style="color:#64748b;font-size:.75rem">👁</span></td></tr>
+                  <tr><td class="pt-name">김순호</td><td>문화유산사업실</td><td><span class="pt-badge" style="background:rgba(167,139,250,.15);color:#a78bfa">상급자</span></td><td><span class="pt-badge pt-ended" style="background:rgba(248,113,113,.12);color:#f87171">제외됨</span></td><td><button style="padding:2px 8px;background:#1c2333;border:1px solid #2d3748;border-radius:4px;font-size:.6rem;color:#64748b;cursor:default">↺ 복원</button></td></tr>
+                  <tr><td class="pt-name">박성호</td><td>경영지원실</td><td><span class="pt-badge" style="background:rgba(167,139,250,.15);color:#a78bfa">상급자</span></td><td><span class="pt-badge pt-done">완료</span></td><td><span style="color:#64748b;font-size:.75rem">👁</span></td></tr>
+                  <tr><td class="pt-name">박재완</td><td>기획조정실</td><td><span class="pt-badge" style="background:rgba(167,139,250,.15);color:#a78bfa">상급자</span></td><td><span class="pt-badge pt-done">완료</span></td><td><span style="color:#64748b;font-size:.75rem">👁</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component 4: 다면평가 진행 — 문항 평가 폼 -->
+      <div>
+        <div class="label" style="margin-bottom:10px">다면평가 진행 — 역량 문항 응답 UI</div>
+        <div class="eui-shell">
+          <div class="eui-topbar">
+            <div class="eui-topbar-icon" style="background:#1d4ed8">다</div>
+            <div><div class="eui-topbar-title">다면평가</div><div class="eui-topbar-sub">평가자</div></div>
+          </div>
+          <div class="eui-layout">
+            <div class="eui-sidebar">
+              <div class="eui-nav-item" style="font-size:.62rem;color:#475569;padding:8px 12px">← 수행 작업 변경</div>
+              <div class="eui-nav-item"><span class="eui-nav-icon">⊞</span>홈</div>
+              <div class="eui-nav-item on"><span class="eui-nav-icon">👥</span>평가 대상자</div>
+              <div class="eui-nav-item" style="padding-left:28px;color:#93c5fd;background:rgba(59,130,246,.08)">다면평가</div>
+            </div>
+            <div class="eui-main">
+              <div class="eui-breadcrumb">평가자 &gt; <span>평가 진행</span></div>
+              <!-- 피평가자 헤더 -->
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 14px;background:#141824;border:1px solid #2d3748;border-radius:10px">
+                <button style="background:transparent;border:none;color:#64748b;font-size:.75rem;cursor:default">←</button>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:.95rem;font-weight:900;color:#e2e8f0">김기삼</span>
+                    <span style="font-size:.65rem;color:#94a3b8">상급자 평가</span>
+                    <span style="padding:2px 8px;background:rgba(74,222,128,.12);color:#4ade80;border-radius:4px;font-size:.6rem;font-weight:800">✓ 제출완료</span>
+                  </div>
+                  <div style="font-size:.62rem;color:#64748b;margin-top:2px">🏢 데이터활용실 &nbsp; 👤 실장</div>
+                </div>
+              </div>
+              <!-- 진행률 바 -->
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;font-size:.65rem;color:#64748b;margin-bottom:5px">
+                  <span>평가 진행률</span><span style="color:#e2e8f0;font-weight:700">16 / 16 문항 (100%)</span>
+                </div>
+                <div style="height:6px;background:#2d3748;border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px"></div></div>
+              </div>
+              <!-- 제출 완료 안내 -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid #2d3748;border-radius:8px;margin-bottom:14px">
+                <span style="font-size:.75rem;color:#64748b">이미 제출된 평가입니다.</span>
+                <button style="padding:5px 12px;background:#1c2333;border:1px solid #2d3748;border-radius:6px;font-size:.68rem;color:#94a3b8;cursor:default">수정하기</button>
+              </div>
+              <!-- 역량 섹션 -->
+              <div style="background:#141824;border:1px solid #2d3748;border-radius:10px;overflow:hidden">
+                <div style="padding:12px 16px;border-bottom:1px solid #2d3748">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                    <span style="width:20px;height:20px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:900;color:#fff;flex-shrink:0">1</span>
+                    <span style="font-size:.85rem;font-weight:800;color:#e2e8f0">전문성</span>
+                  </div>
+                  <div style="font-size:.65rem;color:#64748b;padding-left:28px">직무 수행상 요구되는 일반적 전문지식과 경험의 보유뿐만 아니라 전략적 입장에서 효과적으로 활용하는 역량</div>
+                </div>
+                <!-- 문항 1 -->
+                <div style="padding:12px 16px;border-bottom:1px solid rgba(45,55,72,.6)">
+                  <div style="font-size:.72rem;color:#94a3b8;margin-bottom:10px"><span style="color:#64748b;font-weight:700;margin-right:6px">1</span>지시받은 일만 하는 것이 아니라 필요한 일을 찾아서 수행한다.</div>
+                  <div style="display:flex;gap:8px;align-items:flex-end">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">1</div>
+                      <span style="font-size:.5rem;color:#475569">매우 미흡</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">2</div>
+                      <span style="font-size:.5rem;color:#475569">미흡</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #3b82f6;border-radius:8px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#60a5fa">3</div>
+                      <span style="font-size:.5rem;color:#60a5fa">보통</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">4</div>
+                      <span style="font-size:.5rem;color:#475569">우수</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">5</div>
+                      <span style="font-size:.5rem;color:#475569">매우 우수</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- 문항 2 -->
+                <div style="padding:12px 16px">
+                  <div style="font-size:.72rem;color:#94a3b8;margin-bottom:10px"><span style="color:#64748b;font-weight:700;margin-right:6px">2</span>단순히 업무를 집행하는 수준을 넘어 더 나은 업무 수행을 위해 스스로 능력을 개발한다.</div>
+                  <div style="display:flex;gap:8px;align-items:flex-end">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">1</div>
+                      <span style="font-size:.5rem;color:#475569">매우 미흡</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">2</div>
+                      <span style="font-size:.5rem;color:#475569">미흡</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #3b82f6;border-radius:8px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#60a5fa">3</div>
+                      <span style="font-size:.5rem;color:#60a5fa">보통</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">4</div>
+                      <span style="font-size:.5rem;color:#475569">우수</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                      <div style="width:36px;height:36px;border:1.5px solid #2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#475569">5</div>
+                      <span style="font-size:.5rem;color:#475569">매우 우수</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="e6" class="pane">
+    <div class="chips" style="margin-bottom:28px">
+      <div class="chip"><div class="chip-dot"></div>React / Next.js</div>
+      <div class="chip"><div class="chip-dot"></div>TypeScript</div>
+      <div class="chip"><div class="chip-dot"></div>Supabase</div>
+      <div class="chip"><div class="chip-dot"></div>PostgreSQL</div>
+      <div class="chip"><div class="chip-dot"></div>Role-based Auth</div>
+      <div class="chip"><div class="chip-dot"></div>Excel Export (SheetJS)</div>
+      <div class="chip"><div class="chip-dot"></div>Supabase Realtime</div>
+      <div class="chip"><div class="chip-dot"></div>Vercel</div>
+    </div>
+    <div class="block"><h4>Key Engineering Decisions</h4><ul>
+      <li><strong>Assignment as data</strong> — stored as DB records enabling real-time queries, overrides, and audit trails</li>
+      <li><strong>Role-based portal separation</strong> — admin / evaluator / employee views are distinct route trees</li>
+      <li><strong>Progress as a derived metric</strong> — computed from response records at query time, always accurate</li>
+      <li><strong>Export as a first-class feature</strong> — structured Excel output designed from day one, not bolted on</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- ══ PROJECT 2: REMINDER ══ -->
+<section id="proj-reminder" class="pdetail"><div class="wrap">
+  <div class="rv">
+    <div class="label" style="margin-bottom:18px">Project 02</div>
+    <div class="pd-meta">
+      <div class="pd-mi"><span class="pd-mk">Timeline</span><span class="pd-mv">Apr 2026 – May 2026</span></div>
+      <div class="pd-mi"><span class="pd-mk">Role</span><span class="pd-mv">Solo — Requirements to Production</span></div>
+      <div class="pd-mi"><span class="pd-mk">Scope</span><span class="pd-mv">150 leaders · 450 surveys</span></div>
+      <div class="pd-mi"><span class="pd-mk">Status</span><span class="badge badge-live"><span class="badge-dot"></span>Live &amp; Operating</span></div>
+    </div>
+    <h2 class="pd-title">Survey Reminder<br>Automation Tool</h2>
+    <p class="pd-sub">I gathered requirements, designed the solution, and shipped a production admin tool solo — cutting a manual 8-person-hour task to 2 hours, with a human approval gate by design.</p>
+  </div>
+  <div class="tabs rv">
+    <div class="tab on" data-tab="r1">Overview</div>
+    <div class="tab" data-tab="r2">Architecture</div>
+    <div class="tab" data-tab="r3">Workflow</div>
+    <div class="tab" data-tab="r4">Impact</div>
+    <div class="tab" data-tab="r5">Screenshots</div>
+    <div class="tab" data-tab="r6">Implementation</div>
+  </div>
+  <div id="r1" class="pane on">
+    <div class="g2" style="margin-bottom:var(--gap)">
+      <div class="block"><h4>🔴 The Problem</h4><p style="margin-bottom:10px">During a leadership 360° survey cycle, the ops team needed to send personalized reminders to 150 leaders. Each message required a unique leader name, deadline date, and survey URL:</p><ul>
+        <li>4 people × 2 hours each = 8 person-hours per campaign</li>
+        <li>Manual copy-paste from Excel for every single recipient</li>
+        <li>Fatigue-driven errors — occasional wrong-name or wrong-link sends</li>
+        <li>No send confirmation or systematic error tracking</li>
+      </ul></div>
+      <div class="block"><h4>🟢 My Discovery Process</h4><p style="margin-bottom:10px">I ran a requirements session to understand:</p><ul>
+        <li>Which variables changed per recipient — name, deadline, survey link</li>
+        <li>What approval checkpoints they needed before mass-sending</li>
+        <li>How they wanted to track status and errors</li>
+        <li><strong>Key insight:</strong> biggest fear was sending wrong content to 150 people at once → designed explicit human review gate</li>
+      </ul></div>
+    </div>
+
+    <!-- 500폴더 비포애프터 -->
+    <div class="bav">
+      <div class="bav-head">
+        <span class="bav-head-title">병목 해결 — Before / After</span>
+        <div class="bav-tabs">
+          <button class="bav-tab on" onclick="bavShow('before',this)">😰 Before</button>
+          <button class="bav-tab" onclick="bavShow('after',this)">✅ After</button>
+        </div>
+      </div>
+      <div class="bav-body">
+        <!-- BEFORE -->
+        <div id="bav-before">
+          <p style="font-size:.78rem;color:var(--t2);margin-bottom:12px">진단 사이클마다 <strong style="color:var(--text)">리더 150명</strong>의 폴더를 직접 열고 — 리더 한 명마다 <strong style="color:var(--text)">상향·하향·동료</strong> 3종 진단의 메일 제목·본문을 각각 다르게 작성해 수동 발송:</p>
+          <div class="folder-grid">
+            <div class="fld fld-hl"><div class="fld-icon">📂</div><div class="fld-name">강상우</div><div class="fld-types"><span class="fld-type up">상향</span><span class="fld-type down">하향</span><span class="fld-type peer">동료</span></div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">고중학</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">곽상훈</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">곽원철</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">구대원</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">구민수</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">구용환</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">권기식</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">권민철</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">권순기</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">김도현</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">김민준</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">김서현</div></div>
+            <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">김재훈</div></div>
+            <div class="fld-more">+136<br>more</div>
+          </div>
+          <div class="bav-pain">📋 폴더 클릭 → 엑셀 확인 → 상향·하향·동료별 제목·본문 수정 → 발송 → 닫기 — 리더 150명 × 3종 반복 &nbsp;|&nbsp; <strong>4명 × 2시간 = 8 person-hours</strong></div>
+          <div class="bav-timelabel" style="color:#f87171">⏱ 총 소요: 8 person-hours / 캠페인</div>
+        </div>
+        <!-- AFTER -->
+        <div id="bav-after" style="display:none">
+          <p style="font-size:.78rem;color:var(--t2);margin-bottom:12px">리더별로 <strong style="color:var(--text)">상향·하향·동료</strong> 진단의 응답 현황을 한눈에. 미응답자만 자동 필터링해 한 번에 미리보기 후 발송:</p>
+          <div class="lv-list">
+            <div class="lv-item open">
+              <div class="lv-head" onclick="lvToggle(this)">
+                <div class="lv-ck">✓</div>
+                <div class="lv-name">김솔솔</div>
+                <div class="lv-mini">상향 0/3 · 하향 1/3 · 동료 2/4</div>
+                <div class="lv-caret">▾</div>
+              </div>
+              <div class="lv-body">
+                <div class="lv-fb">
+                  <div class="lv-fb-head"><span class="lv-fb-name">상향 피드백</span><span class="lv-fb-stat">0 / 3 (0%)</span></div>
+                  <div class="lv-fb-body">
+                    <div class="lv-boxes">
+                      <div class="lv-box none"><div class="lv-box-h">미응답</div><div class="lv-box-n">3</div><div class="lv-box-mail"><div>s.kim@example.com</div><div>h.oh@example.com</div><div>m.lee@example.com</div></div></div>
+                      <div class="lv-box part"><div class="lv-box-h">부분응답</div><div class="lv-box-n">0</div><div class="lv-box-mail">없음</div></div>
+                      <div class="lv-box done"><div class="lv-box-h">완료</div><div class="lv-box-n">0</div><div class="lv-box-mail">없음</div></div>
+                    </div>
+                    <div class="lv-send">
+                      <div class="lv-send-tags"><span class="lv-send-leader">김솔솔</span><span class="lv-send-survey">상향 피드백</span></div>
+                      <div class="lv-send-arrow">→</div>
+                      <div class="lv-send-btn">📨 리마인더 발송</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="lv-fb">
+                  <div class="lv-fb-head"><span class="lv-fb-name">하향 피드백</span><span class="lv-fb-stat">1 / 3 (33%)</span></div>
+                  <div class="lv-fb-body">
+                    <div class="lv-boxes">
+                      <div class="lv-box none"><div class="lv-box-h">미응답</div><div class="lv-box-n">1</div><div class="lv-box-mail"><div>p.jung@example.com</div></div></div>
+                      <div class="lv-box part"><div class="lv-box-h">부분응답</div><div class="lv-box-n">1</div><div class="lv-box-mail"><div>k.han@example.com</div></div></div>
+                      <div class="lv-box done"><div class="lv-box-h">완료</div><div class="lv-box-n">1</div><div class="lv-box-mail"><div>d.lee@example.com</div></div></div>
+                    </div>
+                    <div class="lv-send">
+                      <div class="lv-send-tags"><span class="lv-send-leader">김솔솔</span><span class="lv-send-survey">하향 피드백</span></div>
+                      <div class="lv-send-arrow">→</div>
+                      <div class="lv-send-btn">📨 리마인더 발송</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="lv-fb">
+                  <div class="lv-fb-head"><span class="lv-fb-name">동료 피드백</span><span class="lv-fb-stat">2 / 4 (50%)</span></div>
+                  <div class="lv-fb-body">
+                    <div class="lv-boxes">
+                      <div class="lv-box none"><div class="lv-box-h">미응답</div><div class="lv-box-n">2</div><div class="lv-box-mail"><div>a.choi@example.com</div><div>b.yoon@example.com</div></div></div>
+                      <div class="lv-box part"><div class="lv-box-h">부분응답</div><div class="lv-box-n">0</div><div class="lv-box-mail">없음</div></div>
+                      <div class="lv-box done"><div class="lv-box-h">완료</div><div class="lv-box-n">2</div><div class="lv-box-mail"><div>c.shin@example.com</div><div>e.kang@example.com</div></div></div>
+                    </div>
+                    <div class="lv-send">
+                      <div class="lv-send-tags"><span class="lv-send-leader">김솔솔</span><span class="lv-send-survey">동료 피드백</span></div>
+                      <div class="lv-send-arrow">→</div>
+                      <div class="lv-send-btn">📨 리마인더 발송</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lv-more">+ 리더 149명 더 &nbsp;·&nbsp; 동일하게 상향·하향·동료 자동 집계</div>
+          </div>
+          <div class="bav-action">
+            <div class="bav-action-txt">미응답자 <strong>45명</strong>에게 개인화 리마인더 발송 준비 완료</div>
+            <div class="bav-send">Preview → Send 45 →</div>
+          </div>
+          <div class="bav-timelabel" style="color:#4ade80">⏱ 총 소요: 2 hours / 캠페인 &nbsp;(75% 절감)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="r2" class="pane">
+    <div class="arch">
+      <div class="arch-row"><div class="arch-lbl">Input</div><div class="arch-nodes"><span class="anode p">Recipient list (Supabase)</span><span class="anode p">Message template</span><span class="anode p">{LEADER_NAME} {DEADLINE_LABEL} {SURVEY_LINK}</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Admin Interface — Next.js</div><div class="arch-nodes"><span class="anode s">Compose Form</span><span class="anode s">Real-time Preview Panel</span><span class="anode s">Recipient Manager (DB sync)</span><span class="anode s">Response filter (no response / partial)</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Human-in-the-Loop Gate (designed from requirements)</div><div class="arch-nodes"><span class="anode p">Preview rendered message → Operator approves → Batch send triggered</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Delivery &amp; Monitoring</div><div class="arch-nodes"><span class="anode s">Variable interpolation per recipient</span><span class="anode s">Batch dispatch</span><span class="anode s">Job log: success / failed / timestamp</span><span class="anode s">XLSX export</span></div></div>
+    </div>
+  </div>
+  <div id="r3" class="pane">
+    <div class="flow">
+      <div class="fstep"><div class="fn">1</div><div class="fbody"><h4>Requirements Discovery</h4><p>Mapped current pain points, variables, failure scenarios with the ops team. Built feature spec before writing code — especially the human gate.</p></div></div>
+      <div class="fstep"><div class="fn">2</div><div class="fbody"><h4>Template Composition</h4><p>Operator writes a message using {LEADER_NAME}, {DEADLINE_LABEL}, {SURVEY_LINK}. Real-time preview panel renders the actual output instantly as they type.</p></div></div>
+      <div class="fstep"><div class="fn">3</div><div class="fbody"><h4>Human Review Gate</h4><p>Before any send, operator reviews the rendered output. This step — built directly from the team's trust concern — creates explicit human judgment before 150 sends commit.</p></div></div>
+      <div class="fstep"><div class="fn">4</div><div class="fbody"><h4>Filtered Batch Send</h4><p>System filters by response status (no response / partial response only), iterates through recipients, interpolates variables, and dispatches. Progress shown in real time.</p></div></div>
+      <div class="fstep"><div class="fn">5</div><div class="fbody"><h4>Log &amp; Error Review</h4><p>All attempts logged: timestamp, job type, status, error message. Failures surface immediately — no silent errors, all actionable.</p></div></div>
+    </div>
+  </div>
+  <div id="r4" class="pane">
+    <div class="metrics">
+      <div class="mcard"><div class="mcard-val">75%</div><div class="mcard-label">Time Reduction</div><div class="mcard-sub">8 person-hours → 2 hours</div></div>
+      <div class="mcard"><div class="mcard-val counter" data-target="150">0</div><div class="mcard-label">Leaders Reached</div><div class="mcard-sub">Per survey campaign</div></div>
+      <div class="mcard"><div class="mcard-val counter" data-target="450">0</div><div class="mcard-label">Surveys Managed</div><div class="mcard-sub">Upward, downward &amp; peer</div></div>
+    </div>
+    <div class="ba">
+      <div class="ba-card ba-b"><div class="ba-lbl">Before</div><div class="ba-list">
+        <div class="ba-item">✗ 4 people × 2 hrs = 8 person-hours per campaign</div>
+        <div class="ba-item">✗ Manual copy-paste from Excel for 150 recipients</div>
+        <div class="ba-item">✗ No send confirmation or error tracking</div>
+        <div class="ba-item">✗ Wrong-name errors from fatigue</div>
+      </div></div>
+      <div class="ba-card ba-a"><div class="ba-lbl">After</div><div class="ba-list">
+        <div class="ba-item">✓ 1 operator · 2 hours · no manual composing</div>
+        <div class="ba-item">✓ Template engine handles all variable interpolation</div>
+        <div class="ba-item">✓ Full job log — status + error per send</div>
+        <div class="ba-item">✓ Human review gate prevents batch send mistakes</div>
+      </div></div>
+    </div>
+  </div>
+  <div id="r5" class="pane">
+    <!-- 리더 → 이메일 자동화 플로우 다이어그램 -->
+    <div class="flow-diagram">
+
+      <!-- Step 1: Leader grid -->
+      <div class="fd-step-label">① 리더별 피드백 현황</div>
+      <div class="fd-leader-row">
+        <div class="leader-card">
+          <div class="lc-name">김솔솔</div>
+          <div class="lc-fb-row">
+            <div class="lc-fb-box fb-up"><div class="lc-fb-type">상향</div><div class="lc-fb-count">미응답 3</div></div>
+            <div class="lc-fb-box fb-down"><div class="lc-fb-type">하향</div><div class="lc-fb-count">완료</div></div>
+            <div class="lc-fb-box fb-peer"><div class="lc-fb-type">동료</div><div class="lc-fb-count">미응답 2</div></div>
+          </div>
+        </div>
+        <div class="leader-card">
+          <div class="lc-name">김민준</div>
+          <div class="lc-fb-row">
+            <div class="lc-fb-box fb-up"><div class="lc-fb-type">상향</div><div class="lc-fb-count">완료</div></div>
+            <div class="lc-fb-box fb-down"><div class="lc-fb-type">하향</div><div class="lc-fb-count">미응답 1</div></div>
+            <div class="lc-fb-box fb-peer"><div class="lc-fb-type">동료</div><div class="lc-fb-count">부분 2/5</div></div>
+          </div>
+        </div>
+        <div class="leader-card">
+          <div class="lc-name">이서현</div>
+          <div class="lc-fb-row">
+            <div class="lc-fb-box fb-up"><div class="lc-fb-type">상향</div><div class="lc-fb-count">미응답 4</div></div>
+            <div class="lc-fb-box fb-down"><div class="lc-fb-type">하향</div><div class="lc-fb-count">부분 1/3</div></div>
+            <div class="lc-fb-box fb-peer"><div class="lc-fb-type">동료</div><div class="lc-fb-count">완료</div></div>
+          </div>
+        </div>
+        <div class="lc-more">+ 148명</div>
+      </div>
+
+      <!-- Arrow: 변수 자동 주입 -->
+      <div class="fd-arrow-wrap">
+        <div class="fd-arrow-line"></div>
+        <div class="fd-arrow-head">▼</div>
+        <div class="fd-arrow-label">변수 자동 주입</div>
+        <div class="fd-var-chips">
+          <span class="fd-chip fdc-name">[리더명]</span>
+          <span class="fd-chip-eq">→</span>
+          <span class="fd-chip fdc-val">"김솔솔"</span>
+          <span style="color:var(--t3);font-size:.7rem;margin:0 6px">·</span>
+          <span class="fd-chip fdc-type">[피드백유형]</span>
+          <span class="fd-chip-eq">→</span>
+          <span class="fd-chip fdc-val">"상향 피드백"</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Email body with injected vars -->
+      <div class="fd-step-label">② 개인화 이메일 바디 자동 생성</div>
+      <div class="email-gen-panel">
+        <div class="egp-topbar">
+          <span class="egp-dot" style="background:#f87171"></span>
+          <span class="egp-dot" style="background:#fbbf24"></span>
+          <span class="egp-dot" style="background:#4ade80"></span>
+          <span class="egp-title">Email Preview — <span style="color:#60a5fa">김솔솔</span> 님 대상</span>
+        </div>
+        <div class="egp-subject">
+          Subject: [리마인더] CKE 리더십 360도 피드백 — 대상 리더:
+          <span class="egp-var-inline vi-name">김솔솔</span> 님
+        </div>
+        <div class="egp-body">
+          <p>안녕하세요,</p>
+          <p>지난번 요청드린 <span class="egp-var-inline vi-type">상향 피드백</span> 관련하여 다시 한번 안내드립니다.<br>
+          대상 리더 <span class="egp-var-inline vi-name">김솔솔</span> 님의 피드백 제출이 아직 완료되지 않았습니다.</p>
+          <p>내일까지 참여해 주시면 감사하겠습니다.</p>
+          <div style="margin-top:10px">
+            <span class="egp-cta">설문 참여하기 →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow: 취합 발송 -->
+      <div class="fd-arrow-wrap" style="margin-top:18px">
+        <div class="fd-arrow-line"></div>
+        <div class="fd-arrow-head">▼</div>
+        <div class="fd-arrow-label">전체 취합 · 발송 준비</div>
+      </div>
+
+      <!-- Step 3: Send ready bar -->
+      <div class="fd-step-label">③ 취합 발송</div>
+      <div class="send-ready-bar">
+        <div class="srb-msg">
+          <span class="srb-dot"></span>
+          미응답자 <strong>45명</strong>에게 개인화 리마인더 발송 준비 완료
+        </div>
+        <div class="srb-actions">
+          <button class="srb-btn srb-preview">Preview</button>
+          <button class="srb-btn srb-send">Send 45 →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="r6" class="pane">
+    <div class="g2" style="margin-bottom:var(--gap)">
+      <div class="block"><h4>Key Design Decisions</h4><ul>
+        <li><strong>Real-time preview</strong> — operator sees rendered message as they type; automation without visibility doesn't build trust</li>
+        <li><strong>Explicit human gate</strong> — approval required before dispatch; designed from stated trust concerns, not added after</li>
+        <li><strong>Job log as product feature</strong> — logging is accountability infrastructure, not a debugging tool</li>
+      </ul></div>
+      <div class="block"><h4>What I Learned</h4><ul>
+        <li>The preview panel was more valuable than the automation itself — it made the output tangible</li>
+        <li>Friction at the right moment (review gate) increased operator confidence significantly</li>
+        <li>For ops teams, "did it actually send?" matters more than any feature — log first</li>
+      </ul></div>
+    </div>
+    <div class="label" style="margin-bottom:14px">Tech Stack</div>
+    <div class="chips">
+      <div class="chip"><div class="chip-dot"></div>Next.js 14</div>
+      <div class="chip"><div class="chip-dot"></div>TypeScript</div>
+      <div class="chip"><div class="chip-dot"></div>Supabase + PostgreSQL</div>
+      <div class="chip"><div class="chip-dot"></div>Custom template engine</div>
+      <div class="chip"><div class="chip-dot"></div>Job Queue + Logger</div>
+      <div class="chip"><div class="chip-dot"></div>XLSX Export</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══ PROJECT 3: RESUME ══ -->
+<section id="proj-resume" class="pdetail"><div class="wrap">
+  <div class="rv">
+    <div class="label" style="margin-bottom:18px">Project 03</div>
+    <div class="pd-meta">
+      <div class="pd-mi"><span class="pd-mk">Timeline</span><span class="pd-mv">May 2026 – Present</span></div>
+      <div class="pd-mi"><span class="pd-mk">Role</span><span class="pd-mv">Solo — Design &amp; Development</span></div>
+      <div class="pd-mi"><span class="pd-mk">Type</span><span class="pd-mv">Personal / Technical Project</span></div>
+      <div class="pd-mi"><span class="pd-mk">Status</span><span class="badge badge-wip"><span class="badge-dot"></span>MVP Live</span></div>
+    </div>
+    <h2 class="pd-title">Resume &amp; Job Search<br>Automation Pipeline</h2>
+    <p class="pd-sub">End-to-end pipeline: scrapes job postings with Browserbase, parses PDF resume, runs keyword-level JD fit analysis, and surfaces bullet-by-bullet optimization gaps.</p>
+  </div>
+  <div class="tabs rv">
+    <div class="tab on" data-tab="j1">Overview</div>
+    <div class="tab" data-tab="j2">Architecture</div>
+    <div class="tab" data-tab="j3">Workflow</div>
+    <div class="tab" data-tab="j4">Screenshots</div>
+    <div class="tab" data-tab="j5">Engineering</div>
+  </div>
+  <div id="j1" class="pane on">
+    <div class="g2">
+      <div class="block"><h4>🔴 The Problem</h4><ul>
+        <li>30–60 min per application to read a JD and map keywords to resume bullets manually</li>
+        <li>Easy to miss high-priority terms buried in lengthy requirements sections</li>
+        <li>No systematic way to compare keyword coverage across multiple applications</li>
+        <li>Manual process doesn't scale across 10+ simultaneous applications</li>
+      </ul></div>
+      <div class="block"><h4>🟢 Solution Design</h4><ul>
+        <li><strong>Collection</strong> — Browserbase scraper crawls job boards into structured jobs.csv</li>
+        <li><strong>Parsing</strong> — PDF resume parser with raw-text fallback for every failure case</li>
+        <li><strong>Analysis</strong> — Rule-based NLP extracts JD keywords by section weight and frequency</li>
+        <li><strong>Matching</strong> — Bullet-by-bullet coverage flags missing high-priority keywords</li>
+      </ul></div>
+    </div>
+
+    <!-- 키워드→불렛 자동화 데모 -->
+    <div class="kwb-demo" style="margin-top:36px">
+      <div class="kwb-demo-header">
+        <div>
+          <div class="kwb-jd-label">Live Demo — Resume Studio</div>
+          <div class="kwb-demo-title">키워드 클릭 → 불렛 최적화</div>
+        </div>
+        <button class="kwb-reset" onclick="kwbReset()">↺ Reset</button>
+      </div>
+      <div style="font-size:.72rem;color:var(--t2);margin-bottom:10px">JD에서 추출한 고우선순위 키워드. 클릭하면 불렛에 반영됩니다:</div>
+      <div class="kwb-chips">
+        <span class="kwb-chip kwb-c-pink" onclick="kwbApply(this,'cross-functional')">cross-functional</span>
+        <span class="kwb-chip kwb-c-sky" onclick="kwbApply(this,'deployment')">deployment</span>
+        <span class="kwb-chip kwb-c-purple" onclick="kwbApply(this,'stakeholder management')">stakeholder management</span>
+        <span class="kwb-chip kwb-c-green" onclick="kwbApply(this,'data-driven')">data-driven</span>
+        <span class="kwb-chip kwb-c-pink" onclick="kwbApply(this,'operational efficiency')">operational efficiency</span>
+      </div>
+      <div class="kwb-hint">↑ 키워드를 클릭하면 불렛에 반영됩니다</div>
+      <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Resume Bullet</div>
+      <div class="kwb-bullet-box">
+        <div class="kwb-bullet-before" id="kwb-bullet-text">Worked with teams on project delivery and helped reduce client issues.</div>
+      </div>
+      <div class="kwb-cov-row">
+        <span class="kwb-cov-label">Keyword Coverage</span>
+        <div class="kwb-cov-track"><div class="kwb-cov-fill" id="kwb-fill" style="width:18%"></div></div>
+        <span class="kwb-cov-pct" id="kwb-pct">18%</span>
+      </div>
+    </div>
+  </div>
+  <div id="j2" class="pane">
+    <div class="arch">
+      <div class="arch-row"><div class="arch-lbl">Collection Layer</div><div class="arch-nodes"><span class="anode p">Browserbase SDK (headless)</span><span class="anode s">Job board scraper</span><span class="anode s">Structured → jobs.csv</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Resume Parsing — Python</div><div class="arch-nodes"><span class="anode s">pdfplumber (primary)</span><span class="anode s">pypdf (fallback)</span><span class="anode s">Manual paste (UI fallback)</span><span class="anode s">Section splitter</span><span class="anode s">Experience parser → resume.json</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Analysis Layer</div><div class="arch-nodes"><span class="anode p">JD keyword extractor (rule-based NLP)</span><span class="anode s">Noun phrase extraction</span><span class="anode s">Section-weighted scoring</span><span class="anode s">Category: Role / Skill / Responsibility</span></div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-row"><div class="arch-lbl">Review UI — Flask + Vanilla JS</div><div class="arch-nodes"><span class="anode s">Resume Studio editor</span><span class="anode s">JD input &amp; keyword view</span><span class="anode s">Coverage % per bullet</span><span class="anode s">Keyword drop + rewrite</span></div></div>
+    </div>
+  </div>
+  <div id="j3" class="pane">
+    <div class="flow">
+      <div class="fstep"><div class="fn">1</div><div class="fbody"><h4>Job Collection (Automated)</h4><p>Browserbase scraper runs against job boards. Extracts title, company, full JD and requirements into jobs.csv.</p></div></div>
+      <div class="fstep"><div class="fn">2</div><div class="fbody"><h4>Resume Upload &amp; Parse</h4><p>PDF parsed into structured blocks. Failed sections saved as raw text. Target: 80% auto, 20% human-corrected in UI.</p></div></div>
+      <div class="fstep"><div class="fn">3</div><div class="fbody"><h4>JD Keyword Analysis</h4><p>Noun phrases extracted, scored by frequency and section weight (Requirements &gt; Preferred), categorized into Role / Skill / Responsibility.</p></div></div>
+      <div class="fstep"><div class="fn">4</div><div class="fbody"><h4>Bullet-Level Coverage Matching</h4><p>Each resume bullet tokenized and matched against JD keywords. Coverage % calculated. Missing keywords surfaced with priority context.</p></div></div>
+      <div class="fstep"><div class="fn">5</div><div class="fbody"><h4>Human Review &amp; Rewrite</h4><p>User reviews and edits bullets inline. Rewrite suggestions show exactly what changed. Original always preserved. LLM optional in Phase 2.</p></div></div>
+    </div>
+  </div>
+  <div id="j4" class="pane">
+    <!-- UI Component 1: Job Board -->
+    <div style="margin-bottom:20px">
+      <div class="label" style="margin-bottom:10px">Job Board — Browserbase로 수집된 공고</div>
+      <div class="job-board">
+        <div class="job-board-title">✦ Realize your Career Dreams — Search and Discover</div>
+        <div class="job-grid">
+          <div class="job-card"><div class="job-card-co">Workday</div><div class="job-card-title">M&amp;A Recruiter, People</div><div class="job-card-loc">📍 San Francisco · Full Time</div><button class="job-card-btn">View Details</button></div>
+          <div class="job-card"><div class="job-card-co">Workday</div><div class="job-card-title">Program Manager, M&amp;A Recruiting</div><div class="job-card-loc">📍 San Francisco · Full Time</div><button class="job-card-btn">View Details</button></div>
+          <div class="job-card"><div class="job-card-co">Workday</div><div class="job-card-title">Global Head of Benefits</div><div class="job-card-loc">📍 San Francisco · Full Time</div><button class="job-card-btn">View Details</button></div>
+          <div class="job-card"><div class="job-card-co">Greenhouse</div><div class="job-card-title">IT Support Singapore, APAC Regional Lead</div><div class="job-card-loc">📍 Singapore · Full Time</div><button class="job-card-btn">View Details</button></div>
+          <div class="job-card"><div class="job-card-co">Coursera</div><div class="job-card-title">Customer Education, Learning &amp; Curriculum Lead</div><div class="job-card-loc">📍 US / Remote</div><button class="job-card-btn">View Details</button></div>
+          <div class="job-card"><div class="job-card-co">Workday</div><div class="job-card-title">Strategic Finance Generalist</div><div class="job-card-loc">📍 San Francisco · Full Time</div><button class="job-card-btn">View Details</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI Component 2: JD Filter + Fetch -->
+    <div style="margin-bottom:20px">
+      <div class="label" style="margin-bottom:10px">JD Keyword Filter — 공고 필터링 및 ATS 연동</div>
+      <div class="kf-panel">
+        <div class="kf-grid">
+          <div class="kf-field"><div class="kf-label">Job Title Keywords <span class="kf-or">(OR)</span></div><input class="kf-input" value="Business Operations, Innovation, Consultant" readonly></div>
+          <div class="kf-field"><div class="kf-label">City / State <span class="kf-or">(OR)</span></div><input class="kf-input" value="California, New York, San Francisco" readonly></div>
+          <div class="kf-field"><div class="kf-label">Zip or Remote <span class="kf-or">(OR)</span></div><input class="kf-input" value="94103, remote" readonly></div>
+          <div class="kf-field"><div class="kf-label">Industry <span class="kf-or">(OR)</span></div><input class="kf-input" value="Technology, Education, FinTech" readonly></div>
+        </div>
+        <div class="kf-field" style="margin-bottom:14px"><div class="kf-label">Exclude Keywords <span class="kf-or">(NOT)</span></div><input class="kf-input" value="Senior Director, Engineering, Sales" readonly style="width:100%"></div>
+        <div class="kf-ats">
+          <div class="kf-ats-title">▸ Fetch ATS Jobs</div>
+          <div class="kf-ats-row">
+            <div style="font-size:.65rem;font-weight:700;color:var(--t2)">DATA SOURCES</div>
+            <div class="kf-ck"></div><span class="kf-ck-label">Greenhouse</span>
+            <div class="kf-ck"></div><span class="kf-ck-label">Lever</span>
+            <div class="kf-ck"></div><span class="kf-ck-label">Ashby</span>
+          </div>
+          <button class="kf-fetch-btn">Fetch jobs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI Component 3: Resume Bullet Editor with keyword drop zone -->
+    <div>
+      <div class="label" style="margin-bottom:10px">Resume Editor — 키워드 드롭 → 불렛 최적화</div>
+      <div style="background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:20px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <div><div class="kf-label" style="margin-bottom:4px">Company</div><input class="kf-input" value="Samjong KPMG (KPMG Korea)" readonly style="width:100%"></div>
+          <div><div class="kf-label" style="margin-bottom:4px">Title</div><input class="kf-input" value="Senior Consultant" readonly style="width:100%"></div>
+        </div>
+        <div class="kf-label" style="margin-bottom:8px">BULLETS <span style="font-size:.58rem;color:#db2777;font-weight:700;margin-left:8px">+ Add bullet</span></div>
+        <div style="background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:.82rem;color:var(--t2);line-height:1.75;margin-bottom:10px">
+          Structured and solved ambiguous business challenges for luxury resort development in Philippines, conducting market analysis and developing pricing strategies for hotel operations and golf memberships that projected <span style="background:rgba(96,165,250,.2);color:#60a5fa;border-radius:3px;padding:1px 4px;font-weight:700">15% YoY revenue</span> growth, securing <span style="background:rgba(96,165,250,.2);color:#60a5fa;border-radius:3px;padding:1px 4px;font-weight:700">₩200M–₩300M</span> strategic partnership with global hotel brand.
+        </div>
+        <div style="border:1.5px dashed rgba(219,39,119,.4);border-radius:8px;padding:10px 14px;font-size:.72rem;color:rgba(219,39,119,.6);text-align:center;background:rgba(219,39,119,.04)">
+          drop keywords here
+        </div>
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+          <span style="padding:3px 10px;border-radius:20px;font-size:.65rem;font-weight:800;background:rgba(219,39,119,.12);color:#db2777;border:1px solid rgba(219,39,119,.25)">Communications ×</span>
+          <span style="padding:3px 10px;border-radius:20px;font-size:.65rem;font-weight:800;background:rgba(219,39,119,.12);color:#db2777;border:1px solid rgba(219,39,119,.25)">visibility and market credibility ×</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="j5" class="pane">
+    <div class="g2" style="margin-bottom:var(--gap)">
+      <div class="block"><h4>Architecture Principles</h4><ul>
+        <li><strong>Layered, independently testable</strong> — extract → parse → analyze → match each runs in isolation</li>
+        <li><strong>Raw text preserved everywhere</strong> — parse failures are always recoverable from the original input</li>
+        <li><strong>Deterministic base</strong> — rule-based is debuggable and trustworthy; LLM is a later opt-in layer</li>
+        <li><strong>Edit UI is first-class</strong> — 80% automation means 20% lives in a good edit interface</li>
+      </ul></div>
+      <div class="block"><h4>Key Takeaways</h4><ul>
+        <li>Showing what's <em style="color:var(--red)">missing</em> is more actionable than showing what matches</li>
+        <li>PDF parsing inconsistency is a product constraint to accept, not a problem to "solve"</li>
+        <li>Rewrite suggestions without user control are dangerous — always show what changed</li>
+        <li>Job scraping and resume analysis share the same need: clean, structured, comparable text</li>
+      </ul></div>
+    </div>
+    <div class="label" style="margin-bottom:14px">Tech Stack</div>
+    <div class="chips">
+      <div class="chip"><div class="chip-dot"></div>Python 3.12</div>
+      <div class="chip"><div class="chip-dot"></div>Flask</div>
+      <div class="chip"><div class="chip-dot"></div>pdfplumber + pypdf</div>
+      <div class="chip"><div class="chip-dot"></div>Browserbase SDK</div>
+      <div class="chip"><div class="chip-dot"></div>Rule-based NLP</div>
+      <div class="chip"><div class="chip-dot"></div>Vanilla JS</div>
+      <div class="chip"><div class="chip-dot"></div>JSON persistence</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec"><div class="wrap">
+  <div class="contact-wrap rv">
+    <div class="cl">
+      <div class="label">Get In Touch</div>
+      <h2>Let's work<br>together.</h2>
+      <p>Open to Deployment Strategist, Forward Deployed Engineer, and Solutions Engineer roles. I bring the full cycle — from understanding a customer's problem to operating the solution in production.</p>
+    </div>
+    <div class="clinks">
+      <a href="mailto:daihnkim@gmail.com" class="clink"><span class="cicon">✉</span><span>daihnkim@gmail.com</span></a>
+      <a href="https://github.com/daihnkim-rgb" target="_blank" rel="noopener" class="clink"><span class="cicon">⌥</span><span>github.com/daihnkim-rgb</span></a>
+      <a href="https://linkedin.com/in/daihnkim" target="_blank" rel="noopener" class="clink"><span class="cicon">▣</span><span>linkedin.com/in/daihnkim</span></a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div class="foot-row">
+  <span class="foot-copy">© 2026 Daihn Kim · Built for deployment.</span>
+  <a href="#hero" class="foot-top">↑ Top</a>
+</div></div></footer>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="lbClose()">
+  <button class="lb-x" onclick="lbClose()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<script>
+/* ── Nav ─────────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('on', scrollY > 50), {passive:true});
+
+/* ── Tabs ────────────────────────── */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const sec = tab.closest('.pdetail');
+    sec.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    sec.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+    tab.classList.add('on');
+    document.getElementById(tab.dataset.tab).classList.add('on');
+  });
+});
+
+/* ── Reveal ──────────────────────── */
+const rvObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, {threshold:0.07, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
+
+/* ── Counter animation ───────────── */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const dur = 1600;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target.toLocaleString() + suffix;
+  };
+  requestAnimationFrame(update);
+}
+const ctrObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = '1';
+      animateCounter(e.target);
+    }
+  });
+}, {threshold:0.5});
+document.querySelectorAll('.counter').forEach(el => ctrObs.observe(el));
+
+/* ── Screenshot lazy-load check ─── */
+function tryLoadImg(card, src, alt) {
+  const img = new Image();
+  img.onload = () => {
+    const ph = card.querySelector('.ss-placeholder');
+    if (ph) {
+      const imgEl = document.createElement('img');
+      imgEl.src = src; imgEl.alt = alt;
+      imgEl.className = 'sscard-cap-img';
+      imgEl.style.cssText = 'width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;display:block';
+      card.insertBefore(imgEl, ph);
+      ph.style.display = 'none';
+    }
+  };
+  img.src = src;
+}
+// Reminder screenshots
+['rem-1','rem-2','rem-3','rem-4'].forEach((n,i) => {
+  const card = document.getElementById(`rem-ss-${i+1}`);
+  if (card) tryLoadImg(card, `assets/screenshots/reminder/${n}.png`, n);
+});
+// Resume screenshots
+['res-1','res-2','res-3','res-4'].forEach((n,i) => {
+  const card = document.getElementById(`res-ss-${i+1}`);
+  if (card) tryLoadImg(card, `assets/screenshots/resume/${n}.png`, n);
+});
+
+/* ── Lightbox ────────────────────── */
+function lbOpen(src, cap) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-cap').textContent = cap || '';
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lbClose(); });
+
+/* ── Smooth anchors ──────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+/* ── 500폴더 비포애프터 토글 ────── */
+function bavShow(which, btn) {
+  document.getElementById('bav-before').style.display = which === 'before' ? 'block' : 'none';
+  document.getElementById('bav-after').style.display  = which === 'after'  ? 'block' : 'none';
+  btn.closest('.bav-tabs').querySelectorAll('.bav-tab').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// After view: expand/collapse a leader card to reveal its 상향/하향/동료 breakdown.
+function lvToggle(headEl) {
+  headEl.parentElement.classList.toggle('open');
+}
+
+/* ── 키워드→불렛 애니메이션 ───────── */
+const kwbStates = [
+  { cov: 18, text: 'Worked with teams on project delivery and helped reduce client issues.' },
+  { cov: 36, text: 'Led <span class="kwb-hl">cross-functional</span> teams on project delivery and helped reduce client issues.' },
+  { cov: 52, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> delivery and helped reduce client issues.' },
+  { cov: 68, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> delivery through effective <span class="kwb-hl">stakeholder management</span>.' },
+  { cov: 80, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> through <span class="kwb-hl">stakeholder management</span> using a <span class="kwb-hl">data-driven</span> approach.' },
+  { cov: 94, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> through <span class="kwb-hl">stakeholder management</span>, applying <span class="kwb-hl">data-driven</span> insights to improve <span class="kwb-hl">operational efficiency</span> by 75%.' }
+];
+let kwbStep = 0;
+
+function kwbApply(chip, kw) {
+  if (kwbStep >= kwbStates.length - 1) return;
+  chip.classList.add('used');
+  kwbStep++;
+  const state = kwbStates[kwbStep];
+  const box = document.getElementById('kwb-bullet-text');
+  box.innerHTML = state.text;
+  box.style.borderLeft = '3px solid #db2777';
+  setTimeout(() => { box.style.borderLeft = ''; }, 600);
+  document.getElementById('kwb-fill').style.width = state.cov + '%';
+  const pctEl = document.getElementById('kwb-pct');
+  pctEl.textContent = state.cov + '%';
+  if (state.cov >= 70) pctEl.style.color = '#4ade80';
+  else if (state.cov >= 50) pctEl.style.color = '#fbbf24';
+}
+
+function kwbReset() {
+  kwbStep = 0;
+  document.getElementById('kwb-bullet-text').innerHTML = kwbStates[0].text;
+  document.getElementById('kwb-fill').style.width = '18%';
+  const pctEl = document.getElementById('kwb-pct');
+  pctEl.textContent = '18%';
+  pctEl.style.color = '';
+  document.querySelectorAll('.kwb-chip').forEach(c => c.classList.remove('used'));
+}
+</script>
+</body>
+</html>
