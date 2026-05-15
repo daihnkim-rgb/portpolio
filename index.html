@@ -1738,7 +1738,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
       <div class="kwb-hint">↑ 키워드를 클릭하면 불렛에 반영됩니다</div>
       <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Resume Bullet</div>
       <div class="kwb-bullet-box">
-        <div class="kwb-bullet-before" id="kwb-bullet-text">Worked with teams on project delivery and helped reduce client issues.</div>
+        <div class="kwb-bullet-before" id="kwb-bullet-text">Worked with internal teams to coordinate project delivery and reduce recurring client issues.</div>
       </div>
       <div class="kwb-cov-row">
         <span class="kwb-cov-label">Keyword Coverage</span>
@@ -1839,7 +1839,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
         <li><strong>Edit UI is first-class</strong> — 80% automation means 20% lives in a good edit interface</li>
       </ul></div>
       <div class="block"><h4>Key Takeaways</h4><ul>
-        <li>Showing what's <em style="color:var(--red)">missing</em> is more actionable than showing what matches</li>
+        <li>Showing what's <span style="color:var(--red)">missing job description keywords</span> is more actionable than showing what matches</li>
         <li>PDF parsing inconsistency is a product constraint to accept, not a problem to "solve"</li>
         <li>Rewrite suggestions without user control are dangerous — always show what changed</li>
         <li>Job scraping and resume analysis share the same need: clean, structured, comparable text</li>
@@ -1995,38 +1995,68 @@ function lvToggle(headEl) {
 }
 
 /* ── 키워드→불렛 애니메이션 ───────── */
-const kwbStates = [
-  { cov: 18, text: 'Worked with internal teams to coordinate project delivery and reduce recurring client issues.' },
-  { cov: 36, text: 'Collaborated with marketing, strategy, and ops to align priorities — bridging silos and accelerating delivery across <span class="kwb-hl kwb-hl-pink">cross-functional</span> teams.' },
-  { cov: 52, text: 'Coordinated <span class="kwb-hl kwb-hl-pink">cross-functional</span> rollout of a new workflow system, managing <span class="kwb-hl kwb-hl-sky">deployment</span> sequencing across 3 teams to reduce go-live risk.' },
-  { cov: 68, text: 'Drove <span class="kwb-hl kwb-hl-sky">deployment</span> readiness by aligning leadership, ops, and product through structured <span class="kwb-hl kwb-hl-purple">stakeholder management</span> — resolving blockers 2 weeks early.' },
-  { cov: 80, text: 'Built a <span class="kwb-hl kwb-hl-green">data-driven</span> reporting layer to surface response gaps in real time, enabling proactive <span class="kwb-hl kwb-hl-purple">stakeholder management</span> and faster escalation decisions.' },
-  { cov: 94, text: 'Redesigned <span class="kwb-hl kwb-hl-pink">cross-functional</span> workflows using <span class="kwb-hl kwb-hl-green">data-driven</span> insights, improving <span class="kwb-hl kwb-hl-orange">operational efficiency</span> by 75% and cutting manual effort per <span class="kwb-hl kwb-hl-sky">deployment</span> from 8 hrs to 2.' }
-];
-let kwbStep = 0;
+const kwbMap = {
+  'cross-functional': {
+    text: 'Collaborated across marketing, strategy, and ops — bridging silos and aligning 4 teams on shared delivery goals through structured <span class="kwb-hl kwb-hl-pink">cross-functional</span> coordination.',
+    cov: 22
+  },
+  'deployment': {
+    text: 'Managed end-to-end <span class="kwb-hl kwb-hl-sky">deployment</span> of a new reminder workflow system, sequencing rollout across 3 departments to cut go-live risk by 40%.',
+    cov: 22
+  },
+  'stakeholder management': {
+    text: 'Drove alignment across leadership, HR, and ops through structured <span class="kwb-hl kwb-hl-purple">stakeholder management</span> — resolving cross-team blockers 2 weeks ahead of schedule.',
+    cov: 22
+  },
+  'data-driven': {
+    text: 'Built a <span class="kwb-hl kwb-hl-green">data-driven</span> response-rate dashboard, surfacing real-time gaps per leader and enabling targeted follow-up that reduced no-response rate by 35%.',
+    cov: 22
+  },
+  'operational efficiency': {
+    text: 'Redesigned manual reminder workflows to improve <span class="kwb-hl kwb-hl-orange">operational efficiency</span> by 75%, cutting per-campaign effort from 8 person-hours to 2.',
+    cov: 18
+  }
+};
+const kwbBase = 6;
+let kwbClicked = new Set();
 
 function kwbApply(chip, kw) {
-  if (kwbStep >= kwbStates.length - 1) return;
+  if (kwbClicked.has(kw)) return;
+  kwbClicked.add(kw);
   chip.classList.add('used');
-  kwbStep++;
-  const state = kwbStates[kwbStep];
+  const entry = kwbMap[kw];
   const box = document.getElementById('kwb-bullet-text');
-  box.innerHTML = state.text;
-  box.style.borderLeft = '3px solid #db2777';
-  setTimeout(() => { box.style.borderLeft = ''; }, 600);
-  document.getElementById('kwb-fill').style.width = state.cov + '%';
+  box.style.opacity = '0';
+  box.style.transform = 'translateY(6px)';
+  box.style.transition = 'opacity .2s ease, transform .2s ease';
+  setTimeout(() => {
+    box.innerHTML = entry.text;
+    box.style.opacity = '1';
+    box.style.transform = 'translateY(0)';
+    box.style.borderLeft = '3px solid #db2777';
+    setTimeout(() => { box.style.borderLeft = ''; }, 600);
+  }, 200);
+  const totalCov = kwbBase + [...kwbClicked].reduce((s, k) => s + kwbMap[k].cov, 0);
+  document.getElementById('kwb-fill').style.width = totalCov + '%';
   const pctEl = document.getElementById('kwb-pct');
-  pctEl.textContent = state.cov + '%';
-  if (state.cov >= 70) pctEl.style.color = '#4ade80';
-  else if (state.cov >= 50) pctEl.style.color = '#fbbf24';
+  pctEl.textContent = totalCov + '%';
+  if (totalCov >= 70) pctEl.style.color = '#4ade80';
+  else if (totalCov >= 50) pctEl.style.color = '#fbbf24';
+  else pctEl.style.color = '';
 }
 
 function kwbReset() {
-  kwbStep = 0;
-  document.getElementById('kwb-bullet-text').innerHTML = kwbStates[0].text;
-  document.getElementById('kwb-fill').style.width = '18%';
+  kwbClicked.clear();
+  const box = document.getElementById('kwb-bullet-text');
+  box.style.opacity = '0';
+  box.style.transition = 'opacity .2s ease';
+  setTimeout(() => {
+    box.innerHTML = 'Worked with internal teams to coordinate project delivery and reduce recurring client issues.';
+    box.style.opacity = '1';
+  }, 150);
+  document.getElementById('kwb-fill').style.width = kwbBase + '%';
   const pctEl = document.getElementById('kwb-pct');
-  pctEl.textContent = '18%';
+  pctEl.textContent = kwbBase + '%';
   pctEl.style.color = '';
   document.querySelectorAll('.kwb-chip').forEach(c => c.classList.remove('used'));
 }
