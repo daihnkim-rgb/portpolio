@@ -664,12 +664,12 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
    RESUME — HTML UI 컴포넌트 (pink) + 키워드→불렛 애니메이션
 ═══════════════════════════════════════════ */
 /* Job board grid */
-.job-board{background:linear-gradient(135deg,#fdf4ff 0%,#fce7f3 100%);padding:20px;border-radius:var(--r2);border:1px solid var(--border)}
+.job-board{background:var(--s1);padding:20px;border-radius:var(--r2);border:1px solid var(--border)}
 .job-board-title{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#db2777;margin-bottom:12px;text-align:center}
 .job-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.job-card{background:#fff;border:1px solid #fce7f3;border-radius:8px;padding:10px 12px}
+.job-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
 .job-card-co{font-size:.55rem;font-weight:800;color:#db2777;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.job-card-title{font-size:.72rem;font-weight:700;color:#1a0533;line-height:1.3;margin-bottom:4px}
+.job-card-title{font-size:.72rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
 .job-card-loc{font-size:.6rem;color:#9ca3af;margin-bottom:6px}
 .job-card-btn{width:100%;padding:4px;background:#db2777;color:#fff;border:none;border-radius:4px;font-size:.6rem;font-weight:800;cursor:default}
 
@@ -705,7 +705,12 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
 .kwb-hint{font-size:.68rem;color:var(--t3);font-style:italic;margin-bottom:12px}
 .kwb-bullet-box{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;min-height:56px;transition:all .3s ease}
 .kwb-bullet-before{font-size:.88rem;color:var(--t2);line-height:1.65}
-.kwb-hl{background:rgba(219,39,119,.18);color:#db2777;border-radius:3px;padding:1px 4px;font-weight:700;animation:kwpop .4s ease}
+.kwb-hl{border-radius:3px;padding:1px 4px;font-weight:700;animation:kwpop .4s ease}
+.kwb-hl-pink{background:rgba(219,39,119,.18);color:#f472b6}
+.kwb-hl-sky{background:rgba(56,189,248,.15);color:#38bdf8}
+.kwb-hl-purple{background:rgba(167,139,250,.15);color:#a78bfa}
+.kwb-hl-green{background:rgba(74,222,128,.15);color:#4ade80}
+.kwb-hl-orange{background:rgba(251,146,60,.15);color:#fb923c}
 @keyframes kwpop{from{background:rgba(219,39,119,.4)}to{background:rgba(219,39,119,.18)}}
 .kwb-cov-row{display:flex;align-items:center;gap:10px}
 .kwb-cov-label{font-size:.7rem;font-weight:700;color:var(--t2);white-space:nowrap}
@@ -1991,12 +1996,12 @@ function lvToggle(headEl) {
 
 /* ── 키워드→불렛 애니메이션 ───────── */
 const kwbStates = [
-  { cov: 18, text: 'Worked with teams on project delivery and helped reduce client issues.' },
-  { cov: 36, text: 'Led <span class="kwb-hl">cross-functional</span> teams on project delivery and helped reduce client issues.' },
-  { cov: 52, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> delivery and helped reduce client issues.' },
-  { cov: 68, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> delivery through effective <span class="kwb-hl">stakeholder management</span>.' },
-  { cov: 80, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> through <span class="kwb-hl">stakeholder management</span> using a <span class="kwb-hl">data-driven</span> approach.' },
-  { cov: 94, text: 'Led <span class="kwb-hl">cross-functional</span> teams on <span class="kwb-hl">deployment</span> through <span class="kwb-hl">stakeholder management</span>, applying <span class="kwb-hl">data-driven</span> insights to improve <span class="kwb-hl">operational efficiency</span> by 75%.' }
+  { cov: 18, text: 'Worked with internal teams to coordinate project delivery and reduce recurring client issues.' },
+  { cov: 36, text: 'Collaborated with marketing, strategy, and ops to align priorities — bridging silos and accelerating delivery across <span class="kwb-hl kwb-hl-pink">cross-functional</span> teams.' },
+  { cov: 52, text: 'Coordinated <span class="kwb-hl kwb-hl-pink">cross-functional</span> rollout of a new workflow system, managing <span class="kwb-hl kwb-hl-sky">deployment</span> sequencing across 3 teams to reduce go-live risk.' },
+  { cov: 68, text: 'Drove <span class="kwb-hl kwb-hl-sky">deployment</span> readiness by aligning leadership, ops, and product through structured <span class="kwb-hl kwb-hl-purple">stakeholder management</span> — resolving blockers 2 weeks early.' },
+  { cov: 80, text: 'Built a <span class="kwb-hl kwb-hl-green">data-driven</span> reporting layer to surface response gaps in real time, enabling proactive <span class="kwb-hl kwb-hl-purple">stakeholder management</span> and faster escalation decisions.' },
+  { cov: 94, text: 'Redesigned <span class="kwb-hl kwb-hl-pink">cross-functional</span> workflows using <span class="kwb-hl kwb-hl-green">data-driven</span> insights, improving <span class="kwb-hl kwb-hl-orange">operational efficiency</span> by 75% and cutting manual effort per <span class="kwb-hl kwb-hl-sky">deployment</span> from 8 hrs to 2.' }
 ];
 let kwbStep = 0;
 
