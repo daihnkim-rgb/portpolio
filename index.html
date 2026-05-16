@@ -107,14 +107,98 @@ p{color:var(--t2);line-height:1.75}
    ABOUT
 ═══════════════════════════════════════════ */
 #about{border-top:1px solid var(--border)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.about-bio h2{margin:16px 0 20px}
-.about-bio p{margin-bottom:14px}
-.cap-list{display:flex;flex-direction:column;gap:8px;margin-top:28px}
-.cap-item{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;background:var(--s1);border:1px solid var(--border);border-radius:10px;transition:border-color var(--ease)}
-.cap-item:hover{border-color:var(--red)}
-.cap-dot{width:7px;height:7px;background:var(--red);border-radius:50%;flex-shrink:0;margin-top:6px}
-.cap-item span{font-size:.875rem;color:var(--t2);line-height:1.55}
+/* ── Capability Cards ── */
+.cap-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.cap-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:24px 22px;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;overflow:hidden}
+.cap-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.4);border-color:rgba(255,255,255,.12)}
+.cap-card-num{font-size:.58rem;font-weight:900;letter-spacing:.2em;color:var(--red);margin-bottom:8px}
+.cap-card-name{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.3}
+.cap-card-def{font-size:.72rem;color:var(--t2);line-height:1.65;margin-bottom:18px}
+.cap-vis{width:100%;height:138px;position:relative;overflow:hidden;border-radius:8px;background:var(--s1);border:1px solid rgba(255,255,255,.04)}
+/* ── Card 1: Workflow Error → Clean ── */
+.wf-svg{width:100%;height:100%}
+/* Left error panel: visible 10%~55%, fades out */
+@keyframes wf2-left{0%,8%{opacity:0}18%,52%{opacity:1}62%,100%{opacity:0}}
+/* Error diamond blink */
+@keyframes wf2-dia{0%,18%{fill:rgba(239,68,68,.15);stroke:rgba(239,68,68,.4)}25%{fill:rgba(239,68,68,.8);stroke:#ef4444}30%{fill:rgba(239,68,68,.2);stroke:rgba(239,68,68,.5)}35%{fill:rgba(239,68,68,.8);stroke:#ef4444}40%{fill:rgba(239,68,68,.2);stroke:rgba(239,68,68,.5)}45%{fill:rgba(239,68,68,.8);stroke:#ef4444}52%,100%{fill:rgba(239,68,68,.15);stroke:rgba(239,68,68,.3);opacity:0}}
+/* Error lines pulse red */
+@keyframes wf2-eline{0%,18%{stroke:rgba(239,68,68,.3);stroke-width:1}25%,45%{stroke:#ef4444;stroke-width:1.5}52%,100%{opacity:0}}
+/* Pulse ring expand+fade */
+@keyframes wf2-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.36);opacity:0}}
+/* Center arrow between panels */
+@keyframes wf2-arrow{0%,48%{opacity:0;transform:scale(.4)}56%,66%{opacity:1;transform:scale(1)}74%,100%{opacity:0}}
+/* Right clean panel slides in */
+@keyframes wf2-right{0%,58%{opacity:0;transform:translateX(10px)}70%,90%{opacity:1;transform:translateX(0)}97%,100%{opacity:0}}
+/* Each right node builds in with stagger */
+@keyframes wf2-node{0%,var(--nd){opacity:0;transform:scale(.3)}calc(var(--nd)+9%),90%{opacity:1;transform:scale(1)}97%,100%{opacity:0}}
+/* Green check circle */
+@keyframes wf2-check{0%,80%{opacity:0;transform:scale(.2)}88%,90%{opacity:1;transform:scale(1)}97%,100%{opacity:0}}
+.wf2-left{animation:wf2-left 10s ease infinite}
+.wf2-dia{animation:wf2-dia 10s ease infinite}
+.wf2-eline{animation:wf2-eline 10s ease infinite}
+.wf2-ring{transform-box:fill-box;transform-origin:center;animation:wf2-ring 1.6s ease-out infinite}
+.wf2-arrow{animation:wf2-arrow 10s ease infinite;transform-box:fill-box;transform-origin:center}
+.wf2-right{animation:wf2-right 10s ease infinite;transform-box:fill-box;transform-origin:center}
+.wf2-n1{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:60%}
+.wf2-n2{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:63%}
+.wf2-n3{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:66%}
+.wf2-n4{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:69%}
+.wf2-n5{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:72%}
+.wf2-n6{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:75%}
+.wf2-n7{transform-box:fill-box;transform-origin:center;animation:wf2-node 10s ease infinite;--nd:78%}
+.wf2-check{transform-box:fill-box;transform-origin:center;animation:wf2-check 10s ease infinite}
+/* ── Card 2: Prototyping Screen ── */
+.proto-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.proto-screen{width:170px;background:#0d1117;border:1px solid #30363d;border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.proto-bar{display:flex;align-items:center;gap:4px;padding:5px 8px;background:#161b22;border-bottom:1px solid #30363d}
+.proto-dot-r,.proto-dot-y,.proto-dot-g{width:6px;height:6px;border-radius:50%}
+.proto-dot-r{background:#f87171}.proto-dot-y{background:#fbbf24}.proto-dot-g{background:#4ade80}
+.proto-url-txt{font-size:.48rem;color:#6e7681;margin-left:5px;font-family:monospace}
+.proto-body{padding:7px;display:flex;flex-direction:column;gap:4px}
+.proto-el{border-radius:3px;transform-origin:left center}
+.proto-el-nav{height:9px;background:#21262d;width:100%;opacity:0;animation:proto-nav 8s ease infinite}
+.proto-el-inp{height:7px;background:#21262d;width:80%;opacity:0;animation:proto-inp 8s ease infinite}
+.proto-el-btn{height:7px;background:#db2777;width:42%;opacity:0;animation:proto-btn 8s ease infinite}
+.proto-el-card{height:20px;background:#21262d;width:100%;opacity:0;animation:proto-card 8s ease infinite}
+.proto-footer{padding:4px 7px}
+.proto-run{opacity:0;padding:4px 8px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);border-radius:4px;font-size:.5rem;font-weight:800;color:#4ade80;text-align:center;animation:proto-run 8s ease infinite}
+@keyframes proto-nav{0%,3%{opacity:0;transform:scaleX(0)}15%,80%{opacity:1;transform:scaleX(1)}92%,100%{opacity:0}}
+@keyframes proto-inp{0%,15%{opacity:0;transform:scaleX(0)}27%,80%{opacity:1;transform:scaleX(1)}92%,100%{opacity:0}}
+@keyframes proto-btn{0%,27%{opacity:0;transform:scaleX(0)}39%,80%{opacity:1;transform:scaleX(1)}92%,100%{opacity:0}}
+@keyframes proto-card{0%,39%{opacity:0;transform:scaleY(0)}51%,80%{opacity:1;transform:scaleY(1)}92%,100%{opacity:0}}
+@keyframes proto-run{0%,62%{opacity:0}72%,85%{opacity:1;box-shadow:0 0 8px rgba(74,222,128,.3)}92%,100%{opacity:0}}
+/* ── Card 3: Data-to-Decision (SVG rewrite) ── */
+.dtd3-svg{width:100%;height:100%}
+@keyframes dtd3-s1{0%,4%{opacity:0;transform:translateX(-6px)}16%,84%{opacity:1;transform:translateX(0)}93%,100%{opacity:0}}
+@keyframes dtd3-arr{0%,var(--ds){opacity:0;transform:scaleX(0)}calc(var(--ds) + 8%),84%{opacity:1;transform:scaleX(1)}93%,100%{opacity:0}}
+@keyframes dtd3-s2{0%,20%{opacity:0}32%,84%{opacity:1}93%,100%{opacity:0}}
+@keyframes dtd3-bar{0%,24%{transform:scaleY(0)}42%,84%{transform:scaleY(1)}93%,100%{transform:scaleY(0)}}
+@keyframes dtd3-trend{0%,35%{opacity:0;stroke-dashoffset:80}50%,84%{opacity:1;stroke-dashoffset:0}93%,100%{opacity:0}}
+@keyframes dtd3-s3{0%,48%{opacity:0;transform:scale(.85)}62%,84%{opacity:1;transform:scale(1)}93%,100%{opacity:0}}
+@keyframes dtd3-person{0%,var(--dp){opacity:0;transform:scale(.5)}calc(var(--dp) + 10%),84%{opacity:1;transform:scale(1)}93%,100%{opacity:0}}
+@keyframes dtd3-bubble{0%,72%{opacity:0;transform:translateY(4px)}80%,84%{opacity:1;transform:translateY(0)}93%,100%{opacity:0}}
+.dtd3-s1{animation:dtd3-s1 9s ease infinite}
+.dtd3-arr1{animation:dtd3-arr 9s ease infinite;--ds:15%;transform-origin:left center}
+.dtd3-arr2{animation:dtd3-arr 9s ease infinite;--ds:44%;transform-origin:left center}
+.dtd3-s2{animation:dtd3-s2 9s ease infinite}
+.dtd3-bar{transform-box:fill-box;transform-origin:bottom center;animation:dtd3-bar 9s ease infinite}
+.dtd3-b2{animation-delay:.15s}.dtd3-b3{animation-delay:.3s}.dtd3-b4{animation-delay:.45s}
+.dtd3-trend{stroke-dasharray:80;animation:dtd3-trend 9s ease infinite}
+.dtd3-s3{animation:dtd3-s3 9s ease infinite}
+.dtd3-p1{transform-box:fill-box;transform-origin:center;animation:dtd3-person 9s ease infinite;--dp:52%}
+.dtd3-p2{transform-box:fill-box;transform-origin:center;animation:dtd3-person 9s ease infinite;--dp:56%}
+.dtd3-p3{transform-box:fill-box;transform-origin:center;animation:dtd3-person 9s ease infinite;--dp:60%}
+.dtd3-p4{transform-box:fill-box;transform-origin:center;animation:dtd3-person 9s ease infinite;--dp:64%}
+.dtd3-bubble{animation:dtd3-bubble 9s ease infinite}
+/* ── Card 4: Gears ── */
+.robo-svg{width:100%;height:100%}
+.gear-cw{transform-box:fill-box;transform-origin:center;animation:gear-cw 5s linear infinite}
+.gear-ccw{transform-box:fill-box;transform-origin:center;animation:gear-ccw 3.75s linear infinite}
+.gear-cw2{transform-box:fill-box;transform-origin:center;animation:gear-cw 2.5s linear infinite}
+@keyframes gear-cw{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes gear-ccw{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes robo-arm-swing{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+.robo-arm-seg{transform-box:fill-box;transform-origin:40px 75px;animation:robo-arm-swing 3.5s ease-in-out infinite}
 .skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .sk{padding:16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
 .sk-cat{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
@@ -324,7 +408,6 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
   #hero{padding-bottom:60px}
   #hero .wrap{grid-template-columns:1fr;gap:48px}
   .hero-right{display:none}
-  .about-grid{grid-template-columns:1fr;gap:48px}
   .proj-grid{grid-template-columns:1fr}
   .g2{grid-template-columns:1fr}
   .metrics{grid-template-columns:1fr 1fr}
@@ -423,6 +506,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
 @media(max-width:640px){
   .wrap{padding:0 18px}
   .nav-links{display:none}
+  .cap-card-grid{grid-template-columns:1fr}
   .metrics{grid-template-columns:1fr}
   .skill-grid{grid-template-columns:1fr}
   .ss-grid.wide{grid-template-columns:1fr}
@@ -804,28 +888,392 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
 
 <!-- ABOUT -->
 <section id="about" class="sec"><div class="wrap">
-  <div class="about-grid">
-    <div class="rv">
-      <div class="label">About</div>
-      <h2 style="margin:16px 0 20px">I connect business problems<br>to working systems.</h2>
-      <p>I specialize in translating ambiguous operational problems into deployed solutions — bridging non-technical stakeholders and engineering execution across the full delivery cycle.</p>
-      <p style="margin-top:12px">My work spans requirements gathering, system architecture, data pipelines, custom UIs, and post-launch operations. I own the full loop: understand → design → build → operate → improve.</p>
-      <div class="cap-list">
-        <div class="cap-item"><div class="cap-dot"></div><span>Structuring ambiguous business requirements into technical specs</span></div>
-        <div class="cap-item"><div class="cap-dot"></div><span>Designing human-in-the-loop workflows for non-technical operators</span></div>
-        <div class="cap-item"><div class="cap-dot"></div><span>Connecting data pipelines to real operational workflows</span></div>
-        <div class="cap-item"><div class="cap-dot"></div><span>Iterating based on user feedback through live operations</span></div>
+  <div class="rv">
+    <div class="label">About</div>
+    <h2 style="margin:16px 0 12px">I connect business problems<br>to working systems.</h2>
+    <p style="max-width:580px;color:var(--t2);font-size:.88rem;line-height:1.7">Translating ambiguous operational problems into deployed solutions — bridging stakeholders and engineering execution across the full delivery cycle.</p>
+  </div>
+
+  <div class="cap-card-grid">
+
+    <!-- 01 Workflow Architecture -->
+    <div class="cap-card rv">
+      <div class="cap-card-num">01</div>
+      <div class="cap-card-name">Workflow Architecture</div>
+      <div class="cap-card-def">Turn ambiguous business problems into clear data flows and operating structures.</div>
+      <div class="cap-vis">
+        <svg class="wf-svg" viewBox="0 0 260 138" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="wfgrid" width="18" height="18" patternUnits="userSpaceOnUse">
+              <circle cx="9" cy="9" r=".7" fill="rgba(255,255,255,.04)"/>
+            </pattern>
+            <marker id="wf-arr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+              <polygon points="0 0,5 2.5,0 5" fill="rgba(96,165,250,.65)"/>
+            </marker>
+            <marker id="wf-arr-g" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+              <polygon points="0 0,5 2.5,0 5" fill="rgba(74,222,128,.75)"/>
+            </marker>
+          </defs>
+          <rect width="260" height="138" fill="url(#wfgrid)"/>
+
+          <!-- ══════════════ LEFT: ERROR STATE ══════════════ -->
+          <g class="wf2-left">
+            <!-- Normal (non-error) connections -->
+            <line x1="24" y1="20" x2="51" y2="16" stroke="rgba(96,165,250,.25)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="66" y1="16" x2="90" y2="22" stroke="rgba(96,165,250,.25)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="18" y1="50" x2="36" y2="65" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="95" y1="48" x2="75" y2="62" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="18" y1="90" x2="36" y2="75" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="95" y1="88" x2="75" y2="76" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="50" y1="100" x2="60" y2="82" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="109" y1="65" x2="82" y2="68" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <!-- Error connections (red lines from/to diamond) -->
+            <line x1="24" y1="26" x2="51" y2="58" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
+            <line x1="66" y1="22" x2="55" y2="57" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
+            <line x1="90" y1="28" x2="68" y2="58" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
+            <line x1="18" y1="54" x2="48" y2="64" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
+            <line x1="95" y1="52" x2="72" y2="63" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
+            <line x1="55" y1="80" x2="42" y2="90" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
+            <line x1="65" y1="80" x2="80" y2="88" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
+            <!-- Normal nodes (blue) -->
+            <rect x="12" y="14" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="51" y="10" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="83" y="16" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="7" y="44" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="90" y="42" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="7" y="84" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="45" y="96" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="84" y="82" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <rect x="104" y="59" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
+            <!-- ERROR DIAMOND center -->
+            <polygon points="60,56 75,68 60,80 45,68" class="wf2-dia"/>
+            <text x="60" y="72" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="900">!</text>
+            <!-- Pulse ring -->
+            <circle cx="60" cy="68" r="11" fill="none" stroke="#ef4444" stroke-width="1.2" class="wf2-ring"/>
+          </g>
+
+          <!-- ══════════════ CENTER ARROW (moved right) ══════════════ -->
+          <g class="wf2-arrow">
+            <circle cx="143" cy="69" r="12" fill="rgba(139,92,246,.18)" stroke="rgba(139,92,246,.5)" stroke-width="1.5"/>
+            <text x="143" y="73.5" text-anchor="middle" font-size="12" fill="#a78bfa" font-weight="900">→</text>
+          </g>
+
+          <!-- ══════════════ RIGHT: CONNECTED FLOW ══════════════ -->
+          <g class="wf2-right">
+            <!-- Connector lines (behind nodes) -->
+            <!-- 1→2 -->
+            <line x1="206" y1="27" x2="206" y2="37" stroke="rgba(96,165,250,.55)" stroke-width="1.3" marker-end="url(#wf-arr)"/>
+            <!-- 2 splits → L and R -->
+            <line x1="200" y1="50" x2="184" y2="61" stroke="rgba(96,165,250,.45)" stroke-width="1.1"/>
+            <line x1="212" y1="50" x2="228" y2="61" stroke="rgba(96,165,250,.45)" stroke-width="1.1"/>
+            <!-- L and R merge → 3 -->
+            <line x1="184" y1="73" x2="198" y2="84" stroke="rgba(96,165,250,.4)" stroke-width="1.1"/>
+            <line x1="228" y1="73" x2="214" y2="84" stroke="rgba(96,165,250,.4)" stroke-width="1.1"/>
+            <!-- 3→check -->
+            <line x1="206" y1="97" x2="206" y2="107" stroke="rgba(74,222,128,.6)" stroke-width="1.3" marker-end="url(#wf-arr-g)"/>
+
+            <!-- Node 1 (Entry) -->
+            <g class="wf2-n1">
+              <rect x="182" y="14" width="48" height="13" rx="3" fill="rgba(96,165,250,.16)" stroke="rgba(96,165,250,.6)" stroke-width="1.3"/>
+              <rect x="188" y="19" width="20" height="2.5" rx="1" fill="rgba(255,255,255,.28)"/>
+              <rect x="188" y="23" width="13" height="2.5" rx="1" fill="rgba(255,255,255,.14)"/>
+            </g>
+            <!-- Node 2 (Process) -->
+            <g class="wf2-n2">
+              <rect x="182" y="37" width="48" height="13" rx="3" fill="rgba(96,165,250,.13)" stroke="rgba(96,165,250,.48)" stroke-width="1.2"/>
+              <rect x="188" y="42" width="22" height="2.5" rx="1" fill="rgba(255,255,255,.24)"/>
+              <rect x="188" y="46" width="15" height="2.5" rx="1" fill="rgba(255,255,255,.12)"/>
+            </g>
+            <!-- Sub-node Left -->
+            <g class="wf2-n3">
+              <rect x="172" y="61" width="24" height="12" rx="3" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.38)" stroke-width="1"/>
+              <rect x="177" y="66" width="13" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
+            </g>
+            <!-- Sub-node Right -->
+            <g class="wf2-n4">
+              <rect x="216" y="61" width="24" height="12" rx="3" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.38)" stroke-width="1"/>
+              <rect x="221" y="66" width="13" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
+            </g>
+            <!-- Node 3 (Output) -->
+            <g class="wf2-n5">
+              <rect x="190" y="84" width="32" height="13" rx="3" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.5)" stroke-width="1.2"/>
+              <rect x="196" y="89" width="17" height="2.5" rx="1" fill="rgba(255,255,255,.24)"/>
+              <rect x="196" y="93" width="10" height="2.5" rx="1" fill="rgba(255,255,255,.12)"/>
+            </g>
+            <!-- Green check (success) -->
+            <g class="wf2-check">
+              <circle cx="206" cy="116" r="9" fill="rgba(74,222,128,.15)" stroke="#4ade80" stroke-width="1.5"/>
+              <text x="206" y="120" text-anchor="middle" font-size="10" fill="#4ade80">✓</text>
+            </g>
+          </g>
+        </svg>
       </div>
     </div>
-    <div class="rv" data-d="2">
-      <div class="label" style="margin-bottom:16px">Technical Skills</div>
-      <div class="skill-grid">
-        <div class="sk"><div class="sk-cat">Frontend</div><div class="sk-tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span></div></div>
-        <div class="sk"><div class="sk-cat">Backend &amp; Data</div><div class="sk-tags"><span class="tag">Supabase</span><span class="tag">PostgreSQL</span><span class="tag">Python</span><span class="tag">SQL</span></div></div>
-        <div class="sk"><div class="sk-cat">Deployment</div><div class="sk-tags"><span class="tag">Vercel</span><span class="tag">GitHub Pages</span><span class="tag">REST API</span></div></div>
-        <div class="sk"><div class="sk-cat">Automation</div><div class="sk-tags"><span class="tag">Browserbase</span><span class="tag">PDF Parsing</span><span class="tag">Template Engine</span></div></div>
+
+    <!-- 02 Rapid Prototyping -->
+    <div class="cap-card rv" data-d="1">
+      <div class="cap-card-num">02</div>
+      <div class="cap-card-name">Rapid Prototyping &amp; Automation</div>
+      <div class="cap-card-def">Build practical automation MVPs that teams can use immediately.</div>
+      <div class="cap-vis">
+        <div class="proto-wrap">
+          <div class="proto-screen">
+            <div class="proto-bar">
+              <span class="proto-dot-r"></span>
+              <span class="proto-dot-y"></span>
+              <span class="proto-dot-g"></span>
+              <span class="proto-url-txt">localhost:3000</span>
+            </div>
+            <div class="proto-body">
+              <div class="proto-el proto-el-nav"></div>
+              <div class="proto-el proto-el-inp"></div>
+              <div class="proto-el proto-el-btn"></div>
+              <div class="proto-el proto-el-card"></div>
+            </div>
+            <div class="proto-footer">
+              <div class="proto-run">▶ Deploy</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- 03 Data-to-Decision -->
+    <div class="cap-card rv" data-d="2">
+      <div class="cap-card-num">03</div>
+      <div class="cap-card-name">Data-to-Decision Delivery</div>
+      <div class="cap-card-def">Transform scattered data into analysis, reporting, and decision-ready insights.</div>
+      <div class="cap-vis">
+        <svg class="dtd3-svg" viewBox="0 0 260 138" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="dtdgrid" width="16" height="16" patternUnits="userSpaceOnUse">
+              <circle cx="8" cy="8" r=".6" fill="rgba(255,255,255,.04)"/>
+            </pattern>
+          </defs>
+          <rect width="260" height="138" fill="url(#dtdgrid)"/>
+
+          <!-- Section labels -->
+          <text x="42" y="18" text-anchor="middle" font-size="5" fill="rgba(96,165,250,.4)" letter-spacing="1.5" font-weight="700">DATASET</text>
+          <text x="134" y="18" text-anchor="middle" font-size="5" fill="rgba(96,165,250,.4)" letter-spacing="1.5" font-weight="700">ANALYSIS</text>
+          <text x="220" y="18" text-anchor="middle" font-size="5" fill="rgba(74,222,128,.4)" letter-spacing="1.5" font-weight="700">DECISION</text>
+
+          <!-- ── Section 1: Data Table ── -->
+          <g class="dtd3-s1">
+            <rect x="6" y="22" width="72" height="108" rx="5" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+            <!-- Header -->
+            <rect x="6" y="22" width="72" height="15" rx="5" fill="rgba(96,165,250,.12)"/>
+            <rect x="6" y="30" width="72" height="7" fill="rgba(96,165,250,.12)"/>
+            <text x="22" y="32" text-anchor="middle" font-size="5.5" fill="#60a5fa" font-weight="800">ID</text>
+            <text x="50" y="32" text-anchor="middle" font-size="5.5" fill="#60a5fa" font-weight="800">VALUE</text>
+            <text x="72" y="32" text-anchor="middle" font-size="5.5" fill="#60a5fa" font-weight="800">Δ</text>
+            <!-- Column dividers -->
+            <line x1="34" y1="37" x2="34" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="62" y1="37" x2="62" y2="130" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <!-- Row dividers -->
+            <line x1="6" y1="52" x2="78" y2="52" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="6" y1="67" x2="78" y2="67" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="6" y1="82" x2="78" y2="82" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="6" y1="97" x2="78" y2="97" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="6" y1="112" x2="78" y2="112" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <!-- Row data -->
+            <text x="20" y="48" text-anchor="middle" font-size="5.5" fill="#64748b">01</text><text x="48" y="48" text-anchor="middle" font-size="5.5" fill="#e2e8f0">84</text><text x="70" y="48" text-anchor="middle" font-size="5.5" fill="#4ade80">↑</text>
+            <text x="20" y="63" text-anchor="middle" font-size="5.5" fill="#64748b">02</text><text x="48" y="63" text-anchor="middle" font-size="5.5" fill="#e2e8f0">61</text><text x="70" y="63" text-anchor="middle" font-size="5.5" fill="#f87171">↓</text>
+            <text x="20" y="78" text-anchor="middle" font-size="5.5" fill="#64748b">03</text><text x="48" y="78" text-anchor="middle" font-size="5.5" fill="#e2e8f0">95</text><text x="70" y="78" text-anchor="middle" font-size="5.5" fill="#4ade80">↑</text>
+            <text x="20" y="93" text-anchor="middle" font-size="5.5" fill="#64748b">04</text><text x="48" y="93" text-anchor="middle" font-size="5.5" fill="#e2e8f0">43</text><text x="70" y="93" text-anchor="middle" font-size="5.5" fill="#fbbf24">→</text>
+            <text x="20" y="108" text-anchor="middle" font-size="5.5" fill="#64748b">05</text><text x="48" y="108" text-anchor="middle" font-size="5.5" fill="#e2e8f0">77</text><text x="70" y="108" text-anchor="middle" font-size="5.5" fill="#4ade80">↑</text>
+            <text x="20" y="123" text-anchor="middle" font-size="5.5" fill="#64748b">06</text><text x="48" y="123" text-anchor="middle" font-size="5.5" fill="#e2e8f0">38</text><text x="70" y="123" text-anchor="middle" font-size="5.5" fill="#f87171">↓</text>
+          </g>
+
+          <!-- ── Arrow 1 ── -->
+          <g class="dtd3-arr1">
+            <line x1="79" y1="69" x2="90" y2="69" stroke="rgba(96,165,250,.5)" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <polygon points="91,65 98,69 91,73" fill="rgba(96,165,250,.5)"/>
+          </g>
+
+          <!-- ── Section 2: Bar Chart ── -->
+          <g class="dtd3-s2">
+            <rect x="99" y="22" width="72" height="108" rx="5" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="109" y1="116" x2="163" y2="116" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <line x1="109" y1="30" x2="109" y2="116" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <!-- Y gridlines -->
+            <line x1="109" y1="96" x2="163" y2="96" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+            <line x1="109" y1="76" x2="163" y2="76" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+            <line x1="109" y1="56" x2="163" y2="56" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+            <!-- Bars (scaleY from bottom) -->
+            <rect x="113" y="76" width="10" height="40" rx="2" fill="url(#bgrad1)" class="dtd3-bar dtd3-b1"/>
+            <rect x="127" y="61" width="10" height="55" rx="2" fill="url(#bgrad1)" class="dtd3-bar dtd3-b2"/>
+            <rect x="141" y="86" width="10" height="30" rx="2" fill="url(#bgrad1)" class="dtd3-bar dtd3-b3"/>
+            <rect x="155" y="49" width="10" height="67" rx="2" fill="url(#bgrad1)" class="dtd3-bar dtd3-b4"/>
+            <defs>
+              <linearGradient id="bgrad1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#93c5fd"/>
+                <stop offset="100%" stop-color="#1d4ed8"/>
+              </linearGradient>
+            </defs>
+            <!-- Bar labels -->
+            <text x="118" y="124" text-anchor="middle" font-size="4.5" fill="#64748b">Q1</text>
+            <text x="132" y="124" text-anchor="middle" font-size="4.5" fill="#64748b">Q2</text>
+            <text x="146" y="124" text-anchor="middle" font-size="4.5" fill="#64748b">Q3</text>
+            <text x="160" y="124" text-anchor="middle" font-size="4.5" fill="#64748b">Q4</text>
+            <!-- Trend line -->
+            <polyline points="118,76 132,61 146,86 160,49" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="80" class="dtd3-trend"/>
+            <circle cx="118" cy="76" r="2.5" fill="#fbbf24" class="dtd3-s2"/>
+            <circle cx="132" cy="61" r="2.5" fill="#fbbf24" class="dtd3-s2"/>
+            <circle cx="146" cy="86" r="2.5" fill="#fbbf24" class="dtd3-s2"/>
+            <circle cx="160" cy="49" r="2.5" fill="#fbbf24" class="dtd3-s2"/>
+          </g>
+
+          <!-- ── Arrow 2 ── -->
+          <g class="dtd3-arr2">
+            <line x1="172" y1="69" x2="183" y2="69" stroke="rgba(74,222,128,.5)" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <polygon points="184,65 191,69 184,73" fill="rgba(74,222,128,.5)"/>
+          </g>
+
+          <!-- ── Section 3: Corporate Meeting ── -->
+          <g class="dtd3-s3">
+            <rect x="192" y="22" width="62" height="108" rx="5" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+            <!-- Presentation screen top -->
+            <rect x="204" y="28" width="30" height="18" rx="2" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.25)" stroke-width="1"/>
+            <line x1="208" y1="33" x2="230" y2="33" stroke="#60a5fa" stroke-width="1"/>
+            <line x1="208" y1="37" x2="226" y2="37" stroke="rgba(96,165,250,.4)" stroke-width="1"/>
+            <line x1="208" y1="41" x2="222" y2="41" stroke="rgba(96,165,250,.25)" stroke-width="1"/>
+            <line x1="219" y1="46" x2="219" y2="52" stroke="rgba(96,165,250,.3)" stroke-width="1.5"/>
+            <!-- Conference table -->
+            <ellipse cx="223" cy="85" rx="20" ry="13" fill="rgba(96,165,250,.07)" stroke="rgba(96,165,250,.2)" stroke-width="1.5"/>
+            <!-- People around table -->
+            <!-- Person top -->
+            <g class="dtd3-p1">
+              <circle cx="223" cy="65" r="4.5" fill="rgba(96,165,250,.2)" stroke="rgba(96,165,250,.4)" stroke-width="1"/>
+              <path d="M218,69 Q223,73 228,69" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.3)" stroke-width="1"/>
+            </g>
+            <!-- Person bottom -->
+            <g class="dtd3-p2">
+              <circle cx="223" cy="106" r="4.5" fill="rgba(232,64,64,.2)" stroke="rgba(232,64,64,.4)" stroke-width="1"/>
+              <path d="M218,106 Q223,102 228,106" fill="rgba(232,64,64,.1)" stroke="rgba(232,64,64,.3)" stroke-width="1"/>
+            </g>
+            <!-- Person left -->
+            <g class="dtd3-p3">
+              <circle cx="197" cy="85" r="4.5" fill="rgba(74,222,128,.2)" stroke="rgba(74,222,128,.4)" stroke-width="1"/>
+              <path d="M197,80 Q201,85 197,90" fill="rgba(74,222,128,.1)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+            </g>
+            <!-- Person right -->
+            <g class="dtd3-p4">
+              <circle cx="249" cy="85" r="4.5" fill="rgba(251,191,36,.2)" stroke="rgba(251,191,36,.4)" stroke-width="1"/>
+              <path d="M249,80 Q245,85 249,90" fill="rgba(251,191,36,.1)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+            </g>
+            <!-- Decision bubble -->
+            <g class="dtd3-bubble">
+              <rect x="228" y="68" width="24" height="12" rx="3" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.4)" stroke-width="1"/>
+              <polygon points="232,80 228,84 236,80" fill="rgba(74,222,128,.15)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+              <text x="240" y="76" text-anchor="middle" font-size="6" fill="#4ade80" font-weight="900">+22%</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 04 Mechanical Robotics -->
+    <div class="cap-card rv" data-d="3">
+      <div class="cap-card-num">04</div>
+      <div class="cap-card-name">Mechanical Robotics Mindset</div>
+      <div class="cap-card-def">Understand systems through movement, constraints, and engineering logic.</div>
+      <div class="cap-vis">
+        <svg class="robo-svg" viewBox="0 0 260 138" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="engrid" width="16" height="16" patternUnits="userSpaceOnUse">
+              <circle cx="8" cy="8" r=".6" fill="rgba(255,255,255,.04)"/>
+            </pattern>
+          </defs>
+          <rect width="260" height="138" fill="url(#engrid)"/>
+
+          <!-- ── Engineering circuit traces (background) ── -->
+          <line x1="130" y1="10" x2="130" y2="128" stroke="rgba(96,165,250,.06)" stroke-width="1"/>
+          <line x1="10" y1="69" x2="250" y2="69" stroke="rgba(96,165,250,.06)" stroke-width="1"/>
+
+          <!-- ── Large gear: center (172, 72), r_body=24 ── -->
+          <!-- teeth r_full ≈ 32, so top=72-32=40, bottom=72+32=104 → OK -->
+          <g transform="translate(172,72)">
+            <circle r="24" fill="rgba(96,165,250,.08)" stroke="rgba(96,165,250,.3)" stroke-width="1.5"/>
+            <circle r="7" fill="rgba(96,165,250,.2)" stroke="rgba(96,165,250,.45)" stroke-width="1.5"/>
+            <line x1="0" y1="-16" x2="0" y2="16" stroke="rgba(96,165,250,.2)" stroke-width="1"/>
+            <line x1="-16" y1="0" x2="16" y2="0" stroke="rgba(96,165,250,.2)" stroke-width="1"/>
+            <line x1="-11" y1="-11" x2="11" y2="11" stroke="rgba(96,165,250,.14)" stroke-width="1"/>
+            <line x1="11" y1="-11" x2="-11" y2="11" stroke="rgba(96,165,250,.14)" stroke-width="1"/>
+            <!-- 8 teeth -->
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(45)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(90)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(135)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(180)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(225)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(270)"/>
+            <rect x="-4" y="-31" width="8" height="9" rx="2" fill="rgba(96,165,250,.22)" stroke="rgba(96,165,250,.3)" stroke-width="1" transform="rotate(315)"/>
+            <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="6s" repeatCount="indefinite" additive="sum"/>
+          </g>
+
+          <!-- ── Small gear: center (133,72), r_body=17, meshed with large (24+17=41 apart) ── -->
+          <!-- top=72-24=48, bottom=72+24=96, left=133-24=109 → OK -->
+          <g transform="translate(133,72)">
+            <circle r="17" fill="rgba(232,64,64,.08)" stroke="rgba(232,64,64,.3)" stroke-width="1.5"/>
+            <circle r="5" fill="rgba(232,64,64,.2)" stroke="rgba(232,64,64,.45)" stroke-width="1.5"/>
+            <line x1="0" y1="-11" x2="0" y2="11" stroke="rgba(232,64,64,.2)" stroke-width="1"/>
+            <line x1="-11" y1="0" x2="11" y2="0" stroke="rgba(232,64,64,.2)" stroke-width="1"/>
+            <!-- 6 teeth -->
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1"/>
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1" transform="rotate(60)"/>
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1" transform="rotate(120)"/>
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1" transform="rotate(180)"/>
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1" transform="rotate(240)"/>
+            <rect x="-3.5" y="-23" width="7" height="8" rx="1.5" fill="rgba(232,64,64,.22)" stroke="rgba(232,64,64,.3)" stroke-width="1" transform="rotate(300)"/>
+            <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="-360 0 0" dur="4.25s" repeatCount="indefinite" additive="sum"/>
+          </g>
+
+          <!-- ── Tiny gear: center (164,42), r_body=11, meshed with large above ── -->
+          <!-- 172-8=164 x, 72-24-11+1=38 → let's use (172,38) distance=24+11=35 from large center ── -->
+          <g transform="translate(172,38)">
+            <circle r="11" fill="rgba(74,222,128,.08)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+            <circle r="3.5" fill="rgba(74,222,128,.2)" stroke="rgba(74,222,128,.45)" stroke-width="1"/>
+            <line x1="0" y1="-7" x2="0" y2="7" stroke="rgba(74,222,128,.2)" stroke-width="1"/>
+            <line x1="-7" y1="0" x2="7" y2="0" stroke="rgba(74,222,128,.2)" stroke-width="1"/>
+            <!-- 4 teeth -->
+            <rect x="-3" y="-15" width="6" height="6" rx="1.5" fill="rgba(74,222,128,.22)" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+            <rect x="-3" y="-15" width="6" height="6" rx="1.5" fill="rgba(74,222,128,.22)" stroke="rgba(74,222,128,.3)" stroke-width="1" transform="rotate(90)"/>
+            <rect x="-3" y="-15" width="6" height="6" rx="1.5" fill="rgba(74,222,128,.22)" stroke="rgba(74,222,128,.3)" stroke-width="1" transform="rotate(180)"/>
+            <rect x="-3" y="-15" width="6" height="6" rx="1.5" fill="rgba(74,222,128,.22)" stroke="rgba(74,222,128,.3)" stroke-width="1" transform="rotate(270)"/>
+            <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="2.8s" repeatCount="indefinite" additive="sum"/>
+          </g>
+
+          <!-- ── Robot arm (left side, stays within bounds) ── -->
+          <!-- Base platform -->
+          <rect x="18" y="120" width="28" height="8" rx="3" fill="rgba(148,163,184,.18)" stroke="rgba(148,163,184,.3)" stroke-width="1"/>
+          <!-- Base joint -->
+          <circle cx="32" cy="120" r="4.5" fill="rgba(148,163,184,.22)" stroke="rgba(148,163,184,.4)" stroke-width="1.5"/>
+          <!-- Arm segment 1: fixed -->
+          <line x1="32" y1="120" x2="50" y2="92" stroke="rgba(148,163,184,.35)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Joint 1 -->
+          <circle cx="50" cy="92" r="4" fill="rgba(148,163,184,.25)" stroke="rgba(148,163,184,.45)" stroke-width="1.5"/>
+          <!-- Arm segment 2 + forearm + gripper: animated swing around joint 1 (50,92) -->
+          <g transform="translate(50,92)">
+            <line x1="0" y1="0" x2="22" y2="-26" stroke="rgba(148,163,184,.35)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="22" cy="-26" r="3" fill="rgba(148,163,184,.25)" stroke="rgba(148,163,184,.45)" stroke-width="1.5"/>
+            <!-- Gripper -->
+            <line x1="22" y1="-26" x2="16" y2="-36" stroke="rgba(148,163,184,.3)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="-26" x2="28" y2="-36" stroke="rgba(148,163,184,.3)" stroke-width="2" stroke-linecap="round"/>
+            <animateTransform attributeName="transform" type="rotate" values="-14 0 0; 14 0 0; -14 0 0" dur="3.5s" repeatCount="indefinite" additive="sum"/>
+          </g>
+
+          <!-- ── Dimension lines (engineering feel) ── -->
+          <line x1="110" y1="120" x2="235" y2="120" stroke="rgba(96,165,250,.12)" stroke-width="1" stroke-dasharray="2 3"/>
+          <line x1="110" y1="120" x2="110" y2="115" stroke="rgba(96,165,250,.15)" stroke-width="1"/>
+          <line x1="235" y1="120" x2="235" y2="115" stroke="rgba(96,165,250,.15)" stroke-width="1"/>
+
+          <!-- Label -->
+          <text x="172" y="131" text-anchor="middle" font-size="5" fill="rgba(148,163,184,.3)" letter-spacing="2" font-weight="700">CONSTRAINTS · LOGIC · MOVEMENT</text>
+        </svg>
+      </div>
+    </div>
+
   </div>
 </div></section>
 
