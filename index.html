@@ -115,38 +115,34 @@ p{color:var(--t2);line-height:1.75}
 .cap-card-name{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.3}
 .cap-card-def{font-size:.72rem;color:var(--t2);line-height:1.65;margin-bottom:18px}
 .cap-vis{width:100%;height:138px;position:relative;overflow:hidden;border-radius:8px;background:var(--s1);border:1px solid rgba(255,255,255,.04)}
-/* ── Card 1: Workflow Error → Clean ── */
+/* ── Card 1: Workflow Chaos → Clean (single-stage transformation) ── */
 .wf-svg{width:100%;height:100%}
-/* Left error panel: visible 10%~55%, fades out */
-@keyframes wf2-left{0%,8%{opacity:0}18%,52%{opacity:1}62%,100%{opacity:0}}
-/* Error diamond blink */
-@keyframes wf2-dia{0%,18%{fill:rgba(239,68,68,.15);stroke:rgba(239,68,68,.4)}25%{fill:rgba(239,68,68,.8);stroke:#ef4444}30%{fill:rgba(239,68,68,.2);stroke:rgba(239,68,68,.5)}35%{fill:rgba(239,68,68,.8);stroke:#ef4444}40%{fill:rgba(239,68,68,.2);stroke:rgba(239,68,68,.5)}45%{fill:rgba(239,68,68,.8);stroke:#ef4444}52%,100%{fill:rgba(239,68,68,.15);stroke:rgba(239,68,68,.3);opacity:0}}
-/* Error lines pulse red */
-@keyframes wf2-eline{0%,18%{stroke:rgba(239,68,68,.3);stroke-width:1}25%,45%{stroke:#ef4444;stroke-width:1.5}52%,100%{opacity:0}}
-/* Pulse ring expand+fade */
-@keyframes wf2-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.36);opacity:0}}
-/* Center arrow between panels */
-@keyframes wf2-arrow{0%,48%{opacity:0;transform:scale(.4)}56%,66%{opacity:1;transform:scale(1)}74%,100%{opacity:0}}
-/* Right clean panel slides in */
-@keyframes wf2-right{0%,58%{opacity:0;transform:translateX(10px)}70%,90%{opacity:1;transform:translateX(0)}97%,100%{opacity:0}}
-/* Each right node builds in with stagger */
-@keyframes wf2-node{0%,var(--nd){opacity:0;transform:scale(.3)}calc(var(--nd)+9%),90%{opacity:1;transform:scale(1)}97%,100%{opacity:0}}
-/* Green check circle */
-@keyframes wf2-check{0%,80%{opacity:0;transform:scale(.2)}88%,90%{opacity:1;transform:scale(1)}97%,100%{opacity:0}}
-.wf2-left{animation:wf2-left 3s ease infinite}
-.wf2-dia{animation:wf2-dia 3s ease infinite}
-.wf2-eline{animation:wf2-eline 3s ease infinite}
-.wf2-ring{transform-box:fill-box;transform-origin:center;animation:wf2-ring 1.6s ease-out infinite}
-.wf2-arrow{animation:wf2-arrow 3s ease infinite;transform-box:fill-box;transform-origin:center}
-.wf2-right{animation:wf2-right 3s ease infinite;transform-box:fill-box;transform-origin:center}
-.wf2-n1{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:60%}
-.wf2-n2{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:63%}
-.wf2-n3{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:66%}
-.wf2-n4{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:69%}
-.wf2-n5{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:72%}
-.wf2-n6{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:75%}
-.wf2-n7{transform-box:fill-box;transform-origin:center;animation:wf2-node 3s ease infinite;--nd:78%}
-.wf2-check{transform-box:fill-box;transform-origin:center;animation:wf2-check 3s ease infinite}
+/* Nodes translate from chaotic position (--tx,--ty) to clean position (0,0) */
+@keyframes wf3-node{0%,5%{opacity:0;transform:translate(var(--tx),var(--ty))}13%,33%{opacity:1;transform:translate(var(--tx),var(--ty))}50%,85%{opacity:1;transform:translate(0,0)}95%,100%{opacity:0;transform:translate(0,0)}}
+/* Node fill/stroke: blue (broken) → green (resolved) */
+@keyframes wf3-recolor{0%,38%{fill:rgba(96,165,250,.14);stroke:rgba(96,165,250,.55)}55%,85%{fill:rgba(74,222,128,.2);stroke:rgba(74,222,128,.75)}95%,100%{fill:rgba(96,165,250,.14);stroke:rgba(96,165,250,.55)}}
+/* Red error group visible only during chaotic phase */
+@keyframes wf3-error{0%,5%{opacity:0}13%,30%{opacity:1}42%,100%{opacity:0}}
+/* Diamond pulse (sub-loop while error group visible) */
+@keyframes wf3-dia{0%,50%{fill:rgba(239,68,68,.22);stroke:rgba(239,68,68,.55)}25%{fill:rgba(239,68,68,.7);stroke:#ef4444}}
+/* Pulse ring expand */
+@keyframes wf3-ring{0%{transform:scale(.85);opacity:.8}100%{transform:scale(2.2);opacity:0}}
+/* Clean tree connections fade in after nodes settle */
+@keyframes wf3-clean{0%,45%{opacity:0}60%,85%{opacity:1}95%,100%{opacity:0}}
+/* Green check appears after clean state established */
+@keyframes wf3-check{0%,68%{opacity:0;transform:scale(.3)}78%,85%{opacity:1;transform:scale(1)}95%,100%{opacity:0;transform:scale(1)}}
+.wf3-n1,.wf3-n2,.wf3-n3,.wf3-n4,.wf3-n5{transform-box:fill-box;transform-origin:center;animation:wf3-node 3s ease infinite}
+.wf3-n1{--tx:-88px;--ty:6px}
+.wf3-n2{--tx:94px;--ty:-12px}
+.wf3-n3{--tx:-68px;--ty:36px}
+.wf3-n4{--tx:68px;--ty:36px}
+.wf3-n5{--tx:0px;--ty:28px}
+.wf3-bg{animation:wf3-recolor 3s ease infinite}
+.wf3-error{animation:wf3-error 3s ease infinite}
+.wf3-dia{animation:wf3-dia 1s ease infinite}
+.wf3-ring{transform-box:fill-box;transform-origin:center;animation:wf3-ring 1.5s ease-out infinite}
+.wf3-clean{animation:wf3-clean 3s ease infinite}
+.wf3-check{transform-box:fill-box;transform-origin:center;animation:wf3-check 3s ease infinite}
 /* ── Card 2: Prototyping Screen ── */
 .proto-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .proto-screen{width:170px;background:#0d1117;border:1px solid #30363d;border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.5)}
@@ -916,95 +912,65 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
           </defs>
           <rect width="260" height="138" fill="url(#wfgrid)"/>
 
-          <!-- ══════════════ LEFT: ERROR STATE ══════════════ -->
-          <g class="wf2-left">
-            <!-- Normal (non-error) connections -->
-            <line x1="24" y1="20" x2="51" y2="16" stroke="rgba(96,165,250,.25)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="66" y1="16" x2="90" y2="22" stroke="rgba(96,165,250,.25)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="18" y1="50" x2="36" y2="65" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="95" y1="48" x2="75" y2="62" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="18" y1="90" x2="36" y2="75" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="95" y1="88" x2="75" y2="76" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="50" y1="100" x2="60" y2="82" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="109" y1="65" x2="82" y2="68" stroke="rgba(96,165,250,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <!-- Error connections (red lines from/to diamond) -->
-            <line x1="24" y1="26" x2="51" y2="58" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
-            <line x1="66" y1="22" x2="55" y2="57" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
-            <line x1="90" y1="28" x2="68" y2="58" stroke="rgba(239,68,68,.5)" stroke-width="1.2" class="wf2-eline"/>
-            <line x1="18" y1="54" x2="48" y2="64" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
-            <line x1="95" y1="52" x2="72" y2="63" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
-            <line x1="55" y1="80" x2="42" y2="90" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
-            <line x1="65" y1="80" x2="80" y2="88" stroke="rgba(239,68,68,.4)" stroke-width="1" class="wf2-eline"/>
-            <!-- Normal nodes (blue) -->
-            <rect x="12" y="14" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="51" y="10" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="83" y="16" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="7" y="44" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="90" y="42" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="7" y="84" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="45" y="96" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="84" y="82" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <rect x="104" y="59" width="16" height="10" rx="2.5" fill="rgba(96,165,250,.12)" stroke="rgba(96,165,250,.35)" stroke-width="1"/>
-            <!-- ERROR DIAMOND center -->
-            <polygon points="60,56 75,68 60,80 45,68" class="wf2-dia"/>
-            <text x="60" y="72" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="900">!</text>
+          <!-- ══════════════ ERROR PHASE (chaotic state — red lines + diamond) ══════════════ -->
+          <g class="wf3-error">
+            <!-- Red error lines emanate from chaotic node positions toward center diamond -->
+            <line x1="42" y1="25" x2="120" y2="64" stroke="rgba(239,68,68,.55)" stroke-width="1.2"/>
+            <line x1="224" y1="31" x2="140" y2="64" stroke="rgba(239,68,68,.55)" stroke-width="1.2"/>
+            <line x1="26" y1="102" x2="120" y2="74" stroke="rgba(239,68,68,.45)" stroke-width="1.1"/>
+            <line x1="234" y1="102" x2="140" y2="74" stroke="rgba(239,68,68,.45)" stroke-width="1.1"/>
+            <line x1="130" y1="119" x2="130" y2="84" stroke="rgba(239,68,68,.55)" stroke-width="1.2"/>
+            <!-- Error diamond at center -->
+            <polygon points="130,55 145,68 130,81 115,68" class="wf3-dia"/>
+            <text x="130" y="72" text-anchor="middle" font-size="11" fill="#ef4444" font-weight="900">!</text>
             <!-- Pulse ring -->
-            <circle cx="60" cy="68" r="11" fill="none" stroke="#ef4444" stroke-width="1.2" class="wf2-ring"/>
+            <circle cx="130" cy="68" r="14" fill="none" stroke="#ef4444" stroke-width="1.2" class="wf3-ring"/>
           </g>
 
-          <!-- ══════════════ CENTER ARROW (moved right) ══════════════ -->
-          <g class="wf2-arrow">
-            <circle cx="143" cy="69" r="12" fill="rgba(139,92,246,.18)" stroke="rgba(139,92,246,.5)" stroke-width="1.5"/>
-            <text x="143" y="73.5" text-anchor="middle" font-size="12" fill="#a78bfa" font-weight="900">→</text>
+          <!-- ══════════════ CLEAN PHASE (resolved tree connection lines, fade in after settle) ══════════════ -->
+          <g class="wf3-clean">
+            <line x1="130" y1="26" x2="130" y2="36" stroke="rgba(74,222,128,.7)" stroke-width="1.3" marker-end="url(#wf-arr-g)"/>
+            <line x1="120" y1="50" x2="100" y2="60" stroke="rgba(74,222,128,.55)" stroke-width="1.2"/>
+            <line x1="140" y1="50" x2="160" y2="60" stroke="rgba(74,222,128,.55)" stroke-width="1.2"/>
+            <line x1="100" y1="72" x2="120" y2="84" stroke="rgba(74,222,128,.5)" stroke-width="1.2"/>
+            <line x1="160" y1="72" x2="140" y2="84" stroke="rgba(74,222,128,.5)" stroke-width="1.2"/>
+            <line x1="130" y1="98" x2="130" y2="103" stroke="rgba(74,222,128,.75)" stroke-width="1.4" marker-end="url(#wf-arr-g)"/>
           </g>
 
-          <!-- ══════════════ RIGHT: CONNECTED FLOW ══════════════ -->
-          <g class="wf2-right">
-            <!-- Connector lines (behind nodes) -->
-            <!-- 1→2 -->
-            <line x1="206" y1="27" x2="206" y2="37" stroke="rgba(96,165,250,.55)" stroke-width="1.3" marker-end="url(#wf-arr)"/>
-            <!-- 2 splits → L and R -->
-            <line x1="200" y1="50" x2="184" y2="61" stroke="rgba(96,165,250,.45)" stroke-width="1.1"/>
-            <line x1="212" y1="50" x2="228" y2="61" stroke="rgba(96,165,250,.45)" stroke-width="1.1"/>
-            <!-- L and R merge → 3 -->
-            <line x1="184" y1="73" x2="198" y2="84" stroke="rgba(96,165,250,.4)" stroke-width="1.1"/>
-            <line x1="228" y1="73" x2="214" y2="84" stroke="rgba(96,165,250,.4)" stroke-width="1.1"/>
-            <!-- 3→check -->
-            <line x1="206" y1="97" x2="206" y2="107" stroke="rgba(74,222,128,.6)" stroke-width="1.3" marker-end="url(#wf-arr-g)"/>
+          <!-- ══════════════ NODES (rendered at clean positions; CSS translates them to chaotic start) ══════════════ -->
+          <!-- Node 1 (Entry) -->
+          <g class="wf3-n1">
+            <rect class="wf3-bg" x="106" y="12" width="48" height="14" rx="3" stroke-width="1.3"/>
+            <rect x="112" y="17" width="22" height="2.5" rx="1" fill="rgba(255,255,255,.32)"/>
+            <rect x="112" y="21" width="14" height="2.5" rx="1" fill="rgba(255,255,255,.16)"/>
+          </g>
+          <!-- Node 2 (Process) -->
+          <g class="wf3-n2">
+            <rect class="wf3-bg" x="106" y="36" width="48" height="14" rx="3" stroke-width="1.2"/>
+            <rect x="112" y="41" width="22" height="2.5" rx="1" fill="rgba(255,255,255,.28)"/>
+            <rect x="112" y="45" width="16" height="2.5" rx="1" fill="rgba(255,255,255,.14)"/>
+          </g>
+          <!-- Node 3 (Sub-left) -->
+          <g class="wf3-n3">
+            <rect class="wf3-bg" x="78" y="60" width="32" height="12" rx="3" stroke-width="1"/>
+            <rect x="84" y="65" width="20" height="2" rx="1" fill="rgba(255,255,255,.22)"/>
+          </g>
+          <!-- Node 4 (Sub-right) -->
+          <g class="wf3-n4">
+            <rect class="wf3-bg" x="150" y="60" width="32" height="12" rx="3" stroke-width="1"/>
+            <rect x="156" y="65" width="20" height="2" rx="1" fill="rgba(255,255,255,.22)"/>
+          </g>
+          <!-- Node 5 (Output) -->
+          <g class="wf3-n5">
+            <rect class="wf3-bg" x="110" y="84" width="40" height="14" rx="3" stroke-width="1.2"/>
+            <rect x="116" y="89" width="20" height="2.5" rx="1" fill="rgba(255,255,255,.26)"/>
+            <rect x="116" y="93" width="14" height="2.5" rx="1" fill="rgba(255,255,255,.13)"/>
+          </g>
 
-            <!-- Node 1 (Entry) -->
-            <g class="wf2-n1">
-              <rect x="182" y="14" width="48" height="13" rx="3" fill="rgba(96,165,250,.16)" stroke="rgba(96,165,250,.6)" stroke-width="1.3"/>
-              <rect x="188" y="19" width="20" height="2.5" rx="1" fill="rgba(255,255,255,.28)"/>
-              <rect x="188" y="23" width="13" height="2.5" rx="1" fill="rgba(255,255,255,.14)"/>
-            </g>
-            <!-- Node 2 (Process) -->
-            <g class="wf2-n2">
-              <rect x="182" y="37" width="48" height="13" rx="3" fill="rgba(96,165,250,.13)" stroke="rgba(96,165,250,.48)" stroke-width="1.2"/>
-              <rect x="188" y="42" width="22" height="2.5" rx="1" fill="rgba(255,255,255,.24)"/>
-              <rect x="188" y="46" width="15" height="2.5" rx="1" fill="rgba(255,255,255,.12)"/>
-            </g>
-            <!-- Sub-node Left -->
-            <g class="wf2-n3">
-              <rect x="172" y="61" width="24" height="12" rx="3" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.38)" stroke-width="1"/>
-              <rect x="177" y="66" width="13" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
-            </g>
-            <!-- Sub-node Right -->
-            <g class="wf2-n4">
-              <rect x="216" y="61" width="24" height="12" rx="3" fill="rgba(96,165,250,.1)" stroke="rgba(96,165,250,.38)" stroke-width="1"/>
-              <rect x="221" y="66" width="13" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
-            </g>
-            <!-- Node 3 (Output) -->
-            <g class="wf2-n5">
-              <rect x="190" y="84" width="32" height="13" rx="3" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.5)" stroke-width="1.2"/>
-              <rect x="196" y="89" width="17" height="2.5" rx="1" fill="rgba(255,255,255,.24)"/>
-              <rect x="196" y="93" width="10" height="2.5" rx="1" fill="rgba(255,255,255,.12)"/>
-            </g>
-            <!-- Green check (success) -->
-            <g class="wf2-check">
-              <circle cx="206" cy="116" r="9" fill="rgba(74,222,128,.15)" stroke="#4ade80" stroke-width="1.5"/>
-              <text x="206" y="120" text-anchor="middle" font-size="10" fill="#4ade80">✓</text>
-            </g>
+          <!-- ══════════════ FINAL CHECK ══════════════ -->
+          <g class="wf3-check">
+            <circle cx="130" cy="112" r="9" fill="rgba(74,222,128,.22)" stroke="#4ade80" stroke-width="1.5"/>
+            <text x="130" y="116" text-anchor="middle" font-size="10" fill="#4ade80">✓</text>
           </g>
         </svg>
       </div>
