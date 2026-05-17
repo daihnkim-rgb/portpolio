@@ -211,7 +211,7 @@ p{color:var(--t2);line-height:1.75}
 .pcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all var(--ease);display:flex;flex-direction:column}
 .pcard:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.6),0 0 0 1px rgba(232,64,64,.18)}
 /* visual header */
-.pcard-vis{height:180px;position:relative;overflow:hidden;flex-shrink:0}
+.pcard-vis{height:auto;position:relative;overflow:hidden;flex-shrink:0}
 /* eval visual */
 .vis-eval{background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:20px}
 .eval-mock{width:100%;display:flex;flex-direction:column;gap:6px}
@@ -316,6 +316,144 @@ p{color:var(--t2);line-height:1.75}
 .anode.p{background:var(--red-dim);color:var(--red);border:1px solid rgba(232,64,64,.25)}
 .anode.s{background:var(--s2);color:var(--t2);border:1px solid var(--border)}
 .arch-arr{text-align:center;color:var(--t3);font-size:1rem;padding:3px 0}
+
+/* Data Restructure component — scattered raw sources → leader × diagnosis structured views */
+.data-restruct{margin-bottom:14px;padding:18px 20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+.dr-head{font-size:.62rem;font-weight:800;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;text-align:center}
+.dr-head .dr-head-sub{display:block;font-size:.65rem;font-weight:600;color:var(--t3);letter-spacing:.02em;text-transform:none;margin-top:4px}
+.dr-grid{display:grid;grid-template-columns:1fr 80px 1.15fr;gap:14px;align-items:stretch}
+.dr-col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.dr-col-lbl{font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:2px}
+.dr-col-lbl.before{color:#f87171}
+.dr-col-lbl.after{color:#4ade80}
+.dr-src{background:var(--s2);border:1px dashed rgba(248,113,113,.32);border-radius:8px;padding:10px 12px;flex:1;display:flex;flex-direction:column;gap:6px}
+.dr-src-head{display:flex;align-items:center;gap:6px;justify-content:center;font-size:.62rem;font-weight:700;color:var(--t2)}
+.dr-src-cnt{margin-left:auto;font-size:.58rem;color:var(--t3);font-weight:800}
+/* BEFORE — 450 surveys laid out as leader × type matrix; each cell requires partial + no manual filter clicks */
+.dr-survey-grid{display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:4px;padding:4px 0;font-size:.55rem}
+.dr-sg-head{color:var(--t3);font-weight:800;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:2px 0 4px;border-bottom:1px solid var(--border)}
+.dr-sg-name{color:var(--text);font-weight:800;align-self:center;font-size:.58rem}
+.dr-sg-cell{display:flex;gap:3px;justify-content:center;align-items:center;padding:3px;background:var(--s3);border-radius:3px;border:1px solid var(--border)}
+.dr-sg-btn{font-size:.48rem;font-weight:900;padding:2px 5px;border-radius:2px;letter-spacing:.02em;line-height:1}
+.dr-sg-btn.p{background:rgba(251,191,36,.18);color:#fbbf24;border:1px solid rgba(251,191,36,.38)}
+.dr-sg-btn.n{background:rgba(248,113,113,.18);color:#f87171;border:1px solid rgba(248,113,113,.4)}
+.dr-sg-more{grid-column:1/-1;text-align:center;color:var(--t3);font-size:.56rem;padding:6px 0 2px;border-top:1px dashed var(--border);margin-top:4px;line-height:1.5}
+.dr-sg-more strong{color:#f87171;font-weight:900;font-size:.66rem;margin:0 2px}
+.dr-raw-legend{display:flex;justify-content:center;gap:12px;padding:5px 0 2px;font-size:.55rem;color:var(--t2);font-weight:700}
+.dr-raw-legend span{display:inline-flex;align-items:center;gap:4px}
+.dr-raw-legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
+.dr-src-foot{font-size:.58rem;color:var(--t3);text-align:center;font-style:italic;line-height:1.4}
+
+/* Pain stat — 450 surveys × 2 manual filter clicks = 900 actions */
+.dr-pain-stat{margin-top:8px;padding:10px 12px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);border-radius:7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.dr-pain-formula{font-size:.6rem;color:var(--t2);font-weight:700;letter-spacing:.02em;line-height:1.5}
+.dr-pain-formula strong{color:#f87171;font-weight:900;font-size:.72rem;margin:0 2px}
+.dr-pain-formula .px{color:var(--t3);font-weight:800;margin:0 4px;font-size:.58rem}
+.dr-pain-big{font-size:.7rem;color:var(--t3);font-weight:700;letter-spacing:.04em}
+.dr-pain-big strong{color:#f87171;font-size:1.25rem;font-weight:900;margin-right:5px;letter-spacing:.02em}
+
+/* AFTER — dot cluster sorted by color, red+yellow grouped as send target */
+.dr-cluster-wrap{display:flex;flex-direction:column;gap:8px}
+.dr-cluster-target{background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.32);border-radius:7px;padding:9px 11px;position:relative}
+.dr-cluster-target-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:6px;border-bottom:1px dashed rgba(96,165,250,.25);margin-bottom:7px}
+.dr-cluster-target-lbl{font-size:.58rem;font-weight:800;color:#60a5fa;letter-spacing:.06em;text-transform:uppercase}
+.dr-cluster-target-cnt{font-size:.7rem;font-weight:800;color:#60a5fa}
+.dr-cluster-group{display:flex;align-items:flex-start;gap:8px;padding:4px 0}
+.dr-cluster-label{display:flex;align-items:center;gap:5px;font-size:.55rem;font-weight:800;width:78px;flex-shrink:0;padding-top:2px;letter-spacing:.02em}
+.dr-cluster-label::before{content:"";width:8px;height:8px;border-radius:50%;display:inline-block}
+.dr-cluster-label.none{color:#f87171}
+.dr-cluster-label.none::before{background:#f87171}
+.dr-cluster-label.part{color:#fbbf24}
+.dr-cluster-label.part::before{background:#fbbf24}
+.dr-cluster-label.done{color:#4ade80}
+.dr-cluster-label.done::before{background:#4ade80}
+.dr-cluster-dots{display:flex;flex-wrap:wrap;gap:2px;flex:1;min-width:0;align-content:flex-start}
+.dr-cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dr-cdot.r{background:#f87171}
+.dr-cdot.y{background:#fbbf24}
+.dr-cdot.g{background:#4ade80}
+.dr-cluster-cnt{font-size:.7rem;font-weight:800;color:var(--text);flex-shrink:0;min-width:34px;text-align:right;padding-top:1px}
+.dr-cluster-excluded{padding:2px 11px 0;opacity:.45}
+.dr-cluster-excluded .dr-cluster-cnt{color:var(--t3)}
+
+/* AFTER — Consolidated raw data export (1 workbook, 3 sheets by feedback type, leader name first column) */
+.dr-xlsx-panel{background:var(--s2);border:1px solid rgba(74,222,128,.28);border-radius:7px;padding:10px 12px}
+.dr-xlsx-head{font-size:.6rem;font-weight:800;color:#4ade80;margin-bottom:8px;letter-spacing:.04em;display:flex;align-items:center;gap:5px}
+.dr-xlsx-file{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2);border-radius:4px;font-size:.58rem;color:var(--t2);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-bottom:7px}
+.dr-xlsx-table{width:100%;border-collapse:collapse;font-size:.55rem;table-layout:fixed}
+.dr-xlsx-table th,.dr-xlsx-table td{padding:3px 5px;border:1px solid var(--border);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dr-xlsx-table thead th{background:var(--s3);color:var(--t3);font-weight:800;font-size:.5rem;letter-spacing:.04em;text-transform:uppercase}
+.dr-xlsx-table thead th.lead{background:rgba(96,165,250,.14);color:#60a5fa}
+.dr-xlsx-table tbody td{color:var(--t2);font-size:.55rem}
+.dr-xlsx-table tbody td.lead{color:var(--text);font-weight:800;background:rgba(96,165,250,.05)}
+.dr-xlsx-table tbody td.more{text-align:center;color:var(--t3);font-style:italic;font-size:.52rem}
+.dr-xlsx-tabs{display:flex;gap:2px;margin-top:8px;padding-top:6px;border-top:1px dashed var(--border)}
+.dr-xlsx-tab{padding:3px 10px;font-size:.55rem;font-weight:800;background:var(--s3);color:var(--t3);border:1px solid var(--border);border-radius:3px 3px 0 0;letter-spacing:.04em;display:inline-flex;align-items:center;gap:3px}
+.dr-xlsx-tab.on{background:rgba(74,222,128,.16);color:#4ade80;border-color:rgba(74,222,128,.35)}
+.dr-xlsx-foot{font-size:.55rem;color:var(--t3);text-align:center;font-style:italic;margin-top:8px;line-height:1.5}
+.dr-excel-stack{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;padding:6px 0 2px}
+.dr-excel{display:inline-flex;align-items:center;gap:3px;padding:3px 7px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.22);border-radius:4px;font-size:.55rem;color:#4ade80;font-weight:700;white-space:nowrap}
+.dr-excel:nth-child(3n){transform:rotate(-1.5deg)}
+.dr-excel:nth-child(3n+1){transform:rotate(1deg)}
+.dr-excel:nth-child(3n+2){transform:rotate(-.5deg)}
+
+.dr-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px;gap:6px}
+.dr-arr-svg{color:var(--red);opacity:.85}
+.dr-arr-lbl{font-size:.6rem;font-weight:800;color:var(--red);text-align:center;letter-spacing:.04em;line-height:1.35}
+.dr-arr-sub{font-size:.55rem;color:var(--t3);text-align:center;line-height:1.4}
+
+.dr-panel{background:var(--s2);border:1px solid rgba(74,222,128,.28);border-radius:8px;padding:10px 12px}
+.dr-panel-head{font-size:.6rem;font-weight:800;color:#4ade80;margin-bottom:8px;display:flex;align-items:center;gap:5px;letter-spacing:.04em}
+.dr-matrix{display:flex;flex-direction:column;gap:5px}
+.dr-mrow{display:grid;grid-template-columns:58px 1fr 1fr 1fr;gap:8px;align-items:center;font-size:.6rem}
+.dr-mrow.mhead{color:var(--t3);font-weight:800;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;padding-bottom:3px;border-bottom:1px solid var(--border)}
+.dr-mname{color:var(--text);font-weight:800}
+.dr-mcell{display:flex;align-items:center;gap:6px;min-width:0}
+.dr-mbar{flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;position:relative;min-width:0}
+.dr-mbar-fill{height:100%;background:#4ade80;border-radius:3px}
+.dr-mpct{font-size:.55rem;color:var(--t2);font-weight:800;flex-shrink:0;min-width:26px;text-align:right;letter-spacing:.01em}
+.dr-mrow.mhead .dr-mcell{justify-content:flex-start}
+
+
+/* ── Leader card Before section ── */
+.dr-lc-card{background:var(--s1);border:1px solid rgba(248,113,113,.22);border-radius:8px;padding:10px 12px}
+.dr-lc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.dr-lc-name{font-size:.78rem;font-weight:900;color:var(--text)}
+.dr-lc-idx{font-size:.58rem;color:var(--t3);font-weight:700;background:var(--s2);padding:1px 6px;border-radius:4px}
+.dr-lc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.dr-lc-type{display:flex;flex-direction:column;gap:4px}
+.dr-lc-type-head{font-size:.5rem;font-weight:800;color:var(--t3);text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.dr-lc-badge{padding:4px 6px;border-radius:4px;font-size:.56rem;font-weight:700;text-align:center;letter-spacing:.02em}
+.dr-lc-badge.partial{background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.3);color:#fbbf24}
+.dr-lc-badge.noresp{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.28);color:#f87171}
+.dr-lc-more{text-align:center;color:var(--t3);font-size:.95rem;letter-spacing:.4em;padding:5px 0 2px;opacity:.6}
+.dr-repeat-banner{padding:7px 10px;background:rgba(248,113,113,.06);border:1px dashed rgba(248,113,113,.28);border-radius:6px;font-size:.6rem;color:var(--t2);text-align:center;line-height:1.5}
+.dr-repeat-banner strong{color:#f87171}
+/* ── Counts table (After) ── */
+.dr-count-table{width:100%;border-collapse:collapse;font-size:.52rem;table-layout:fixed}
+.dr-count-table th,.dr-count-table td{padding:3px 4px;border:1px solid var(--border);text-align:center;overflow:hidden;white-space:nowrap}
+.dr-count-table .dr-ct-group{background:var(--s3);color:var(--t3);font-weight:800;font-size:.5rem;letter-spacing:.04em}
+.dr-count-table .dr-ct-sub{background:var(--s2);color:var(--t3);font-size:.48rem;font-weight:700}
+.dr-count-table .dr-ct-sub.p{color:rgba(251,191,36,.8)}
+.dr-count-table .dr-ct-sub.n{color:rgba(248,113,113,.8)}
+.dr-count-table td.lead{color:var(--text);font-weight:800;text-align:left;padding-left:6px}
+.dr-count-table td.total{color:var(--t3);font-style:italic}
+/* ── Auto result badge ── */
+.dr-auto-result{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.22);border-radius:7px}
+.dr-auto-icon{width:28px;height:28px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.dr-auto-file{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.6rem;color:var(--text);font-weight:700}
+.dr-auto-sub{font-size:.54rem;color:var(--t3);margin-top:2px}
+/* ── Success stat ── */
+.dr-success-stat{padding:8px 12px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.28);border-radius:7px;text-align:center;font-size:.62rem;color:var(--t2);line-height:1.6}
+.dr-success-stat strong{color:#4ade80;font-size:1.05rem;font-weight:900;margin-right:2px}
+.dr-feed{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 0;font-size:.6rem;color:var(--t3);font-weight:700;letter-spacing:.06em}
+.dr-feed-arr{color:var(--red);font-size:.85rem}
+
+@media (max-width:760px){
+  .dr-grid{grid-template-columns:1fr;gap:10px}
+  .dr-mid{flex-direction:row;padding:8px 0}
+  .dr-dots{grid-template-columns:repeat(20,1fr)}
+}
 /* workflow */
 .flow{display:flex;flex-direction:column;position:relative}
 .flow::before{content:'';position:absolute;left:17px;top:36px;bottom:36px;width:2px;background:linear-gradient(to bottom,var(--red),transparent);z-index:0}
@@ -2003,6 +2141,197 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
     </div>
   </div>
   <div id="r2" class="pane">
+
+    <!-- Data Restructure: scattered raw sources → leader×diagnosis structured views (precedes the system flow below) -->
+    <div class="data-restruct">
+      <div class="dr-head">
+        Data Restructure — 흩어진 raw 데이터 → 리더별 · 진단별 구조화
+        <span class="dr-head-sub">서베이별로 scattered된 응답을 리더×진단 매트릭스로 재구성, 이메일 컬렉터 패널로 통합</span>
+      </div>
+
+      <div class="dr-grid">
+        <!-- ── BEFORE: scattered raw ── -->
+        <div class="dr-col">
+          <div class="dr-col-lbl before">Before — scattered &amp; manual</div>
+
+          <!-- Leader card (1/150) -->
+          <div class="dr-lc-card">
+            <div class="dr-lc-head">
+              <span class="dr-lc-name">김솔솔</span>
+              <span class="dr-lc-idx">1 / 150</span>
+            </div>
+            <div class="dr-lc-grid">
+              <div class="dr-lc-type">
+                <div class="dr-lc-type-head">상향 피드백</div>
+                <div class="dr-lc-badge partial">partial</div>
+                <div class="dr-lc-badge noresp">no response</div>
+              </div>
+              <div class="dr-lc-type">
+                <div class="dr-lc-type-head">하향 피드백</div>
+                <div class="dr-lc-badge partial">partial</div>
+                <div class="dr-lc-badge noresp">no response</div>
+              </div>
+              <div class="dr-lc-type">
+                <div class="dr-lc-type-head">동료 피드백</div>
+                <div class="dr-lc-badge partial">partial</div>
+                <div class="dr-lc-badge noresp">no response</div>
+              </div>
+            </div>
+          </div>
+          <div class="dr-lc-more">⋮ &nbsp; ⋮ &nbsp; ⋮</div>
+          <div class="dr-repeat-banner">이 과정을 모든 리더 <strong>(150명)</strong> 에 대해 반복 수행</div>
+
+          <!-- Excel: scattered workbooks -->
+          <div class="dr-src">
+            <div class="dr-src-head">📊 엑셀 파일로 흩어져 관리<span class="dr-src-cnt">450 files</span></div>
+            <div class="dr-excel-stack">
+              <span class="dr-excel">📄 김솔솔_상향_partial.xlsx</span>
+              <span class="dr-excel">📄 김솔솔_상향_noresp.xlsx</span>
+              <span class="dr-excel">📄 김솔솔_하향_partial.xlsx</span>
+              <span class="dr-excel">📄 김솔솔_하향_noresp.xlsx</span>
+              <span class="dr-excel">📄 김솔솔_동료_partial.xlsx</span>
+              <span class="dr-excel">📄 김솔솔_동료_noresp.xlsx</span>
+              <span class="dr-excel">📄 김민준_상향_partial.xlsx</span>
+              <span class="dr-excel">📄 …+443</span>
+            </div>
+          </div>
+
+          <!-- Pain stat -->
+          <div class="dr-pain-stat">
+            <div class="dr-pain-formula">
+              <strong>150</strong> 리더 <span class="px">×</span> <strong>3</strong> 유형 <span class="px">×</span> <strong>2</strong> 상태
+            </div>
+            <div class="dr-pain-big">= <strong>900</strong> 개 작업 <span style="font-size:.58rem;color:var(--t3)">(매번 클릭 + 다운로드)</span></div>
+          </div>
+        </div>
+
+        <!-- ── MIDDLE: restructure arrow ── -->
+        <div class="dr-mid">
+          <svg class="dr-arr-svg" viewBox="0 0 64 40" width="60" height="40" aria-hidden="true">
+            <defs>
+              <marker id="dr-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+              </marker>
+            </defs>
+            <path d="M4,10 Q32,10 56,20" stroke="currentColor" stroke-width="1.8" fill="none" marker-end="url(#dr-arrowhead)"/>
+            <path d="M4,30 Q32,30 56,20" stroke="currentColor" stroke-width="1.8" fill="none" marker-end="url(#dr-arrowhead)"/>
+          </svg>
+          <div class="dr-arr-lbl">데이터<br>재구성</div>
+          <div class="dr-arr-sub">by leader<br>× by diagnosis</div>
+        </div>
+
+        <!-- ── AFTER: structured views ── -->
+        <div class="dr-col">
+          <div class="dr-col-lbl after">After — leader-level structured</div>
+
+          <!-- 리더별 응답 현황 (구조화) — raw counts table -->
+          <div class="dr-panel">
+            <div class="dr-panel-head">리더별 응답 현황 (구조화)</div>
+            <table class="dr-count-table">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="dr-ct-group" style="text-align:left;width:24%;border-right:2px solid var(--border2)">리더</th>
+                  <th colspan="2" class="dr-ct-group">상향 피드백</th>
+                  <th colspan="2" class="dr-ct-group">하향 피드백</th>
+                  <th colspan="2" class="dr-ct-group">동료 피드백</th>
+                </tr>
+                <tr>
+                  <th class="dr-ct-sub p">partial</th><th class="dr-ct-sub n">no resp</th>
+                  <th class="dr-ct-sub p">partial</th><th class="dr-ct-sub n">no resp</th>
+                  <th class="dr-ct-sub p">partial</th><th class="dr-ct-sub n">no resp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">김솔솔</td><td>12</td><td>18</td><td>7</td><td>15</td><td>9</td><td>11</td></tr>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">김민준</td><td>8</td><td>10</td><td>6</td><td>12</td><td>7</td><td>9</td></tr>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">이서현</td><td>5</td><td>8</td><td>4</td><td>7</td><td>6</td><td>8</td></tr>
+                <tr><td class="total" colspan="7">…</td></tr>
+                <tr><td class="lead total" style="border-right:2px solid var(--border2)">총 150명</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 자동 생성 결과 (통합 엑셀) -->
+          <div class="dr-auto-result">
+            <div class="dr-auto-icon">📊</div>
+            <div>
+              <div class="dr-auto-file">leader_response_consolidated.xlsx</div>
+              <div class="dr-auto-sub">(150명 전체 데이터 통합)</div>
+            </div>
+          </div>
+
+          <!-- Leader Response Rate Panel (screenshot 2) -->
+          <div class="dr-panel">
+            <div class="dr-panel-head">📊 Leader Response Rate Panel — 리더×진단 응답률 (Response Rate %)</div>
+            <div class="dr-matrix">
+              <div class="dr-mrow mhead"><div></div><div class="dr-mcell">상향</div><div class="dr-mcell">하향</div><div class="dr-mcell">동료</div></div>
+              <div class="dr-mrow">
+                <div class="dr-mname">김솔솔</div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:25%"></div></div><span class="dr-mpct">25%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:100%"></div></div><span class="dr-mpct">100%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:60%"></div></div><span class="dr-mpct">60%</span></div>
+              </div>
+              <div class="dr-mrow">
+                <div class="dr-mname">김민준</div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:100%"></div></div><span class="dr-mpct">100%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:75%"></div></div><span class="dr-mpct">75%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:40%"></div></div><span class="dr-mpct">40%</span></div>
+              </div>
+              <div class="dr-mrow">
+                <div class="dr-mname">이서현</div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:20%"></div></div><span class="dr-mpct">20%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:65%"></div></div><span class="dr-mpct">65%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:100%"></div></div><span class="dr-mpct">100%</span></div>
+              </div>
+              <div class="dr-mrow">
+                <div class="dr-mname" style="color:var(--t3);font-weight:700">+147명</div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:55%"></div></div><span class="dr-mpct">55%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:70%"></div></div><span class="dr-mpct">70%</span></div>
+                <div class="dr-mcell"><div class="dr-mbar"><div class="dr-mbar-fill" style="width:62%"></div></div><span class="dr-mpct">62%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consolidated Raw Data (screenshot 3) -->
+          <div class="dr-xlsx-panel">
+            <div class="dr-xlsx-head">📊 Consolidated Raw Data — 시트 분리 + 리더명 매핑 자동 export</div>
+            <div class="dr-xlsx-file">📄 leadership_360_consolidated.xlsx</div>
+            <table class="dr-xlsx-table">
+              <thead>
+                <tr>
+                  <th class="lead" style="width:32%">리더명</th>
+                  <th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th>
+                  <th style="width:8%">…</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="lead">김솔솔</td><td>4</td><td>5</td><td>3</td><td>4</td><td>…</td></tr>
+                <tr><td class="lead">김민준</td><td>5</td><td>4</td><td>5</td><td>3</td><td>…</td></tr>
+                <tr><td class="lead">이서현</td><td>3</td><td>5</td><td>4</td><td>4</td><td>…</td></tr>
+                <tr><td class="more" colspan="6">+ 147 leaders</td></tr>
+              </tbody>
+            </table>
+            <div class="dr-xlsx-tabs">
+              <span class="dr-xlsx-tab on">📋 상향</span>
+              <span class="dr-xlsx-tab">하향</span>
+              <span class="dr-xlsx-tab">동료</span>
+            </div>
+            <div class="dr-xlsx-foot">시트별 상향 · 하향 · 동료 분리 + 리더명이 첫 컬럼으로 매핑된 raw 데이터 자동 생성<br>(450 흩어진 워크북 → 1 통합 워크북 × 3 시트)</div>
+          </div>
+
+          <!-- Success stat -->
+          <div class="dr-success-stat">
+            <strong>1</strong>번의 실행으로 전체 리더 데이터 통합 완료<br>
+            <span style="font-size:.58rem;color:var(--t3)">(확인 + 다운로드)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dr-feed">
+        <span class="dr-feed-arr">↓</span> 구조화된 데이터가 아래 시스템 flow의 Input layer로 feed
+      </div>
+    </div>
+
     <div class="arch">
       <div class="arch-row"><div class="arch-lbl">Input</div><div class="arch-nodes"><span class="anode p">Recipient list (Supabase)</span><span class="anode p">Message template</span><span class="anode p">{LEADER_NAME} {DEADLINE_LABEL} {SURVEY_LINK}</span></div></div>
       <div class="arch-arr">↓</div>
