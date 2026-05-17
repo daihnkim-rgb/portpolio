@@ -317,6 +317,26 @@ p{color:var(--t2);line-height:1.75}
 .anode.s{background:var(--s2);color:var(--t2);border:1px solid var(--border)}
 .arch-arr{text-align:center;color:var(--t3);font-size:1rem;padding:3px 0}
 
+/* arch--reminder: scoped motion for the reminder architecture only */
+.arch--reminder .arch-row{transition:border-color .35s ease,transform .35s ease}
+.arch--reminder .arch-row:hover{border-color:rgba(232,64,64,.35);transform:translateY(-1px)}
+.arch--reminder .anode{transition:transform .25s ease,box-shadow .25s ease}
+.arch--reminder .anode:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.arch--reminder .anode.p{animation:archPulse 3.2s ease-in-out infinite}
+@keyframes archPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,64,64,0)}50%{box-shadow:0 0 0 4px rgba(232,64,64,.08)}}
+@keyframes archArrBob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(3px);opacity:1}}
+@keyframes archIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pane.on .arch--reminder>.arch-row{opacity:0;animation:archIn .5s ease forwards}
+.pane.on .arch--reminder>.arch-arr{opacity:0;animation:archIn .5s ease forwards,archArrBob 2.2s ease-in-out 1s infinite}
+.pane.on .arch--reminder>*:nth-child(1){animation-delay:.05s}
+.pane.on .arch--reminder>*:nth-child(2){animation-delay:.15s}
+.pane.on .arch--reminder>*:nth-child(3){animation-delay:.25s}
+.pane.on .arch--reminder>*:nth-child(4){animation-delay:.35s}
+.pane.on .arch--reminder>*:nth-child(5){animation-delay:.45s}
+.pane.on .arch--reminder>*:nth-child(6){animation-delay:.55s}
+.pane.on .arch--reminder>*:nth-child(7){animation-delay:.65s}
+.pane.on .arch--reminder>*:nth-child(8){animation-delay:.75s}
+
 /* Data Restructure component — scattered raw sources → leader × diagnosis structured views */
 .data-restruct{margin-bottom:14px;padding:18px 20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
 .dr-head{font-size:.62rem;font-weight:800;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;text-align:center}
@@ -388,14 +408,19 @@ p{color:var(--t2);line-height:1.75}
 .dr-xlsx-table tbody td.lead{color:var(--text);font-weight:800;background:rgba(96,165,250,.05)}
 .dr-xlsx-table tbody td.more{text-align:center;color:var(--t3);font-style:italic;font-size:.52rem}
 .dr-xlsx-tabs{display:flex;gap:2px;margin-top:8px;padding-top:6px;border-top:1px dashed var(--border)}
-.dr-xlsx-tab{padding:3px 10px;font-size:.55rem;font-weight:800;background:var(--s3);color:var(--t3);border:1px solid var(--border);border-radius:3px 3px 0 0;letter-spacing:.04em;display:inline-flex;align-items:center;gap:3px}
+.dr-xlsx-tab{padding:3px 10px;font-size:.55rem;font-weight:800;background:var(--s3);color:var(--t3);border:1px solid var(--border);border-radius:3px 3px 0 0;letter-spacing:.04em;display:inline-flex;align-items:center;gap:3px;animation:drTabBlink 2.4s ease-in-out infinite;transition:background .25s ease,color .25s ease,border-color .25s ease}
 .dr-xlsx-tab.on{background:rgba(74,222,128,.16);color:#4ade80;border-color:rgba(74,222,128,.35)}
+.dr-xlsx-tab:nth-child(1){animation-delay:0s}
+.dr-xlsx-tab:nth-child(2){animation-delay:.8s}
+.dr-xlsx-tab:nth-child(3){animation-delay:1.6s}
+@keyframes drTabBlink{0%,28%,100%{background:var(--s3);color:var(--t3);border-color:var(--border)}5%,23%{background:rgba(74,222,128,.16);color:#4ade80;border-color:rgba(74,222,128,.35);box-shadow:0 0 0 2px rgba(74,222,128,.12)}}
 .dr-xlsx-foot{font-size:.55rem;color:var(--t3);text-align:center;font-style:italic;margin-top:8px;line-height:1.5}
-.dr-excel-stack{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;padding:6px 0 2px}
-.dr-excel{display:inline-flex;align-items:center;gap:3px;padding:3px 7px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.22);border-radius:4px;font-size:.55rem;color:#4ade80;font-weight:700;white-space:nowrap}
-.dr-excel:nth-child(3n){transform:rotate(-1.5deg)}
-.dr-excel:nth-child(3n+1){transform:rotate(1deg)}
-.dr-excel:nth-child(3n+2){transform:rotate(-.5deg)}
+.dr-tasks{display:flex;flex-direction:column;gap:6px;padding:2px 0}
+.dr-task{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.22);border-radius:5px}
+.dr-task-icon{font-size:.9rem;flex-shrink:0;line-height:1.2}
+.dr-task-text{font-size:.6rem;color:var(--t2);font-weight:700;line-height:1.4}
+.dr-task-text strong{color:#f87171;font-weight:800}
+.dr-task-sub{display:block;font-size:.52rem;color:var(--t3);font-weight:600;margin-top:2px;letter-spacing:.01em}
 
 .dr-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px;gap:6px}
 .dr-arr-svg{color:var(--red);opacity:.85}
@@ -410,7 +435,13 @@ p{color:var(--t2);line-height:1.75}
 .dr-mname{color:var(--text);font-weight:800}
 .dr-mcell{display:flex;align-items:center;gap:6px;min-width:0}
 .dr-mbar{flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;position:relative;min-width:0}
-.dr-mbar-fill{height:100%;background:#4ade80;border-radius:3px}
+.dr-mbar-fill{height:100%;background:#4ade80;border-radius:3px;transform-origin:left center;transform:scaleX(0)}
+.pane.on .dr-mbar-fill{animation:drBarFill 1.1s cubic-bezier(.4,0,.2,1) forwards}
+.pane.on .dr-mrow:nth-of-type(2) .dr-mbar-fill{animation-delay:.15s}
+.pane.on .dr-mrow:nth-of-type(3) .dr-mbar-fill{animation-delay:.3s}
+.pane.on .dr-mrow:nth-of-type(4) .dr-mbar-fill{animation-delay:.45s}
+.pane.on .dr-mrow:nth-of-type(5) .dr-mbar-fill{animation-delay:.6s}
+@keyframes drBarFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .dr-mpct{font-size:.55rem;color:var(--t2);font-weight:800;flex-shrink:0;min-width:26px;text-align:right;letter-spacing:.01em}
 .dr-mrow.mhead .dr-mcell{justify-content:flex-start}
 
@@ -1999,7 +2030,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
             <div class="fld"><div class="fld-icon">📁</div><div class="fld-name">김재훈</div></div>
             <div class="fld-more">+136<br>more</div>
           </div>
-          <div class="bav-pain">📋 폴더 클릭 → 엑셀 확인 → 상향·하향·동료별 제목·본문 수정 → 발송 → 닫기 — 리더 150명 × 3종 반복 &nbsp;|&nbsp; <strong>4명 × 2시간 = 8 person-hours</strong></div>
+          <div class="bav-pain">📋 폴더 클릭 → 엑셀 확인 → 상향·하향·동료별 제목·본문 수정 → 발송 → 닫기 — 리더 150명 × 3종 반복 &nbsp;|&nbsp; <strong>4명 × 8시간 = 8 person-hours</strong></div>
           <div class="bav-timelabel" style="color:#f87171">⏱ 총 소요: 8 person-hours / 캠페인</div>
         </div>
         <!-- AFTER -->
@@ -2135,7 +2166,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
             </div>
 
           </div>
-          <div class="bav-timelabel" style="color:#4ade80">⏱ 총 소요: 2 hours / 캠페인 &nbsp;(75% 절감)</div>
+          <div class="bav-timelabel" style="color:#4ade80">⏱ 총 소요: 10 minutes / 캠페인 &nbsp;</div>
         </div>
       </div>
     </div>
@@ -2181,18 +2212,18 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
           <div class="dr-lc-more">⋮ &nbsp; ⋮ &nbsp; ⋮</div>
           <div class="dr-repeat-banner">이 과정을 모든 리더 <strong>(150명)</strong> 에 대해 반복 수행</div>
 
-          <!-- Excel: scattered workbooks -->
+          <!-- Manual per-survey tasks -->
           <div class="dr-src">
-            <div class="dr-src-head">📊 엑셀 파일로 흩어져 관리<span class="dr-src-cnt">450 files</span></div>
-            <div class="dr-excel-stack">
-              <span class="dr-excel">📄 김솔솔_상향_partial.xlsx</span>
-              <span class="dr-excel">📄 김솔솔_상향_noresp.xlsx</span>
-              <span class="dr-excel">📄 김솔솔_하향_partial.xlsx</span>
-              <span class="dr-excel">📄 김솔솔_하향_noresp.xlsx</span>
-              <span class="dr-excel">📄 김솔솔_동료_partial.xlsx</span>
-              <span class="dr-excel">📄 김솔솔_동료_noresp.xlsx</span>
-              <span class="dr-excel">📄 김민준_상향_partial.xlsx</span>
-              <span class="dr-excel">📄 …+443</span>
+            <div class="dr-src-head">📋 서베이별 수기 관리<span class="dr-src-cnt">3종 × 150명</span></div>
+            <div class="dr-tasks">
+              <div class="dr-task">
+                <span class="dr-task-icon">📥</span>
+                <span class="dr-task-text">엑셀 데이터를 <strong>서베이별로 직접</strong> 다운로드<span class="dr-task-sub">상향 · 하향 · 동료 각각 따로 받아야 함</span></span>
+              </div>
+              <div class="dr-task">
+                <span class="dr-task-icon">📊</span>
+                <span class="dr-task-text">응답률도 <strong>서베이별로 일일이</strong> 확인<span class="dr-task-sub">누가 미응답 / 부분응답인지 매번 집계</span></span>
+              </div>
             </div>
           </div>
 
@@ -2242,9 +2273,9 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
                 </tr>
               </thead>
               <tbody>
-                <tr><td class="lead" style="border-right:2px solid var(--border2)">김솔솔</td><td>12</td><td>18</td><td>7</td><td>15</td><td>9</td><td>11</td></tr>
-                <tr><td class="lead" style="border-right:2px solid var(--border2)">김민준</td><td>8</td><td>10</td><td>6</td><td>12</td><td>7</td><td>9</td></tr>
-                <tr><td class="lead" style="border-right:2px solid var(--border2)">이서현</td><td>5</td><td>8</td><td>4</td><td>7</td><td>6</td><td>8</td></tr>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">김솔솔</td><td class="dr-count" data-target="12">12</td><td class="dr-count" data-target="18">18</td><td class="dr-count" data-target="7">7</td><td class="dr-count" data-target="15">15</td><td class="dr-count" data-target="9">9</td><td class="dr-count" data-target="11">11</td></tr>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">김민준</td><td class="dr-count" data-target="8">8</td><td class="dr-count" data-target="10">10</td><td class="dr-count" data-target="6">6</td><td class="dr-count" data-target="12">12</td><td class="dr-count" data-target="7">7</td><td class="dr-count" data-target="9">9</td></tr>
+                <tr><td class="lead" style="border-right:2px solid var(--border2)">이서현</td><td class="dr-count" data-target="5">5</td><td class="dr-count" data-target="8">8</td><td class="dr-count" data-target="4">4</td><td class="dr-count" data-target="7">7</td><td class="dr-count" data-target="6">6</td><td class="dr-count" data-target="8">8</td></tr>
                 <tr><td class="total" colspan="7">…</td></tr>
                 <tr><td class="lead total" style="border-right:2px solid var(--border2)">총 150명</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td><td class="total">…</td></tr>
               </tbody>
@@ -2312,7 +2343,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
               </tbody>
             </table>
             <div class="dr-xlsx-tabs">
-              <span class="dr-xlsx-tab on">📋 상향</span>
+              <span class="dr-xlsx-tab">📋 상향</span>
               <span class="dr-xlsx-tab">하향</span>
               <span class="dr-xlsx-tab">동료</span>
             </div>
@@ -2332,7 +2363,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
       </div>
     </div>
 
-    <div class="arch">
+    <div class="arch arch--reminder">
       <div class="arch-row"><div class="arch-lbl">Input</div><div class="arch-nodes"><span class="anode p">Recipient list (Supabase)</span><span class="anode p">Message template</span><span class="anode p">{LEADER_NAME} {DEADLINE_LABEL} {SURVEY_LINK}</span></div></div>
       <div class="arch-arr">↓</div>
       <div class="arch-row"><div class="arch-lbl">Admin Interface — Next.js</div><div class="arch-nodes"><span class="anode s">Compose Form</span><span class="anode s">Real-time Preview Panel</span><span class="anode s">Recipient Manager (DB sync)</span><span class="anode s">Response filter (no response / partial)</span></div></div>
@@ -2365,7 +2396,7 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
         <div class="ba-item">✗ Wrong-name errors from fatigue</div>
       </div></div>
       <div class="ba-card ba-a"><div class="ba-lbl">After</div><div class="ba-list">
-        <div class="ba-item">✓ 1 operator · 2 hours · no manual composing</div>
+        <div class="ba-item">✓ 1 operator · 10 minutes · no manual composing</div>
         <div class="ba-item">✓ Template engine handles all variable interpolation</div>
         <div class="ba-item">✓ Full job log — status + error per send</div>
         <div class="ba-item">✓ Human review gate prevents batch send mistakes</div>
@@ -2713,9 +2744,35 @@ document.querySelectorAll('.tab').forEach(tab => {
     sec.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     sec.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
     tab.classList.add('on');
-    document.getElementById(tab.dataset.tab).classList.add('on');
+    const pane = document.getElementById(tab.dataset.tab);
+    pane.classList.add('on');
+    animateDrCounts(pane);
   });
 });
+
+/* ── dr-count: sequential count-up for the structured-counts table ─ */
+function animateDrCounts(scope) {
+  const cells = scope.querySelectorAll('.dr-count');
+  if (!cells.length) return;
+  cells.forEach((el, i) => {
+    const target = parseInt(el.dataset.target, 10);
+    el.textContent = '0';
+    const dur = 800;
+    const delay = i * 55;
+    setTimeout(() => {
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(ease * target);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    }, delay);
+  });
+}
+document.querySelectorAll('.pane.on').forEach(p => animateDrCounts(p));
 
 /* ── Reveal ──────────────────────── */
 const rvObs = new IntersectionObserver(entries => {
@@ -2828,7 +2885,7 @@ const kwbMap = {
     cov: 22
   },
   'operational efficiency': {
-    text: 'Redesigned manual reminder workflows to improve <span class="kwb-hl kwb-hl-orange">operational efficiency</span> by 75%, cutting per-campaign effort from 8 person-hours to 2.',
+    text: 'Redesigned manual reminder workflows to improve <span class="kwb-hl kwb-hl-orange">operational efficiency</span> by 99%, cutting per-campaign effort from 8 person-hours to 10 minutes.',
     cov: 18
   }
 };
