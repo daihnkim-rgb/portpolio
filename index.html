@@ -364,13 +364,6 @@ p{color:var(--t2);line-height:1.75}
 .dr-raw-legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
 .dr-src-foot{font-size:.58rem;color:var(--t3);text-align:center;font-style:italic;line-height:1.4}
 
-/* Pain stat — 450 surveys × 2 manual filter clicks = 900 actions */
-.dr-pain-stat{margin-top:8px;padding:10px 12px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);border-radius:7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
-.dr-pain-formula{font-size:.6rem;color:var(--t2);font-weight:700;letter-spacing:.02em;line-height:1.5}
-.dr-pain-formula strong{color:#f87171;font-weight:900;font-size:.72rem;margin:0 2px}
-.dr-pain-formula .px{color:var(--t3);font-weight:800;margin:0 4px;font-size:.58rem}
-.dr-pain-big{font-size:.7rem;color:var(--t3);font-weight:700;letter-spacing:.04em}
-.dr-pain-big strong{color:#f87171;font-size:1.25rem;font-weight:900;margin-right:5px;letter-spacing:.02em}
 
 /* AFTER — dot cluster sorted by color, red+yellow grouped as send target */
 .dr-cluster-wrap{display:flex;flex-direction:column;gap:8px}
@@ -415,12 +408,6 @@ p{color:var(--t2);line-height:1.75}
 .dr-xlsx-tab:nth-child(3){animation-delay:1.6s}
 @keyframes drTabBlink{0%,28%,100%{background:var(--s3);color:var(--t3);border-color:var(--border)}5%,23%{background:rgba(74,222,128,.16);color:#4ade80;border-color:rgba(74,222,128,.35);box-shadow:0 0 0 2px rgba(74,222,128,.12)}}
 .dr-xlsx-foot{font-size:.55rem;color:var(--t3);text-align:center;font-style:italic;margin-top:8px;line-height:1.5}
-.dr-tasks{display:flex;flex-direction:column;gap:6px;padding:2px 0}
-.dr-task{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.22);border-radius:5px}
-.dr-task-icon{font-size:.9rem;flex-shrink:0;line-height:1.2}
-.dr-task-text{font-size:.6rem;color:var(--t2);font-weight:700;line-height:1.4}
-.dr-task-text strong{color:#f87171;font-weight:800}
-.dr-task-sub{display:block;font-size:.52rem;color:var(--t3);font-weight:600;margin-top:2px;letter-spacing:.01em}
 
 .dr-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px;gap:6px}
 .dr-arr-svg{color:var(--red);opacity:.85}
@@ -447,19 +434,30 @@ p{color:var(--t2);line-height:1.75}
 
 
 /* ── Leader card Before section ── */
-.dr-lc-card{background:var(--s1);border:1px solid rgba(248,113,113,.22);border-radius:8px;padding:10px 12px}
-.dr-lc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.dr-lc-name{font-size:.78rem;font-weight:900;color:var(--text)}
-.dr-lc-idx{font-size:.58rem;color:var(--t3);font-weight:700;background:var(--s2);padding:1px 6px;border-radius:4px}
-.dr-lc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.dr-lc-type{display:flex;flex-direction:column;gap:4px}
-.dr-lc-type-head{font-size:.5rem;font-weight:800;color:var(--t3);text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
-.dr-lc-badge{padding:4px 6px;border-radius:4px;font-size:.56rem;font-weight:700;text-align:center;letter-spacing:.02em}
-.dr-lc-badge.partial{background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.3);color:#fbbf24}
-.dr-lc-badge.noresp{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.28);color:#f87171}
-.dr-lc-more{text-align:center;color:var(--t3);font-size:.95rem;letter-spacing:.4em;padding:5px 0 2px;opacity:.6}
-.dr-repeat-banner{padding:7px 10px;background:rgba(248,113,113,.06);border:1px dashed rgba(248,113,113,.28);border-radius:6px;font-size:.6rem;color:var(--t2);text-align:center;line-height:1.5}
-.dr-repeat-banner strong{color:#f87171}
+/* BEFORE — SurveyMonkey-style survey list (per-leader × per-type rows) */
+.dr-survey-list{background:var(--s1);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.dr-survey-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--s2);border-bottom:1px solid var(--border);font-size:.6rem;font-weight:800;color:var(--t2);letter-spacing:.04em}
+.dr-survey-head-cnt{font-size:.55rem;color:var(--t3);font-weight:700}
+.dr-survey-row{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-bottom:1px solid var(--border);transition:background .2s ease}
+.dr-survey-row:hover{background:rgba(255,255,255,.02)}
+.dr-survey-check{width:11px;height:11px;border:1px solid var(--border2);border-radius:3px;flex-shrink:0;margin-top:2px;background:var(--s2)}
+.dr-survey-status{font-size:.5rem;font-weight:800;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:1px;letter-spacing:.02em;white-space:nowrap}
+.dr-survey-status.done{background:rgba(248,113,113,.14);color:#f87171;border:1px solid rgba(248,113,113,.32)}
+.dr-survey-status.active{background:rgba(74,222,128,.14);color:#4ade80;border:1px solid rgba(74,222,128,.32)}
+.dr-survey-body{flex:1;min-width:0}
+.dr-survey-title{font-size:.62rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:3px}
+.dr-survey-title strong{color:#60a5fa;font-weight:800}
+.dr-survey-date{font-size:.52rem;color:var(--t3);font-weight:600}
+.dr-survey-more{text-align:center;padding:8px 10px;font-size:.55rem;color:var(--t3);font-style:italic;background:rgba(0,0,0,.15)}
+.dr-survey-more strong{color:var(--t2);font-weight:800;font-style:normal}
+/* manual per-survey work warning */
+.dr-manual-warn{margin-top:10px;padding:10px 12px;background:rgba(248,113,113,.06);border:1px dashed rgba(248,113,113,.3);border-radius:7px}
+.dr-manual-warn-head{font-size:.6rem;font-weight:800;color:#f87171;text-align:center;margin-bottom:8px;letter-spacing:.02em;line-height:1.4}
+.dr-manual-warn-head strong{color:#f87171;font-weight:900}
+.dr-manual-warn-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.dr-manual-action{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:5px}
+.dr-manual-action-icon{font-size:1rem;line-height:1}
+.dr-manual-action-label{font-size:.53rem;font-weight:800;color:var(--t2);text-align:center;letter-spacing:.02em;line-height:1.3}
 /* ── Counts table (After) ── */
 .dr-count-table{width:100%;border-collapse:collapse;font-size:.52rem;table-layout:fixed}
 .dr-count-table th,.dr-count-table td{padding:3px 4px;border:1px solid var(--border);text-align:center;overflow:hidden;white-space:nowrap}
@@ -2185,54 +2183,77 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
         <div class="dr-col">
           <div class="dr-col-lbl before">Before — scattered &amp; manual</div>
 
-          <!-- Leader card (1/150) -->
-          <div class="dr-lc-card">
-            <div class="dr-lc-head">
-              <span class="dr-lc-name">김솔솔</span>
-              <span class="dr-lc-idx">1 / 150</span>
-            </div>
-            <div class="dr-lc-grid">
-              <div class="dr-lc-type">
-                <div class="dr-lc-type-head">상향 피드백</div>
-                <div class="dr-lc-badge partial">partial</div>
-                <div class="dr-lc-badge noresp">no response</div>
-              </div>
-              <div class="dr-lc-type">
-                <div class="dr-lc-type-head">하향 피드백</div>
-                <div class="dr-lc-badge partial">partial</div>
-                <div class="dr-lc-badge noresp">no response</div>
-              </div>
-              <div class="dr-lc-type">
-                <div class="dr-lc-type-head">동료 피드백</div>
-                <div class="dr-lc-badge partial">partial</div>
-                <div class="dr-lc-badge noresp">no response</div>
+          <!-- SurveyMonkey-style survey list: per-leader × per-type rows -->
+          <div class="dr-survey-list">
+            <div class="dr-survey-head">📋 진단 서베이 목록<span class="dr-survey-head-cnt">450 surveys</span></div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status done">종료됨</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김솔솔 님 상향 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.15</div>
               </div>
             </div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status done">종료됨</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김솔솔 님 하향 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.15</div>
+              </div>
+            </div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status active">진행 중</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김솔솔 님 동료 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.12</div>
+              </div>
+            </div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status done">종료됨</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김민준 님 상향 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.15</div>
+              </div>
+            </div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status active">진행 중</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김민준 님 하향 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.12</div>
+              </div>
+            </div>
+            <div class="dr-survey-row">
+              <div class="dr-survey-check"></div>
+              <span class="dr-survey-status active">진행 중</span>
+              <div class="dr-survey-body">
+                <div class="dr-survey-title">[CKE] 리더십 다면 피드백: <strong>김민준 님 동료 진단</strong></div>
+                <div class="dr-survey-date">업데이트 날짜: 2026.01.12</div>
+              </div>
+            </div>
+            <div class="dr-survey-more">⋮ &nbsp;&nbsp; <strong>+ 444 surveys</strong> &nbsp;&nbsp;(150 리더 × 3 진단)</div>
           </div>
-          <div class="dr-lc-more">⋮ &nbsp; ⋮ &nbsp; ⋮</div>
-          <div class="dr-repeat-banner">이 과정을 모든 리더 <strong>(150명)</strong> 에 대해 반복 수행</div>
 
-          <!-- Manual per-survey tasks -->
-          <div class="dr-src">
-            <div class="dr-src-head">📋 서베이별 수기 관리<span class="dr-src-cnt">3종 × 150명</span></div>
-            <div class="dr-tasks">
-              <div class="dr-task">
-                <span class="dr-task-icon">📥</span>
-                <span class="dr-task-text">엑셀 데이터를 <strong>서베이별로 직접</strong> 다운로드<span class="dr-task-sub">상향 · 하향 · 동료 각각 따로 받아야 함</span></span>
+          <!-- Manual per-survey work warning -->
+          <div class="dr-manual-warn">
+            <div class="dr-manual-warn-head">⚠️ 서베이 하나하나마다 <strong>따로</strong> 처리해야 함</div>
+            <div class="dr-manual-warn-actions">
+              <div class="dr-manual-action">
+                <span class="dr-manual-action-icon">📧</span>
+                <span class="dr-manual-action-label">메일 발송</span>
               </div>
-              <div class="dr-task">
-                <span class="dr-task-icon">📊</span>
-                <span class="dr-task-text">응답률도 <strong>서베이별로 일일이</strong> 확인<span class="dr-task-sub">누가 미응답 / 부분응답인지 매번 집계</span></span>
+              <div class="dr-manual-action">
+                <span class="dr-manual-action-icon">📊</span>
+                <span class="dr-manual-action-label">응답률 확인</span>
+              </div>
+              <div class="dr-manual-action">
+                <span class="dr-manual-action-icon">📥</span>
+                <span class="dr-manual-action-label">데이터 다운로드</span>
               </div>
             </div>
-          </div>
-
-          <!-- Pain stat -->
-          <div class="dr-pain-stat">
-            <div class="dr-pain-formula">
-              <strong>150</strong> 리더 <span class="px">×</span> <strong>3</strong> 유형 <span class="px">×</span> <strong>2</strong> 상태
-            </div>
-            <div class="dr-pain-big">= <strong>900</strong> 개 작업 <span style="font-size:.58rem;color:var(--t3)">(매번 클릭 + 다운로드)</span></div>
           </div>
         </div>
 
