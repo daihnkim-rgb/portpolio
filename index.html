@@ -591,6 +591,38 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
 .fdc-type{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
 .fdc-val{background:var(--s3);color:var(--text);border:1px solid var(--border)}
 .fd-chip-eq{color:var(--t3);font-size:.65rem}
+/* SurveyMonkey API source + survey-title placeholder auto-extract */
+.sm-logo{display:inline-flex;align-items:center;gap:6px;padding:4px 9px 4px 6px;background:#00BF6F;border-radius:5px;line-height:1}
+.sm-logo svg{display:block}
+.sm-logo-text{font-family:Inter,system-ui,sans-serif;font-size:.7rem;font-weight:900;color:#fff;letter-spacing:-.01em}
+.sm-api-bar{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--s2);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;font-size:.7rem;color:var(--t2);justify-content:center;flex-wrap:wrap;width:100%;box-sizing:border-box}
+.sm-api-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.55)}
+.sm-api-ep{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.66rem;color:#60a5fa;background:rgba(96,165,250,.08);padding:2px 7px;border-radius:4px;border:1px solid rgba(96,165,250,.18)}
+.sm-api-meta{color:var(--t3);font-size:.66rem}
+.sm-api-sep{color:var(--t3);font-size:.7rem;opacity:.6}
+.sm-title-block{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;box-sizing:border-box}
+.sm-title-label{font-size:.58rem;color:var(--t3);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.sm-title-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--t2);background:var(--s3);padding:7px 11px;border-radius:6px;border:1px solid var(--border);line-height:1.7;text-align:center;max-width:100%}
+.ph-extract{padding:1px 6px;border-radius:3px;font-weight:800;display:inline-block}
+.ph-extract.ph-name{background:rgba(96,165,250,.18);color:#60a5fa;border:1px dashed rgba(96,165,250,.5)}
+.ph-extract.ph-type{background:rgba(74,222,128,.15);color:#4ade80;border:1px dashed rgba(74,222,128,.45)}
+.sm-extract-arrow{font-size:.6rem;color:var(--t3);font-weight:700;letter-spacing:.05em}
+.fd-substep-label{font-size:.58rem;color:var(--t3);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:8px 0 6px;text-align:center;width:100%}
+/* SurveyMonkey API source + survey-title placeholder auto-extract */
+.sm-api-bar{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--s2);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;font-size:.7rem;color:var(--t2);justify-content:center;flex-wrap:wrap;width:100%;box-sizing:border-box}
+.sm-api-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.55)}
+.sm-api-name{color:var(--text);font-weight:800;letter-spacing:.02em}
+.sm-api-ep{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.66rem;color:#60a5fa;background:rgba(96,165,250,.08);padding:2px 7px;border-radius:4px;border:1px solid rgba(96,165,250,.18)}
+.sm-api-meta{color:var(--t3);font-size:.66rem}
+.sm-api-sep{color:var(--t3);font-size:.7rem;opacity:.6}
+.sm-title-block{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;box-sizing:border-box}
+.sm-title-label{font-size:.58rem;color:var(--t3);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.sm-title-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--t2);background:var(--s3);padding:7px 11px;border-radius:6px;border:1px solid var(--border);line-height:1.6;text-align:center;max-width:100%}
+.ph-extract{padding:1px 6px;border-radius:3px;font-weight:800;display:inline-block}
+.ph-extract.ph-name{background:rgba(96,165,250,.18);color:#60a5fa;border:1px dashed rgba(96,165,250,.5)}
+.ph-extract.ph-type{background:rgba(74,222,128,.15);color:#4ade80;border:1px dashed rgba(74,222,128,.45)}
+.sm-extract-arrow{font-size:.6rem;color:var(--t3);font-weight:700;letter-spacing:.05em}
+.fd-substep-label{font-size:.6rem;color:var(--t3);font-weight:700;letter-spacing:.06em;margin:6px 0 4px;text-align:center;width:100%}
 .egp-topbar{display:flex;align-items:center;gap:5px;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--border)}
 .egp-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
 .egp-title{font-size:.72rem;font-weight:700;color:var(--t2);margin-left:6px}
@@ -1836,8 +1868,57 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
         <div id="bav-after" style="display:none">
           <div class="flow-diagram">
 
-            <!-- Step 1: Leader grid -->
-            <div class="fd-step-label">① 리더별 피드백 현황</div>
+            <!-- Step 1: SurveyMonkey API 연동 + 서베이 제목에서 placeholder 자동 추출 -->
+            <div class="fd-step-label">① SurveyMonkey API 연동 · 서베이 제목에서 변수 자동 추출</div>
+
+            <!-- API connection bar (with SurveyMonkey logo component) -->
+            <div class="sm-api-bar">
+              <span class="sm-api-dot"></span>
+              <span class="sm-logo" aria-label="SurveyMonkey">
+                <svg viewBox="0 0 28 22" width="20" height="16" aria-hidden="true">
+                  <!-- left ear -->
+                  <circle cx="4" cy="13" r="3.4" fill="#fff"/>
+                  <circle cx="4" cy="13" r="1.5" fill="#00BF6F"/>
+                  <!-- right ear -->
+                  <circle cx="24" cy="13" r="3.4" fill="#fff"/>
+                  <circle cx="24" cy="13" r="1.5" fill="#00BF6F"/>
+                  <!-- face -->
+                  <ellipse cx="14" cy="13" rx="7.5" ry="7" fill="#fff"/>
+                  <!-- eyes -->
+                  <circle cx="11.2" cy="12" r="1.15" fill="#00BF6F"/>
+                  <circle cx="16.8" cy="12" r="1.15" fill="#00BF6F"/>
+                  <!-- mouth -->
+                  <path d="M11.5 15.6 Q14 17.2 16.5 15.6" stroke="#00BF6F" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+                  <!-- top tuft (antenna) -->
+                  <circle cx="14" cy="4.2" r="1.6" fill="#fff"/>
+                  <line x1="14" y1="5.8" x2="14" y2="7.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                <span class="sm-logo-text">SurveyMonkey</span>
+              </span>
+              <span class="sm-api-sep">·</span>
+              <span class="sm-api-ep">GET /v3/surveys/{id}/details</span>
+              <span class="sm-api-sep">·</span>
+              <span class="sm-api-meta">450 surveys (150명 × 3유형) connected</span>
+            </div>
+
+            <!-- Survey title template — placeholder auto-extracted from title per survey -->
+            <div class="sm-title-block">
+              <div class="sm-title-label">Survey Title (template) — 서베이별 자동 파싱</div>
+              <code class="sm-title-code">[CKE] 리더십 360도 피드백 (<span class="ph-extract ph-type">{피드백유형}</span>) — 대상 리더: <span class="ph-extract ph-name">{리더명}</span> 님</code>
+              <div class="sm-extract-arrow">↓ regex 자동 추출</div>
+              <div class="fd-var-chips">
+                <span class="fd-chip fdc-name">[리더명]</span>
+                <span class="fd-chip-eq">→</span>
+                <span class="fd-chip fdc-val">"김솔솔"</span>
+                <span style="color:var(--t3);font-size:.7rem;margin:0 6px">·</span>
+                <span class="fd-chip fdc-type">[피드백유형]</span>
+                <span class="fd-chip-eq">→</span>
+                <span class="fd-chip fdc-val">"상향 피드백"</span>
+              </div>
+            </div>
+
+            <!-- Leader-level aggregation (서베이 응답 현황을 리더별로 그룹핑) -->
+            <div class="fd-substep-label">▾ 리더별 응답 현황 (API 응답 그룹핑)</div>
             <div class="fd-leader-row">
               <div class="leader-card">
                 <div class="lc-name">김솔솔</div>
@@ -1866,20 +1947,11 @@ footer{padding:24px 0;border-top:1px solid var(--border)}
               <div class="lc-more">+ 148명</div>
             </div>
 
-            <!-- Arrow: 변수 자동 주입 -->
+            <!-- Arrow: 추출 변수로 본문 자동 생성 -->
             <div class="fd-arrow-wrap">
               <div class="fd-arrow-line"></div>
               <div class="fd-arrow-head">▼</div>
-              <div class="fd-arrow-label">변수 자동 주입</div>
-              <div class="fd-var-chips">
-                <span class="fd-chip fdc-name">[리더명]</span>
-                <span class="fd-chip-eq">→</span>
-                <span class="fd-chip fdc-val">"김솔솔"</span>
-                <span style="color:var(--t3);font-size:.7rem;margin:0 6px">·</span>
-                <span class="fd-chip fdc-type">[피드백유형]</span>
-                <span class="fd-chip-eq">→</span>
-                <span class="fd-chip fdc-val">"상향 피드백"</span>
-              </div>
+              <div class="fd-arrow-label">추출 변수로 본문 자동 채움</div>
             </div>
 
             <!-- Step 2: Email body -->
